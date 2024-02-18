@@ -1,0 +1,31 @@
+/* 
+  Localizable.strings
+  SnapKit_Project
+
+  Created by Ruslan Yelguldinov on 15.11.2023.
+  
+*/
+
+// Profile
+"MY_PROFILE" = "Менің профилім";
+"LANGUAGE" = "Тіл";
+"PERSONAL_DATA" = "Жеке деректер";
+"CHANGE_PASSWORD" = "Құпия сөзді өзгерту";
+"EDIT" = "Өңдеу";
+"CURRENT_LANGUAGE" = "Қазақша";
+"DARK_MODE" = "Қараңғы режим";
+
+// Sign In / Sign Up
+"HELLO" = "Сәлем";
+"LOG_IN" = "Аккаунтқа кіріңіз";
+"EMAIL_PLACEHOLDER" = "Сіздің email";
+"PASSWORD" = "Құпия сөз";
+"PASSWORD_PLACEHOLDER" = "Сіздің құпия сөзіңіз";
+"FORGOT_PASSWORD" = "Құпия сөзді ұмыттыңыз ба?";
+"SIGN_IN" = "Кіру";
+"DO_NOT_HAVE_AN_ACCOUNT" = "Аккаунтыныз жоқ па?";
+"REGISTRATION" = " Тіркелу";
+"REPEAT_PASSWORD" = "Құпия сөзді қайталаңыз";
+
+"CONNECTION_ERROR" = "Қосылым қатесі";
+

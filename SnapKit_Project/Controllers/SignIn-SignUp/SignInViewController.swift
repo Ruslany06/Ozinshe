@@ -1,0 +1,346 @@
+//
+//  SignInViewController.swift
+//  SnapKit_Project
+//
+//  Created by Ruslan Yelguldinov on 18.11.2023.
+//
+
+import UIKit
+import SnapKit
+import Alamofire
+import SwiftyJSON
+import SVProgressHUD
+
+// UIPageControll
+
+class SignInViewController: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        title = "Авторизация"
+        
+        Constraints()
+        hideKeyboardWhenTapedAround()
+        GIFLoader()
+    }
+    
+    // MARK: UISettings
+    let titleLabel = {
+        let label = UILabel()
+        
+        label.text = "Сәлем"
+        label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
+        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        
+        return label
+    }()
+    
+    let subTitleLabel = {
+        let label = UILabel()
+        
+        label.text = "Аккаунтқа кіріңіз"
+        label.font = UIFont(name: "SFProDisplay-Regular", size: 16)
+        label.textColor = UIColor(red: 0.42, green: 0.45, blue: 0.5, alpha: 1)
+        
+        return label
+    }()
+    
+    let emailLabel = {
+        let label = UILabel()
+        
+        label.text = "Email"
+        label.font = UIFont(name: "SFProDisplay-Bold", size: 14)
+        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        
+        return label
+    }()
+    
+    lazy var emailTextField: TextFieldWithPadding! = {
+        let textField = TextFieldWithPadding()
+        
+        textField.padding = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 16)
+        textField.placeholder = "Сіздің email"
+        textField.layer.cornerRadius = 12.0
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
+        textField.textContentType = .emailAddress
+        textField.keyboardType = .emailAddress
+        textField.addTarget(self, action: #selector(editingDidBeginTextField), for: .editingDidBegin)
+        textField.addTarget(self, action: #selector(editingDidEndTextField), for: .editingDidEnd)
+        
+        return textField
+    }()
+    
+    let passwordLabel = {
+        let label = UILabel()
+        
+        label.text = "Құпия сөз"
+        label.font = UIFont(name: "SFProDisplay-Bold", size: 14)
+        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        
+        return label
+    }()
+    
+    lazy var passwordTextField: TextFieldWithPadding! = {
+        let textField = TextFieldWithPadding()
+        
+        textField.padding = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 40)
+        textField.placeholder = "Сіздің құпия сөзіңіз"
+        textField.layer.cornerRadius = 12.0
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
+        textField.textContentType = .password
+        textField.isSecureTextEntry = true
+        textField.addTarget(self, action: #selector(editingDidBeginTextField), for: .editingDidBegin)
+        textField.addTarget(self, action: #selector(editingDidEndTextField), for: .editingDidEnd)
+        
+        return textField
+    }()
+    
+    let emailImage = {
+        let image = UIImageView()
+        
+        image.image = UIImage(named: "Email")
+        
+        return image
+    }()
+    
+    let passwordImage = {
+        let image = UIImageView()
+        
+        image.image = UIImage(named: "Password")
+        
+        return image
+    }()
+    
+    lazy var showPasswordButton = {
+        let button = UIButton()
+        
+        button.setImage(UIImage(named: "ShowPassword"), for: .normal)
+        button.addTarget(self, action: #selector(touchDownShowPassword), for: .touchDown)
+        button.addTarget(self, action: #selector(touchUpInsideHidePassword), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    lazy var recoverPasswordButton = {
+        let button = UIButton()
+        
+        button.setTitle("Құпия сөзді ұмыттыңыз ба?", for: .normal)
+        button.setTitleColor(UIColor(red: 0.7, green: 0.46, blue: 0.97, alpha: 1), for:.normal)
+        button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 14)
+        
+        return button
+    }()
+    
+    lazy var signInButton = {
+        let button = UIButton()
+        
+        button.setTitle("Кіру", for: .normal)
+        button.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for:.normal)
+        button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
+        button.backgroundColor = UIColor(red: 0.5, green: 0.18, blue: 0.99, alpha: 1)
+        button.layer.cornerRadius = 12
+        button.addTarget(self, action: #selector(signIn), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    let registrationButton = {
+        let view = UIView()
+        let label = UILabel()
+        let button = UIButton()
+        
+        view.addSubview(label)
+        view.addSubview(button)
+        
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        
+        label.text = "Аккаунтыныз жоқ па?"
+        label.font = UIFont(name: "SFProDisplay-Regular", size: 14)
+        label.textColor = UIColor(red: 0.42, green: 0.45, blue: 0.5, alpha: 1)
+        
+        button.setTitle("Тіркелу", for: .normal)
+        button.setTitleColor(UIColor(red: 0.7, green: 0.46, blue: 0.97, alpha: 1), for:.normal)
+        button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 14)
+        
+        label.snp.makeConstraints { make in
+            make.centerY.equalTo(view)
+            make.verticalEdges.equalToSuperview().inset(0)
+            make.left.equalToSuperview().inset(0)
+        }
+        button.snp.makeConstraints { make in
+            make.centerY.equalTo(view)
+            make.verticalEdges.equalToSuperview().inset(0)
+            make.left.equalTo(label.snp.right).offset(4)
+            make.right.equalToSuperview().inset(0)
+        }
+        return view
+    }()
+    // MARK: Constraints
+    func Constraints() {
+        view.addSubview(titleLabel)
+        view.addSubview(subTitleLabel)
+        view.addSubview(emailLabel)
+        view.addSubview(emailTextField)
+        view.addSubview(passwordLabel)
+        view.addSubview(passwordTextField)
+        view.addSubview(emailImage)
+        view.addSubview(passwordImage)
+        view.addSubview(showPasswordButton)
+        view.addSubview(recoverPasswordButton)
+        view.addSubview(signInButton)
+        view.addSubview(registrationButton)
+        
+        titleLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().inset(24)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(16)
+        }
+        subTitleLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().inset(24)
+            make.top.equalTo(titleLabel.snp.bottom).offset(0)
+        }
+        emailLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().inset(24)
+            make.top.equalTo(subTitleLabel.snp.bottom).offset(29)
+        }
+        emailTextField.snp.makeConstraints {make in
+            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalTo(emailLabel.snp.bottom).offset(4)
+            make.height.equalTo(56)
+        }
+        passwordLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().inset(24)
+            make.top.equalTo(emailTextField.snp.bottom).offset(16)
+        }
+        passwordTextField.snp.makeConstraints {make in
+            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalTo(passwordLabel.snp.bottom).offset(4)
+            make.height.equalTo(56)
+        }
+        emailImage.snp.makeConstraints {make in
+            make.left.equalTo(emailTextField.snp.left).inset(16)
+            make.centerY.equalTo(emailTextField)
+            make.size.equalTo(20)
+        }
+        passwordImage.snp.makeConstraints {make in
+            make.left.equalTo(passwordTextField.snp.left).inset(16)
+            make.centerY.equalTo(passwordTextField)
+            make.size.equalTo(20)
+        }
+        showPasswordButton.snp.makeConstraints { make in
+            make.right.equalTo(passwordTextField.snp.right).inset(16)
+            make.centerY.equalTo(passwordTextField)
+            make.height.equalTo(56)
+            make.width.equalTo(36)
+        }
+        recoverPasswordButton.snp.makeConstraints { make in
+            make.right.equalToSuperview().inset(24)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(17)
+        }
+        signInButton.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalTo(recoverPasswordButton.snp.bottom).offset(40)
+            make.height.equalTo(56)
+        }
+        registrationButton.snp.makeConstraints { make in
+            make.top.equalTo(signInButton.snp.bottom).offset(24)
+            make.height.equalTo(22)
+            make.centerX.equalTo(view)
+        }
+    }
+    
+    // MARK: Functions
+    func hideKeyboardWhenTapedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    @objc func touchDownShowPassword(_ sender: UIButton) {
+        passwordTextField.isSecureTextEntry = false
+    }
+    @objc func touchUpInsideHidePassword(_ sender: UIButton) {
+        passwordTextField.isSecureTextEntry = true
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    @objc func editingDidBeginTextField(_ sender: TextFieldWithPadding) {
+        sender.layer.borderColor = UIColor(red: 0.59, green: 0.33, blue: 0.94, alpha: 1.00).cgColor
+    }
+    @objc func editingDidEndTextField(_ sender: TextFieldWithPadding) {
+        sender.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
+    }
+    // Adding of first GIF
+    func GIFLoader() {
+        let pandaImageView = {
+            let iv = UIImageView()
+            let panda = UIImage.gifImageWithName("PandaGIF")
+            iv.image = panda
+            iv.contentMode = .scaleToFill
+            return iv
+        }()
+        
+        view.addSubview(pandaImageView)
+        pandaImageView.snp.makeConstraints { make in
+            make.right.equalToSuperview().inset(24)
+            make.top.equalToSuperview().inset(40)
+            make.size.equalTo(150)
+        }
+    }
+    // MARK: SignIn 
+    @objc func signIn() {
+        let email = emailTextField.text!
+        let password = passwordTextField.text!
+        
+        SVProgressHUD.show()
+        
+        let parameters = ["email": email,
+                          "password": password]
+        
+        AF.request(URLs.SIGN_IN_URL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseData { response in
+            
+            SVProgressHUD.dismiss()
+            
+            var resultString = ""
+            if let data = response.data {
+                resultString = String(data: data, encoding: .utf8)!
+                print(resultString)
+            }
+            
+            if response.response?.statusCode == 200 {
+                let json = JSON(response.data!)
+                print("JSON: \(json)")
+
+                if let token = json["accessToken"].string {
+//                    response.data
+                    UserDefaults.standard.set(token, forKey: "accessToken")
+                    
+                    Storage.sharedInstance.accessToken = token
+                    
+                    self.startApp()
+                    
+                } else {
+                    SVProgressHUD.showError(withStatus: "CONENCTION_ERROR".localized())
+                }
+            } else {
+                var ErrorString = "CONENCTION_ERROR".localized()
+                if let sCode = response.response?.statusCode {
+                    ErrorString = ErrorString + "\(sCode)"
+                }
+                ErrorString = ErrorString + " \(resultString)"
+                SVProgressHUD.showError(withStatus: "\(ErrorString)")
+            }
+        }
+    }
+    
+    func startApp() {
+        let tabBarVC = TabBarController()
+
+        tabBarVC.modalPresentationStyle = .fullScreen
+        
+        present(tabBarVC, animated: true, completion: nil)
+    }
+    
+}

@@ -1,0 +1,30 @@
+/* 
+  Localizable.strings
+  SnapKit_Project
+
+  Created by Ruslan Yelguldinov on 15.11.2023.
+  
+*/
+
+// Profile
+"MY_PROFILE" = "My profile";
+"LANGUAGE" = "Language";
+"PERSONAL_DATA" = "Personal data";
+"CHANGE_PASSWORD" = "Change password";
+"EDIT" = "Edit";
+"CURRENT_LANGUAGE" = "English";
+"DARK_MODE" = "Dark mode";
+
+// Sign In / Sign Up
+"HELLO" = "Hello";
+"LOG_IN" = "Log in to your account";
+"EMAIL_PLACEHOLDER" = "Your email";
+"PASSWORD" = "Password";
+"PASSWORD_PLACEHOLDER" = "You password";
+"FORGOT_PASSWORD" = "Forgot your password?";
+"SIGN_IN" = "Sign in";
+"DO_NOT_HAVE_AN_ACCOUNT" = "Don't have an account?";
+"REGISTRATION" = " Registration";
+"REPEAT_PASSWORD" = "Repeat your password";
+
+"CONNECTION_ERROR" = "Connection error";
