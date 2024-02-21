@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "advancedpagecontrol",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mohn93/AdvancedPageControl",
+      "state" : {
+        "branch" : "master",
+        "revision" : "acf23353fd627b102bd98214ba625bbfe4ee3831"
+      }
+    },
+    {
       "identity" : "alamofire",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",

@@ -43,6 +43,9 @@
 		447FFE812B67E4D00064C2C3 /* Toothless dancing.gif in Resources */ = {isa = PBXBuildFile; fileRef = 447FFE802B67E4D00064C2C3 /* Toothless dancing.gif */; };
 		447FFE842B67F3000064C2C3 /* Toothless Dance Meme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 447FFE832B67F3000064C2C3 /* Toothless Dance Meme.mp3 */; };
 		44841E0C2AFFF67800CDF24A /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44841E0B2AFFF67800CDF24A /* LanguageViewController.swift */; };
+		4486F6892B834EA800AECBDC /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486F6882B834EA800AECBDC /* Validation.swift */; };
+		4486F68B2B8363B100AECBDC /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486F68A2B8363B100AECBDC /* UIFont.swift */; };
+		4486F6912B861C7400AECBDC /* AdvancedPageControl in Frameworks */ = {isa = PBXBuildFile; productRef = 4486F6902B861C7400AECBDC /* AdvancedPageControl */; };
 		44A57A2B2B739D4100EA7876 /* Arfa sms.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 44A57A2A2B739D4100EA7876 /* Arfa sms.mp3 */; };
 		44A57A2D2B739D4900EA7876 /* Al Bano - Felicita.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 44A57A2C2B739D4900EA7876 /* Al Bano - Felicita.mp3 */; };
 		44A57A2F2B739ECC00EA7876 /* Phelisium - Searching you.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 44A57A2E2B739ECC00EA7876 /* Phelisium - Searching you.mp3 */; };
@@ -121,6 +124,8 @@
 		447FFE802B67E4D00064C2C3 /* Toothless dancing.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Toothless dancing.gif"; sourceTree = "<group>"; };
 		447FFE832B67F3000064C2C3 /* Toothless Dance Meme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Toothless Dance Meme.mp3"; sourceTree = "<group>"; };
 		44841E0B2AFFF67800CDF24A /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
+		4486F6882B834EA800AECBDC /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		4486F68A2B8363B100AECBDC /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		44A57A2A2B739D4100EA7876 /* Arfa sms.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Arfa sms.mp3"; sourceTree = "<group>"; };
 		44A57A2C2B739D4900EA7876 /* Al Bano - Felicita.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Al Bano - Felicita.mp3"; sourceTree = "<group>"; };
 		44A57A2E2B739ECC00EA7876 /* Phelisium - Searching you.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Phelisium - Searching you.mp3"; sourceTree = "<group>"; };
@@ -150,6 +155,7 @@
 				441CE1092AF3FC020048A89B /* SnapKit in Frameworks */,
 				44D3F4352B0528A70043C09F /* SwiftyJSON in Frameworks */,
 				44D3F43D2B052C580043C09F /* SDWebImageMapKit in Frameworks */,
+				4486F6912B861C7400AECBDC /* AdvancedPageControl in Frameworks */,
 				44D3F4282B0519FA0043C09F /* Localize_Swift in Frameworks */,
 				4429CDFC2B5E9D7B0022965E /* Gifu in Frameworks */,
 			);
@@ -247,6 +253,8 @@
 			children = (
 				441F9DD92B0E53FD003269CD /* TextFieldWithPading.swift */,
 				4417ABDB2B7F85F900A8DEB7 /* DynamicScreenSize.swift */,
+				4486F6882B834EA800AECBDC /* Validation.swift */,
+				4486F68A2B8363B100AECBDC /* UIFont.swift */,
 			);
 			path = Extensins;
 			sourceTree = "<group>";
@@ -399,6 +407,7 @@
 				44D3F43A2B052C580043C09F /* SDWebImage */,
 				44D3F43C2B052C580043C09F /* SDWebImageMapKit */,
 				4429CDFB2B5E9D7B0022965E /* Gifu */,
+				4486F6902B861C7400AECBDC /* AdvancedPageControl */,
 			);
 			productName = SnapKit_Project;
 			productReference = 441CE0D42AF3F96E0048A89B /* SnapKit_Project.app */;
@@ -482,6 +491,7 @@
 				44D3F4362B0529C90043C09F /* XCRemoteSwiftPackageReference "SVProgressHUD" */,
 				44D3F4392B052C580043C09F /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				4429CDFA2B5E9D7B0022965E /* XCRemoteSwiftPackageReference "Gifu" */,
+				4486F68F2B861C7400AECBDC /* XCRemoteSwiftPackageReference "AdvancedPageControl" */,
 			);
 			productRefGroup = 441CE0D52AF3F96E0048A89B /* Products */;
 			projectDirPath = "";
@@ -549,10 +559,12 @@
 				4417ABE02B7FD56D00A8DEB7 /* SignUpViewController.swift in Sources */,
 				44EF73562AF93D0A00ECF4F4 /* SearchViewController.swift in Sources */,
 				44422AE52B177E0C00859D7D /* FriendsTableViewCell.swift in Sources */,
+				4486F6892B834EA800AECBDC /* Validation.swift in Sources */,
 				442550CA2B1263B800AC863F /* LogOutViewController.swift in Sources */,
 				44777B9E2B09156B004E6907 /* SignInViewController.swift in Sources */,
 				442A88942B651A250000826A /* SearchTableViewCell.swift in Sources */,
 				44C6838B2B18E46F00078389 /* GIFLoader.swift in Sources */,
+				4486F68B2B8363B100AECBDC /* UIFont.swift in Sources */,
 				441CE0D82AF3F96E0048A89B /* AppDelegate.swift in Sources */,
 				44EF734B2AF9284E00ECF4F4 /* TabBarController.swift in Sources */,
 				442D31522B1A31A300A3BF7E /* Movie.swift in Sources */,
@@ -925,6 +937,14 @@
 				minimumVersion = 3.2.2;
 			};
 		};
+		4486F68F2B861C7400AECBDC /* XCRemoteSwiftPackageReference "AdvancedPageControl" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mohn93/AdvancedPageControl";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		44D3F4262B0519FA0043C09F /* XCRemoteSwiftPackageReference "Localize-Swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marmelroy/Localize-Swift.git";
@@ -977,6 +997,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4429CDFA2B5E9D7B0022965E /* XCRemoteSwiftPackageReference "Gifu" */;
 			productName = Gifu;
+		};
+		4486F6902B861C7400AECBDC /* AdvancedPageControl */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4486F68F2B861C7400AECBDC /* XCRemoteSwiftPackageReference "AdvancedPageControl" */;
+			productName = AdvancedPageControl;
 		};
 		44D3F4272B0519FA0043C09F /* Localize_Swift */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -8,19 +8,20 @@
 import UIKit
 import SnapKit
 import SDWebImage
+import Gifu
 
 class SearchTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        UISettings()
+        Constraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder) hasnt been implement")
         
     }
-    
+    // MARK: UI Elements
     let posterImageView = {
         let iv = UIImageView()
         
@@ -78,8 +79,8 @@ class SearchTableViewCell: UITableViewCell {
         }
         return view
     }()
-    
-    func UISettings() {
+    // MARK: Constraints
+    func Constraints() {
         contentView.addSubview(posterImageView)
         
         posterImageView.snp.makeConstraints{ make in

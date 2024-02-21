@@ -10,8 +10,7 @@ import SnapKit
 import Alamofire
 import SwiftyJSON
 import SVProgressHUD
-
-// UIPageControll
+import Gifu
 
 class SignInViewController: UIViewController {
     
@@ -22,7 +21,6 @@ class SignInViewController: UIViewController {
         
         Constraints()
         hideKeyboardWhenTapedAround()
-        GIFLoader()
     }
     
     // MARK: UISettings
@@ -59,7 +57,7 @@ class SignInViewController: UIViewController {
     lazy var emailTextField: TextFieldWithPadding! = {
         let textField = TextFieldWithPadding()
         
-        textField.padding = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 16)
+        textField.padding = UIEdgeInsets(top: 0, left: 44, bottom: 0, right: 16)
         textField.placeholder = "Сіздің email"
         textField.layer.cornerRadius = 12.0
         textField.layer.borderWidth = 1.0
@@ -85,7 +83,7 @@ class SignInViewController: UIViewController {
     lazy var passwordTextField: TextFieldWithPadding! = {
         let textField = TextFieldWithPadding()
         
-        textField.padding = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 40)
+        textField.padding = UIEdgeInsets(top: 0, left: 44, bottom: 0, right: 44)
         textField.placeholder = "Сіздің құпия сөзіңіз"
         textField.layer.cornerRadius = 12.0
         textField.layer.borderWidth = 1.0
@@ -115,11 +113,16 @@ class SignInViewController: UIViewController {
     }()
     
     lazy var showPasswordButton = {
+//        var configuration = UIButton.Configuration.plain()
+//        configuration.contentInsets.top.
+//        
+//        let button = UIButton(configuration: configuration)
         let button = UIButton()
         
         button.setImage(UIImage(named: "ShowPassword"), for: .normal)
         button.addTarget(self, action: #selector(touchDownShowPassword), for: .touchDown)
         button.addTarget(self, action: #selector(touchUpInsideHidePassword), for: .touchUpInside)
+        
         
         return button
     }()
@@ -142,8 +145,8 @@ class SignInViewController: UIViewController {
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         button.backgroundColor = UIColor(red: 0.5, green: 0.18, blue: 0.99, alpha: 1)
         button.layer.cornerRadius = 12
-        button.addTarget(self, action: #selector(signIn), for: .touchUpInside)
-        
+        button.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
+//         signInRquest
         return button
     }()
     
@@ -164,6 +167,7 @@ class SignInViewController: UIViewController {
         button.setTitle("Тіркелу", for: .normal)
         button.setTitleColor(UIColor(red: 0.7, green: 0.46, blue: 0.97, alpha: 1), for:.normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 14)
+        button.addTarget(self, action: #selector(registrationButtonTapped), for: .touchUpInside)
         
         label.snp.makeConstraints { make in
             make.centerY.equalTo(view)
@@ -178,6 +182,42 @@ class SignInViewController: UIViewController {
         }
         return view
     }()
+    // add GIF
+    lazy var gifImageView: GIFImageView = {
+        let imageView = GIFImageView()
+        
+        imageView.animate(withGIFNamed: "PandaGIF")
+//        imageView.layer.borderWidth = 1
+        imageView.contentMode = .scaleToFill
+        
+        return imageView
+    }()
+    let validationEmailLabel = {
+        let label = UILabel()
+        
+        label.text = "Қате формат"
+        label.font = .appFont(ofSize: 14, weight: .regular)
+        label.textColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1)
+        label.isHidden = true
+        
+        return label
+    }()
+    let validationPasswordLabel = {
+        let label = UILabel()
+        
+        label.text = "Қате құпия сөз"
+        label.font = .appFont(ofSize: 14, weight: .regular)
+        label.textColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1)
+        label.isHidden = true
+        
+        return label
+    }()
+    
+    var validationEmailConstraint: Constraint!
+    var passwordToEmailConstraint: Constraint!
+    var validationPasswordConstraint: Constraint!
+    var recoverBtnToPasswordConstraint: Constraint!
+    
     // MARK: Constraints
     func Constraints() {
         view.addSubview(titleLabel)
@@ -192,6 +232,9 @@ class SignInViewController: UIViewController {
         view.addSubview(recoverPasswordButton)
         view.addSubview(signInButton)
         view.addSubview(registrationButton)
+        view.addSubview(gifImageView)
+        view.addSubview(validationEmailLabel)
+        view.addSubview(validationPasswordLabel)
         
         titleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(24)
@@ -212,7 +255,8 @@ class SignInViewController: UIViewController {
         }
         passwordLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(24)
-            make.top.equalTo(emailTextField.snp.bottom).offset(16)
+            passwordToEmailConstraint = make.top.equalTo(emailTextField.snp.bottom).offset(16).priority(1000).constraint
+            validationEmailConstraint = make.top.equalTo(validationEmailLabel.snp.bottom).offset(16).priority(500).constraint
         }
         passwordTextField.snp.makeConstraints {make in
             make.horizontalEdges.equalToSuperview().inset(24)
@@ -230,14 +274,14 @@ class SignInViewController: UIViewController {
             make.size.equalTo(20)
         }
         showPasswordButton.snp.makeConstraints { make in
-            make.right.equalTo(passwordTextField.snp.right).inset(16)
+            make.right.equalTo(passwordTextField.snp.right).inset(0)
             make.centerY.equalTo(passwordTextField)
-            make.height.equalTo(56)
-            make.width.equalTo(36)
+            make.size.equalTo(56)
         }
         recoverPasswordButton.snp.makeConstraints { make in
             make.right.equalToSuperview().inset(24)
-            make.top.equalTo(passwordTextField.snp.bottom).offset(17)
+            recoverBtnToPasswordConstraint = make.top.equalTo(passwordTextField.snp.bottom).offset(16).priority(1000).constraint
+            validationPasswordConstraint = make.top.equalTo(validationPasswordLabel.snp.bottom).offset(16).priority(500).constraint
         }
         signInButton.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
@@ -248,6 +292,20 @@ class SignInViewController: UIViewController {
             make.top.equalTo(signInButton.snp.bottom).offset(24)
             make.height.equalTo(22)
             make.centerX.equalTo(view)
+        }
+        gifImageView.snp.makeConstraints { make in
+            make.right.equalToSuperview().inset(24)
+//            make.top.equalTo(view.safeAreaLayoutGuide).inset(0)
+            make.bottom.equalTo(emailLabel.snp.bottom)
+            make.size.equalTo(130)
+        }
+        validationEmailLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().inset(24)
+            make.top.equalTo(emailTextField.snp.bottom).inset(-16)
+        }
+        validationPasswordLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().inset(24)
+            make.top.equalTo(passwordTextField.snp.bottom).inset(-16)
         }
     }
     
@@ -268,29 +326,62 @@ class SignInViewController: UIViewController {
     }
     @objc func editingDidBeginTextField(_ sender: TextFieldWithPadding) {
         sender.layer.borderColor = UIColor(red: 0.59, green: 0.33, blue: 0.94, alpha: 1.00).cgColor
+        validationEmailLabel.isHidden = true
+        passwordToEmailConstraint.activate()
+        validationPasswordLabel.isHidden = true
+        recoverBtnToPasswordConstraint.activate()
+        
+        view.layoutIfNeeded()
     }
     @objc func editingDidEndTextField(_ sender: TextFieldWithPadding) {
         sender.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
     }
-    // Adding of first GIF
-    func GIFLoader() {
-        let pandaImageView = {
-            let iv = UIImageView()
-            let panda = UIImage.gifImageWithName("PandaGIF")
-            iv.image = panda
-            iv.contentMode = .scaleToFill
-            return iv
-        }()
+    @objc func registrationButtonTapped() {
+        let vc = SignUpViewController()
         
-        view.addSubview(pandaImageView)
-        pandaImageView.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(24)
-            make.top.equalToSuperview().inset(40)
-            make.size.equalTo(150)
-        }
+        navigationController?.show(vc, sender: self)
     }
-    // MARK: SignIn 
-    @objc func signIn() {
+    @objc func signInButtonTapped() {
+        
+        let validator = Validation()
+        let email = emailTextField.text!
+        let password = passwordTextField.text!
+        
+        if (email.isEmpty || password.isEmpty) {
+            
+            let alert = UIAlertController(title: "Енгізу қатесі", message: "Барлық өрістерді толтырыңыз", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(okAction)
+            
+            present(alert, animated: true, completion: nil)
+            
+            emailTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
+            passwordTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
+            
+            print("Some fields are empty")
+            
+            return
+        }
+        
+        if validator.isValidMail(email: email) == false {
+            
+            validationEmailLabel.isHidden = false
+            
+            passwordToEmailConstraint.deactivate()
+            view.layoutIfNeeded()
+            
+            emailTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
+            
+            print("Mistake with email format")
+            
+            return
+        }
+        print("All good")
+        signInRquest()
+    }
+
+    // MARK: SignIn
+    @objc func signInRquest() {
         let email = emailTextField.text!
         let password = passwordTextField.text!
         
@@ -330,7 +421,13 @@ class SignInViewController: UIViewController {
                     ErrorString = ErrorString + "\(sCode)"
                 }
                 ErrorString = ErrorString + " \(resultString)"
-                SVProgressHUD.showError(withStatus: "\(ErrorString)")
+//                SVProgressHUD.showError(withStatus: "\(ErrorString)")
+//                self.validationPasswordLabel.text = resultString
+                self.validationPasswordLabel.isHidden = false
+                self.recoverBtnToPasswordConstraint.deactivate()
+                self.view.layoutIfNeeded()
+                self.passwordTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
+                
             }
         }
     }

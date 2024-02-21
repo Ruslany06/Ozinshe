@@ -38,10 +38,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 self.window?.rootViewController = rootTabBarVC
                 self.window?.makeKeyAndVisible()
             } else {
-                let signInVC = SignInViewController()
-                let signInNavController = UINavigationController(rootViewController: signInVC)
+//                let signInVC = SignInViewController()
+//                let signInNavController = UINavigationController(rootViewController: signInVC)
+                let rootVC = OnboardingViewController()
+                let rootVCNavController = UINavigationController(rootViewController: rootVC)
                 window = UIWindow(windowScene: windowScene)
-                window?.rootViewController = signInNavController
+                window?.rootViewController = rootVCNavController
                 window?.makeKeyAndVisible()
             }
         }
