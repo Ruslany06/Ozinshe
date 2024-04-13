@@ -14,7 +14,7 @@ class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        Constraints()
+        constraints()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -105,7 +105,7 @@ class OnboardingViewController: UIViewController {
     }
     
     //MARK: Constraints
-    func Constraints() {
+    func constraints() {
         view.addSubview(collectionView)
         view.addSubview(continueButton)
         view.addSubview(skipButton)
@@ -117,16 +117,16 @@ class OnboardingViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(0)
         }
         continueButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(38)
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(dynamicValue(for: 38))
             make.height.equalTo(56)
         }
         skipButton.snp.makeConstraints { make in
             make.right.equalToSuperview().inset(16)
-            make.top.equalToSuperview().inset(60)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
         pageControl2.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(118)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(dynamicValue(for: 118))
             make.horizontalEdges.equalToSuperview()
         }
     }
@@ -134,7 +134,7 @@ class OnboardingViewController: UIViewController {
    
     
 }
-
+// MARK: Extension
 extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     // CV
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -243,16 +243,15 @@ extension OnboardingViewController {
             
             slidesImageView.snp.makeConstraints { make in
                 make.top.left.right.equalToSuperview()
-//                make.height.equalTo(504)
                 make.height.equalTo(dynamicValue(for: 504))
             }
             titleLabel.snp.makeConstraints { make in
                 make.centerX.equalToSuperview()
-                make.bottom.equalTo(slidesImageView.snp.bottom).inset(2)
+                make.bottom.equalTo(descriptionLabel.snp.top).offset(dynamicValue(for: -24))
             }
             descriptionLabel.snp.makeConstraints { make in
-                make.horizontalEdges.equalToSuperview().inset(32)
-                make.top.equalTo(titleLabel.snp.bottom).offset(24)
+                make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 32))
+                make.bottom.equalTo(contentView.safeAreaLayoutGuide).inset(dynamicValue(for: 208))
             }
         }
         

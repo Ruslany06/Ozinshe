@@ -12,11 +12,30 @@ import Alamofire
 import SwiftyJSON
 import SVProgressHUD
 
+enum CategoryType {
+    case categoryId
+    case genreId
+    case ageCategoryId
+    
+    var parameterName: String {
+        switch self {
+        case .categoryId:
+            return "categoryId"
+        case .genreId:
+            return "genreId"
+        case .ageCategoryId:
+            return "categoryAgeId"
+        }
+    }
+}
+
 class CategoryTableViewController: UITableViewController {
     
     var categoryID = 0 // parameter (filter movies by categoryID)
     var categoryName = ""
     var movies: [Movie] = [] // list of movies
+    
+    var categoryType: CategoryType = .categoryId
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +51,19 @@ class CategoryTableViewController: UITableViewController {
         let headers: HTTPHeaders = [
             "Authorization" : "Bearer \(Storage.sharedInstance.accessToken)"
         ]
-//        , "name" :categoryName
-        let parameters = ["categoryId": categoryID, "name" :categoryName] as [String : Any]
+
+        var parameters: [String: Any] = [:]
+                
+                switch categoryType {
+                case .categoryId:
+                    parameters[categoryType.parameterName] = categoryID
+                case .genreId:
+                    parameters[categoryType.parameterName] = categoryID
+                case .ageCategoryId:
+                    parameters[categoryType.parameterName] = categoryID
+                }
+        
+//        let parameters = ["categoryId": categoryID, "name" :categoryName] as [String : Any]
         
         AF.request(URLs.MOVIES_BY_CATEGORY_URL, method: .get, parameters: parameters, headers: headers).responseData { response in
             
@@ -90,6 +120,12 @@ class CategoryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return 152
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let DetailsMovieVC = DetailsMovieViewController()
+        
+        DetailsMovieVC.movie = movies[indexPath.row]
+        navigationController?.pushViewController(DetailsMovieVC, animated: true)
     }
 
 }

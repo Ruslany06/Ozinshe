@@ -19,7 +19,7 @@ class SignInViewController: UIViewController {
         view.backgroundColor = .white
         title = "Авторизация"
         
-        Constraints()
+        constraints()
         hideKeyboardWhenTapedAround()
     }
     
@@ -55,19 +55,20 @@ class SignInViewController: UIViewController {
     }()
     
     lazy var emailTextField: TextFieldWithPadding! = {
-        let textField = TextFieldWithPadding()
+        let textfield = TextFieldWithPadding()
         
-        textField.padding = UIEdgeInsets(top: 0, left: 44, bottom: 0, right: 16)
-        textField.placeholder = "Сіздің email"
-        textField.layer.cornerRadius = 12.0
-        textField.layer.borderWidth = 1.0
-        textField.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
-        textField.textContentType = .emailAddress
-        textField.keyboardType = .emailAddress
-        textField.addTarget(self, action: #selector(editingDidBeginTextField), for: .editingDidBegin)
-        textField.addTarget(self, action: #selector(editingDidEndTextField), for: .editingDidEnd)
+        textfield.padding = UIEdgeInsets(top: 0, left: 44, bottom: 0, right: 16)
+        textfield.placeholder = "Сіздің email"
+        textfield.layer.cornerRadius = 12.0
+        textfield.layer.borderWidth = 1.0
+        textfield.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
+        textfield.textContentType = .emailAddress
+        textfield.keyboardType = .emailAddress
+        textfield.autocapitalizationType = .none
+        textfield.addTarget(self, action: #selector(editingDidBeginTextField), for: .editingDidBegin)
+        textfield.addTarget(self, action: #selector(editingDidEndTextField), for: .editingDidEnd)
         
-        return textField
+        return textfield
     }()
     
     let passwordLabel = {
@@ -113,16 +114,12 @@ class SignInViewController: UIViewController {
     }()
     
     lazy var showPasswordButton = {
-//        var configuration = UIButton.Configuration.plain()
-//        configuration.contentInsets.top.
-//        
-//        let button = UIButton(configuration: configuration)
+
         let button = UIButton()
         
         button.setImage(UIImage(named: "ShowPassword"), for: .normal)
         button.addTarget(self, action: #selector(touchDownShowPassword), for: .touchDown)
         button.addTarget(self, action: #selector(touchUpInsideHidePassword), for: .touchUpInside)
-        
         
         return button
     }()
@@ -146,11 +143,11 @@ class SignInViewController: UIViewController {
         button.backgroundColor = UIColor(red: 0.5, green: 0.18, blue: 0.99, alpha: 1)
         button.layer.cornerRadius = 12
         button.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
-//         signInRquest
+
         return button
     }()
     
-    let registrationButton = {
+    let registrationButtonView = {
         let view = UIView()
         let label = UILabel()
         let button = UIButton()
@@ -219,7 +216,7 @@ class SignInViewController: UIViewController {
     var recoverBtnToPasswordConstraint: Constraint!
     
     // MARK: Constraints
-    func Constraints() {
+    func constraints() {
         view.addSubview(titleLabel)
         view.addSubview(subTitleLabel)
         view.addSubview(emailLabel)
@@ -231,7 +228,7 @@ class SignInViewController: UIViewController {
         view.addSubview(showPasswordButton)
         view.addSubview(recoverPasswordButton)
         view.addSubview(signInButton)
-        view.addSubview(registrationButton)
+        view.addSubview(registrationButtonView)
         view.addSubview(gifImageView)
         view.addSubview(validationEmailLabel)
         view.addSubview(validationPasswordLabel)
@@ -288,7 +285,7 @@ class SignInViewController: UIViewController {
             make.top.equalTo(recoverPasswordButton.snp.bottom).offset(40)
             make.height.equalTo(56)
         }
-        registrationButton.snp.makeConstraints { make in
+        registrationButtonView.snp.makeConstraints { make in
             make.top.equalTo(signInButton.snp.bottom).offset(24)
             make.height.equalTo(22)
             make.centerX.equalTo(view)
@@ -341,6 +338,7 @@ class SignInViewController: UIViewController {
         
         navigationController?.show(vc, sender: self)
     }
+    // MARK: Validation
     @objc func signInButtonTapped() {
         
         let validator = Validation()
@@ -380,7 +378,7 @@ class SignInViewController: UIViewController {
         signInRquest()
     }
 
-    // MARK: SignIn
+    // MARK: AF request - SignIn
     @objc func signInRquest() {
         let email = emailTextField.text!
         let password = passwordTextField.text!

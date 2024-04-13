@@ -11,6 +11,16 @@ import SDWebImage
 
 class MovieTableViewCell: UITableViewCell {
     
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        constraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder) hasnt been implement")
+        
+    }
+    
     let posterImageView = {
         let iv = UIImageView()
         
@@ -69,18 +79,7 @@ class MovieTableViewCell: UITableViewCell {
         return view
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        UISettings()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder) hasnt been implement")
-        
-    }
-    
-    
-    func UISettings() {
+    func constraints() {
         contentView.addSubview(posterImageView)
         
         posterImageView.snp.makeConstraints{ make in

@@ -15,7 +15,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        Constraints()
+        сonstraints()
         updateAvatarImage()
         logOutBtnNavbar()
     }
@@ -78,7 +78,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         return view
     }()
     
-    let privateInfoButton: UIButton = {
+    let personalDataButton: UIButton = {
         let button = UIButton()
         let colorBlack = UIColor(red: 0.11, green: 0.14, blue: 0.19, alpha: 1)
         
@@ -86,31 +86,19 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)!
         button.setTitleColor(colorBlack, for: .normal)
         button.contentHorizontalAlignment = .left
+        button.addTarget(self, action: #selector(personalDataBtnTaped), for: .touchUpInside)
         
         return button
     }()
-    
-    let arrowImageFactory: () -> UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "Arrow")
-        return image
-    }
     lazy var arrowImage1 = arrowImageFactory()
     lazy var arrowImage2 = arrowImageFactory()
     lazy var arrowImage3 = arrowImageFactory()
-    
-    let lineViewFactory: () -> UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 0.82, green: 0.84, blue: 0.86, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        return view
-    }
+
     lazy var line1 = lineViewFactory()
     lazy var line2 = lineViewFactory()
     lazy var line3 = lineViewFactory()
     
-    let privateInfoLabel: UILabel = {
+    let personalDataLabel: UILabel = {
         let label = UILabel()
         
         label.text = "Өңдеу"
@@ -120,7 +108,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         return label
     }()
     
-    let passwordChangeButton: UIButton = {
+    let changePasswordButton: UIButton = {
         let button = UIButton()
         let colorBlack = UIColor(red: 0.11, green: 0.14, blue: 0.19, alpha: 1)
         
@@ -128,6 +116,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)!
         button.setTitleColor(colorBlack, for: .normal)
         button.contentHorizontalAlignment = .left
+        button.addTarget(self, action: #selector(changePasswordBtnTaped), for: .touchUpInside)
         
         return button
     }()
@@ -155,7 +144,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         return label
     }()
     
-    let darkmodeButton: UIButton = {
+    let darkModeButton: UIButton = {
         let button = UIButton()
         let colorBlack = UIColor(red: 0.11, green: 0.14, blue: 0.19, alpha: 1)
         
@@ -167,7 +156,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         return button
     }()
     
-    let darkmodeSwitch = {
+    let darkModeSwitch = {
         let switchControl = UISwitch()
         switchControl.isOn = false
         switchControl.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
@@ -208,7 +197,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         return button
     }()
 // MARK: Constraints
-    func Constraints() {
+    func сonstraints() {
         view.addSubview(avatarImageView)
         avatarImageView.snp.makeConstraints { make in
             make.size.equalTo(112)
@@ -237,44 +226,44 @@ class ProfileViewController: UIViewController, LanguageProtocol {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(emailLabel.snp.bottom).offset(24)
         }
-        view.addSubview(privateInfoButton)
-        privateInfoButton.snp.makeConstraints {make in
+        view.addSubview(personalDataButton)
+        personalDataButton.snp.makeConstraints {make in
             make.top.equalTo(emailLabel.snp.bottom).offset(24)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(64)
         }
         view.addSubview(arrowImage1)
         arrowImage1.snp.makeConstraints { make in
-            make.centerY.equalTo(privateInfoButton)
-            make.right.equalTo(privateInfoButton.snp.right).inset(0)
+            make.centerY.equalTo(personalDataButton)
+            make.right.equalTo(personalDataButton.snp.right).inset(0)
             make.size.equalTo(16)
         }
         view.addSubview(line1)
         line1.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.top.equalTo(privateInfoButton.snp.bottom).offset(0)
+            make.top.equalTo(personalDataButton.snp.bottom).offset(0)
         }
-        view.addSubview(privateInfoLabel)
-        privateInfoLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(privateInfoButton)
+        view.addSubview(personalDataLabel)
+        personalDataLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(personalDataButton)
             make.right.equalTo(arrowImage1.snp.left).offset(-8)
         }
-        view.addSubview(passwordChangeButton)
-        passwordChangeButton.snp.makeConstraints { make in
+        view.addSubview(changePasswordButton)
+        changePasswordButton.snp.makeConstraints { make in
             make.top.equalTo(line1.snp.bottom).offset(0)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(64)
         }
         view.addSubview(arrowImage2)
         arrowImage2.snp.makeConstraints { make in
-            make.centerY.equalTo(passwordChangeButton)
-            make.right.equalTo(passwordChangeButton.snp.right).inset(0)
+            make.centerY.equalTo(changePasswordButton)
+            make.right.equalTo(changePasswordButton.snp.right).inset(0)
             make.size.equalTo(16)
         }
         view.addSubview(line2)
         line2.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.top.equalTo(passwordChangeButton.snp.bottom).offset(0)
+            make.top.equalTo(changePasswordButton.snp.bottom).offset(0)
         }
         view.addSubview(languageChangeButton)
         languageChangeButton.snp.makeConstraints { make in
@@ -298,16 +287,16 @@ class ProfileViewController: UIViewController, LanguageProtocol {
             make.centerY.equalTo(languageChangeButton)
             make.right.equalTo(arrowImage3.snp.left).offset(-8)
         }
-        view.addSubview(darkmodeButton)
-        darkmodeButton.snp.makeConstraints { make in
+        view.addSubview(darkModeButton)
+        darkModeButton.snp.makeConstraints { make in
             make.top.equalTo(line3.snp.bottom).offset(0)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(64)
         }
-        view.addSubview(darkmodeSwitch)
-        darkmodeSwitch.snp.makeConstraints { make in
-            make.centerY.equalTo(darkmodeButton)
-            make.right.equalTo(darkmodeButton.snp.right).inset(0)
+        view.addSubview(darkModeSwitch)
+        darkModeSwitch.snp.makeConstraints { make in
+            make.centerY.equalTo(darkModeButton)
+            make.right.equalTo(darkModeButton.snp.right).inset(0)
         }
         view.addSubview(changeAvatarButton)
         changeAvatarButton.snp.makeConstraints { make in
@@ -317,7 +306,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         }
         view.addSubview(secretBtn)
         secretBtn.snp.makeConstraints { make in
-            make.top.equalTo(darkmodeButton.snp.bottom).offset(0)
+            make.top.equalTo(darkModeButton.snp.bottom).offset(0)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(64)
         }
@@ -327,26 +316,26 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     func configureLanguage() {
         
         titleLabel.text = "MY_PROFILE".localized()
-        privateInfoButton.setTitle("PERSONAL_DATA".localized(), for: .normal)
-        privateInfoLabel.text = "EDIT".localized()
-        passwordChangeButton.setTitle("CHANGE_PASSWORD".localized(), for: .normal)
+        personalDataButton.setTitle("PERSONAL_DATA".localized(), for: .normal)
+        personalDataLabel.text = "EDIT".localized()
+        changePasswordButton.setTitle("CHANGE_PASSWORD".localized(), for: .normal)
         languageChangeButton.setTitle("LANGUAGE".localized(), for: .normal)
         languageLabel.text = "CURRENT_LANGUAGE".localized()
-        darkmodeButton.setTitle("DARK_MODE".localized(), for: .normal)
+        darkModeButton.setTitle("DARK_MODE".localized(), for: .normal)
         
         if Localize.currentLanguage() == "ru" {
             languageLabel.text = "Русский"
-            privateInfoLabel.text = "Изменить"
+            personalDataLabel.text = "Изменить"
             navigationItem.title = "Профиль"
         }
         if Localize.currentLanguage() == "kk" {
             languageLabel.text = "Қазақша"
-            privateInfoLabel.text = "Өңдеу"
+            personalDataLabel.text = "Өңдеу"
             navigationItem.title = "Профиль"
         }
         if Localize.currentLanguage() == "en" {
             languageLabel.text = "English"
-            privateInfoLabel.text = "Edit"
+            personalDataLabel.text = "Edit"
             navigationItem.title = "Profile"
         }
     }
@@ -397,9 +386,16 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     }
     @objc func secretBtnTaped() {
         let VC = ToothlessDancing()
-        navigationController?.show(VC, sender: self)
+        navigationController?.pushViewController(VC, animated: true)
     }
-    
+    @objc func personalDataBtnTaped() {
+        let VC = PersonalDataViewController()
+        navigationController?.pushViewController(VC, animated: true)
+    }
+    @objc func changePasswordBtnTaped() {
+        let VC = ChangePasswordViewController()
+        navigationController?.pushViewController(VC, animated: true)
+    }
 }
 
 // MARK: ImagePickerClass

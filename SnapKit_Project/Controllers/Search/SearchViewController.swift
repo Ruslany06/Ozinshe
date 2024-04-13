@@ -330,4 +330,11 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 152
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let DetailsMovieVC = DetailsMovieViewController()
+        
+        DetailsMovieVC.movie = movies[indexPath.row]
+        navigationController?.pushViewController(DetailsMovieVC, animated: true)
+    }
 }

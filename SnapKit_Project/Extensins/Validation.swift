@@ -57,7 +57,7 @@ class Validation {
     //MARK: - PhoneNumber Validation
     //==========================
     func isValidPhoneNumber(_ PhoneNumber : String) -> Bool{
-        let PHONE_REGEX = "^\\d{3}-\\d{3}-\\d{4}$"
+        let PHONE_REGEX = "^\\+\\d{1,3} \\(\\d{1,3}\\) \\d{3}-\\d{2}-\\d{2}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
         let result =  phoneTest.evaluate(with: PhoneNumber)
         return result
@@ -67,7 +67,7 @@ class Validation {
     //MARK: - UserName Validation
     //==========================
     func isValidUsername(Username:String) -> Bool {
-        let RegEx = "\\A\\w{4,12}\\z"
+        let RegEx = "\\A\\w{4,18}\\z"
         let Test = NSPredicate(format:"SELF MATCHES %@", RegEx)
         return Test.evaluate(with: Username)
     }

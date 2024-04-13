@@ -19,7 +19,7 @@ class SignUpViewController: UIViewController {
         self.title = "Тіркелу"
         
         hideKeyboardWhenTapedAround()
-        Constraints()
+        constraints()
     }
     
     // MARK: UISettings
@@ -54,19 +54,20 @@ class SignUpViewController: UIViewController {
     }()
     
     lazy var emailTextField: TextFieldWithPadding! = {
-        let textField = TextFieldWithPadding()
+        let textfield = TextFieldWithPadding()
         
-        textField.padding = UIEdgeInsets(top: 0, left: 44, bottom: 0, right: 16)
-        textField.placeholder = "Сіздің email"
-        textField.layer.cornerRadius = 12.0
-        textField.layer.borderWidth = 1.0
-        textField.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
-        textField.textContentType = .emailAddress
-        textField.keyboardType = .emailAddress
-        textField.addTarget(self, action: #selector(editingDidBeginTextField), for: .editingDidBegin)
-        textField.addTarget(self, action: #selector(editingDidEndTextField), for: .editingDidEnd)
+        textfield.padding = UIEdgeInsets(top: 0, left: 44, bottom: 0, right: 16)
+        textfield.placeholder = "Сіздің email"
+        textfield.layer.cornerRadius = 12.0
+        textfield.layer.borderWidth = 1.0
+        textfield.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
+        textfield.textContentType = .emailAddress
+        textfield.keyboardType = .emailAddress
+        textfield.autocapitalizationType = .none
+        textfield.addTarget(self, action: #selector(editingDidBeginTextField), for: .editingDidBegin)
+        textfield.addTarget(self, action: #selector(editingDidEndTextField), for: .editingDidEnd)
         
-        return textField
+        return textfield
     }()
     
     let passwordLabel = {
@@ -236,7 +237,7 @@ class SignUpViewController: UIViewController {
     var validConfirmPasswordActiveConstraint: Constraint!
     
     // MARK: Constraints
-    func Constraints() {
+    func constraints() {
         view.addSubview(titleLabel)
         view.addSubview(subTitleLabel)
         view.addSubview(emailLabel)
@@ -350,6 +351,9 @@ class SignUpViewController: UIViewController {
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     @objc func touchDownShowPassword(_ sender: UIButton) {
         passwordTextField.isSecureTextEntry.toggle()
     }
@@ -361,9 +365,6 @@ class SignUpViewController: UIViewController {
     }
     @objc func touchUpInsideHidePassword2(_ sender: UIButton) {
         passwordConfirmTextField.isSecureTextEntry.toggle()
-    }
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
     }
     @objc func editingDidBeginTextField(_ sender: TextFieldWithPadding) {
         sender.layer.borderColor = UIColor(red: 0.59, green: 0.33, blue: 0.94, alpha: 1.00).cgColor
@@ -383,13 +384,14 @@ class SignUpViewController: UIViewController {
         let vc = SignInViewController()
         
         navigationController?.popViewController(animated: true)
-        //        navigationController?.show(vc, sender: self)
     }
     @objc func signUpButtonTapped() {
-        validaitonAllTextFields()
-//        signUpRequest()
+        if validaitonAllTextFields() {
+            signUpRequest()
+        }
     }
-        func validaitonAllTextFields() {
+    // MARK: Validation
+        func validaitonAllTextFields() -> Bool {
         let validator = Validation()
         let userName = emailTextField.text!
         let password = passwordTextField.text!
@@ -407,7 +409,7 @@ class SignUpViewController: UIViewController {
             passwordConfirmTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
             print("Fields are empty!")
             
-            return
+            return false
         }
         if (password != confirmPassword) {
             validationPassword1.text = "Құпия сөз сәйкес келмеді"
@@ -421,7 +423,7 @@ class SignUpViewController: UIViewController {
             passwordConfirmTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
             print("Passwords are not the same")
             
-            return
+            return false
         }
         if validator.isValidMail(email: userName) == false {
             validationEmailLabel.isHidden = false
@@ -430,7 +432,7 @@ class SignUpViewController: UIViewController {
             emailTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
             print("Mistake with email format")
             
-            return
+            return false
         }
         if validator.isValidPassword(password: password) == false || validator.isValidPassword(password: confirmPassword) == false {
             
@@ -452,12 +454,12 @@ class SignUpViewController: UIViewController {
             
             print("Mistake with password format")
             
-            return
+            return false
         }
-        print("All good")
+            print("All good")
+            return true
     }
 
-    
     // MARK: SignUp request
     @objc func signUpRequest() {
         let email = emailTextField.text!

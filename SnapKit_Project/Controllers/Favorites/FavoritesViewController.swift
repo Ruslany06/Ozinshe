@@ -30,8 +30,7 @@ class FavoritesViewController: UIViewController {
         title = "Тізім"
         self.tabBarItem.title = nil
         
-        configureView()
-        downloadFavorites()
+        constraints()
         
         
         //        for family in UIFont.familyNames {
@@ -47,8 +46,13 @@ class FavoritesViewController: UIViewController {
          - SFProDisplay-Bold
          */
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        tableView.reloadData()
+        downloadFavorites()
+    }
     
-    func configureView() {
+    func constraints() {
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
@@ -61,6 +65,7 @@ class FavoritesViewController: UIViewController {
         SVProgressHUD.show()
         
         let headers: HTTPHeaders = ["Authorization": "Bearer \(Storage.sharedInstance.accessToken)"]
+        
         AF.request(URLs.FAVORITES_URL, method: .get, headers: headers) .responseData {
             response in
             
@@ -77,6 +82,7 @@ class FavoritesViewController: UIViewController {
                 print("JSON: \(json)")
                 
                 if let array = json.array {
+                    self.arrayFavorites.removeAll()
                     for item in array {
                         let movie = Movie(json: item)
                         self.arrayFavorites.append(movie)
@@ -94,7 +100,9 @@ class FavoritesViewController: UIViewController {
                 SVProgressHUD.showError(withStatus: "\(ErrorString)")
             }
         }
+        
     }
+    
     
 }
 // MARK: UITableViewDataSource, UITableViewDelegate
@@ -112,5 +120,12 @@ class FavoritesViewController: UIViewController {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 152
         }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let detailsViewController = DetailsMovieViewController()
+        
+        detailsViewController.movie = arrayFavorites[indexPath.row]
+        
+        navigationController?.pushViewController(detailsViewController, animated: true)
+    }
 }
