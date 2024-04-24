@@ -19,16 +19,16 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor._1MainColorFFFFFF111827
+        navigationItem.backButtonTitle = ""
         title = "Іздеу"
         self.tabBarItem.title = nil
         
-        Constraints()
+        constraints()
         hideKeyboardWhenTapedAround()
         textFieldValueChanged()
         downloadCategories()
         CVLeftLayout()
-        
     }
     
     // MARK: CollectionView Settings
@@ -40,6 +40,7 @@ class SearchViewController: UIViewController {
         cv.dataSource = self
         cv.delegate = self
         cv.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: "cvCell")
+        cv.backgroundColor = UIColor._1MainColorFFFFFF111827
         
         return cv
     }()
@@ -60,6 +61,7 @@ class SearchViewController: UIViewController {
         
         tv.dataSource = self
         tv.delegate = self
+        tv.backgroundColor = UIColor._1MainColorFFFFFF111827
 
         return tv
     }()
@@ -68,12 +70,12 @@ class SearchViewController: UIViewController {
     let searchTextField: TextFieldWithPadding = {
         let textField = TextFieldWithPadding()
         textField.padding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 56)
-        //            textField.backgroundColor = .red
         textField.placeholder = "Іздеу"
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor(red: 0.9, green: 0.92, blue: 0.94, alpha: 1).cgColor
         textField.layer.cornerRadius = 12
-        
+        textField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+        textField.layer.backgroundColor = UIColor.FFFFFF_1_C_2431.cgColor
         textField.addTarget(self, action: #selector(editingDidBeginTextField), for: .editingDidBegin)
         textField.addTarget(self, action: #selector(editingDidEndTextField), for: .editingDidEnd)
         textField.addTarget(self, action: #selector(textFieldValueChanged), for: .editingChanged)
@@ -84,7 +86,7 @@ class SearchViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(named: "SearchBtn"), for: .normal)
         button.layer.cornerRadius = 12
-        button.layer.backgroundColor = UIColor(red: 0.95, green: 0.96, blue: 0.96, alpha: 1).cgColor
+        button.layer.backgroundColor = UIColor.searchCellColorF3F4F6374151.cgColor
         button.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
         
         return button
@@ -93,7 +95,7 @@ class SearchViewController: UIViewController {
         let label = UILabel()
         label.text = "Санаттар"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor = UIColor._2MainColor111827FFFFFF
         
         return label
     }()
@@ -109,7 +111,7 @@ class SearchViewController: UIViewController {
     var tableViewToCollectionViewConstraint: Constraint!
     var tableViewToTitleLabelConstraint: Constraint!
     
-    func Constraints() {
+    func constraints() {
         // MARK: Constraints
         view.addSubview(searchButton)
         view.addSubview(searchTextField)
@@ -154,6 +156,22 @@ class SearchViewController: UIViewController {
     }
     
     // MARK: Functions
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateTextFieldBackground()
+    }
+    func updateTextFieldBackground() {
+        if traitCollection.userInterfaceStyle == .dark {
+            searchTextField.backgroundColor = UIColor.FFFFFF_1_C_2431
+            searchTextField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+            searchButton.layer.backgroundColor = UIColor.searchCellColorF3F4F6374151.cgColor
+        } else {
+            searchTextField.backgroundColor = UIColor.FFFFFF_1_C_2431
+            searchTextField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+            searchButton.layer.backgroundColor = UIColor.searchCellColorF3F4F6374151.cgColor
+        }
+    }
     func hideKeyboardWhenTapedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         tap.cancelsTouchesInView = false
@@ -170,7 +188,7 @@ class SearchViewController: UIViewController {
         searchButton.setImage(UIImage(named: "SearchBtnHighlited"), for: .normal)
     }
     @objc func editingDidEndTextField(_ sender: UITextField) {
-        sender.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
+        sender.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
         searchButton.setImage(UIImage(named: "SearchBtn"), for: .normal)
     }
     

@@ -34,7 +34,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        UISetup()
+        constraints()
 
     }
 
@@ -46,7 +46,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
     let cellView = {
         let view = UIView()
 
-        view.backgroundColor = UIColor(red: 0.95, green: 0.96, blue: 0.96, alpha: 1)
+        view.backgroundColor = UIColor.searchCellColorF3F4F6374151
         view.layer.cornerRadius = 8
         
         return view
@@ -56,13 +56,13 @@ class SearchCollectionViewCell: UICollectionViewCell {
         
         label.text = "dgdfgdfgdf3123123d"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 12)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor = UIColor._2MainColor111827FFFFFF
 //        label.layer.borderWidth = 1
         
         return label
     }()
     
-    func UISetup() {
+    func constraints() {
         
         contentView.addSubview(cellView)
         contentView.addSubview(categoryLabel)

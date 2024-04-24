@@ -3,6 +3,16 @@
     {
       "filename" : "Search.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Search- Filled.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

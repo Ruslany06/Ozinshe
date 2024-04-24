@@ -14,7 +14,8 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
-        UISettings()
+        navigationController?.navigationBar.backgroundColor = UIColor._1MainColorFFFFFF111827
+        constraints()
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissView))
         tap.delegate = self
@@ -29,7 +30,7 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
         view.layer.cornerRadius = 32
         view.clipsToBounds = true
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.FFFFFF_1_C_2431
         return view
     }()
 
@@ -37,13 +38,13 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
         let label = UILabel()
         label.text = "Шығу"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor = UIColor._2MainColor111827FFFFFF
         return label
     }()
 
     let lineView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.82, green: 0.84, blue: 0.86, alpha: 1)
+        view.backgroundColor = UIColor.linevVewD1D5DB6B7280
         return view
     }()
     
@@ -72,15 +73,15 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
     lazy var noButton = {
         let button = UIButton()
         
-        button.backgroundColor = UIColor.white
+        button.backgroundColor = UIColor.clear
         button.setTitle("Жоқ", for: .normal)
-        button.setTitleColor(UIColor(red: 0.33, green: 0.08, blue: 0.78, alpha: 1), for: .normal)
+        button.setTitleColor(UIColor._5415_C_6_B_376_F_7, for: .normal)
         button.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
         button.setTitleColor(UIColor.red, for: .highlighted)
         return button
     }()
     
-    func UISettings() {
+    func constraints() {
         
         view.addSubview(backgroundView)
         view.addSubview(titleLabel)

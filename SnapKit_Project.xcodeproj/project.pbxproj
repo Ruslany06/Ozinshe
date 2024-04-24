@@ -45,7 +45,7 @@
 		443A5E632B88FCCC003282EC /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443A5E622B88FCCC003282EC /* PaddingLabel.swift */; };
 		443A5E652B890681003282EC /* GenreAgeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443A5E642B890681003282EC /* GenreAgeTableViewCell.swift */; };
 		443A5E682B8A03D4003282EC /* DetailsMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443A5E672B8A03D4003282EC /* DetailsMovieViewController.swift */; };
-		443A5E6A2B8A5184003282EC /* viewLinesAndArrows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443A5E692B8A5184003282EC /* viewLinesAndArrows.swift */; };
+		443A5E6A2B8A5184003282EC /* ViewLinesAndArrows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443A5E692B8A5184003282EC /* ViewLinesAndArrows.swift */; };
 		443A5E6C2B8DFE7C003282EC /* SeasonsSeriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443A5E6B2B8DFE7C003282EC /* SeasonsSeriesViewController.swift */; };
 		443A5E6E2B8DFE96003282EC /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443A5E6D2B8DFE96003282EC /* VideoPlayer.swift */; };
 		443EBD7C2BAC426200793DA7 /* PersonalDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443EBD7B2BAC426200793DA7 /* PersonalDataViewController.swift */; };
@@ -145,7 +145,7 @@
 		443A5E622B88FCCC003282EC /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		443A5E642B890681003282EC /* GenreAgeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreAgeTableViewCell.swift; sourceTree = "<group>"; };
 		443A5E672B8A03D4003282EC /* DetailsMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsMovieViewController.swift; sourceTree = "<group>"; };
-		443A5E692B8A5184003282EC /* viewLinesAndArrows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewLinesAndArrows.swift; sourceTree = "<group>"; };
+		443A5E692B8A5184003282EC /* ViewLinesAndArrows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLinesAndArrows.swift; sourceTree = "<group>"; };
 		443A5E6B2B8DFE7C003282EC /* SeasonsSeriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonsSeriesViewController.swift; sourceTree = "<group>"; };
 		443A5E6D2B8DFE96003282EC /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		443EBD7B2BAC426200793DA7 /* PersonalDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDataViewController.swift; sourceTree = "<group>"; };
@@ -294,7 +294,7 @@
 				4486F6882B834EA800AECBDC /* Validation.swift */,
 				4486F68A2B8363B100AECBDC /* UIFont.swift */,
 				443A5E622B88FCCC003282EC /* PaddingLabel.swift */,
-				443A5E692B8A5184003282EC /* viewLinesAndArrows.swift */,
+				443A5E692B8A5184003282EC /* ViewLinesAndArrows.swift */,
 				4459BA5B2B9B899500D3EF80 /* Gradient.swift */,
 				4459BA5D2B9B89DA00D3EF80 /* LabelMaxLines.swift */,
 			);
@@ -638,7 +638,7 @@
 				44422AE52B177E0C00859D7D /* FriendsTableViewCell.swift in Sources */,
 				448F49142B9F305F00212F1C /* SeasonsSeries.swift in Sources */,
 				443A5E592B88DBDA003282EC /* MainBannerTableViewCell.swift in Sources */,
-				443A5E6A2B8A5184003282EC /* viewLinesAndArrows.swift in Sources */,
+				443A5E6A2B8A5184003282EC /* ViewLinesAndArrows.swift in Sources */,
 				4486F6892B834EA800AECBDC /* Validation.swift in Sources */,
 				442550CA2B1263B800AC863F /* LogOutViewController.swift in Sources */,
 				44777B9E2B09156B004E6907 /* SignInViewController.swift in Sources */,
@@ -733,6 +733,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -794,6 +795,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;

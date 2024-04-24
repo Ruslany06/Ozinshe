@@ -12,8 +12,14 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        tabBar.backgroundColor = UIColor.FFFFFF_1_C_2431
+        tabBar.barTintColor = UIColor.FFFFFF_1_C_2431
         setupTabs()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setTabImages()
     }
     
     func setupTabs() {
@@ -23,8 +29,6 @@ class TabBarController: UITabBarController {
         let friendsVC = FriendsViewController()
         let profileVC = ProfileViewController()
         
-//        let tabItemAppearance = UITabBarItem.appearance()
-//           tabItemAppearance.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -20)
         homeVC.title = nil
         searchVC.title = nil
         favoritesVC.title = nil
@@ -44,6 +48,17 @@ class TabBarController: UITabBarController {
         
         setViewControllers([homeNavController, searchNavController, favoriteNavController, friendsVC, profileNavController], animated: true)
     }
-    
+
+    func setTabImages() {
+        let homeSelectedImage = UIImage(named: "HomeSelected")?.withRenderingMode(.alwaysOriginal)
+        let searchSelectedImage = UIImage(named: "SearchSelected")?.withRenderingMode(.alwaysOriginal)
+        let favoriteSelectedImage = UIImage(named: "FavoritesSelected")?.withRenderingMode(.alwaysOriginal)
+        let profileSelectedImage = UIImage(named: "ProfileSelected")?.withRenderingMode(.alwaysOriginal)
+        
+        tabBar.items?[0].selectedImage = homeSelectedImage
+        tabBar.items?[1].selectedImage = searchSelectedImage
+        tabBar.items?[2].selectedImage = favoriteSelectedImage
+        tabBar.items?[4].selectedImage = profileSelectedImage
+    }
     
 }

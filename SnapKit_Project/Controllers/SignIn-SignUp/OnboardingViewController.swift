@@ -13,7 +13,7 @@ class OnboardingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor._1MainColorFFFFFF111827
         constraints()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -40,7 +40,7 @@ class OnboardingViewController: UIViewController {
         cvFlowLayout.minimumInteritemSpacing = 0
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: cvFlowLayout)
-        cv.backgroundColor = .lightGray
+//        cv.backgroundColor = .lightGray
         cv.contentInsetAdjustmentBehavior = .never
         cv.bounces = false
         cv.showsHorizontalScrollIndicator = false
@@ -70,9 +70,9 @@ class OnboardingViewController: UIViewController {
         
         let btn = UIButton(configuration: configuration)
         btn.setTitle("Өткізу", for: .normal)
-        btn.setTitleColor(UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1), for:.normal)
+        btn.setTitleColor(UIColor._2MainColor111827FFFFFF, for:.normal)
         btn.titleLabel?.font = .appFont(ofSize: 12, weight: .semiBold)
-        btn.backgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
+        btn.backgroundColor = UIColor.F_9_FAFB_111827
         btn.layer.cornerRadius = 8
         btn.addTarget(self, action: #selector(goToSignIn), for: .touchUpInside)
         btn.layer.opacity = 1
@@ -200,7 +200,7 @@ extension OnboardingViewController {
         
         override init(frame: CGRect) {
             super.init(frame: frame)
-            backgroundColor = .white
+            backgroundColor = UIColor._1MainColorFFFFFF111827
             Constraints()
             
         }
@@ -222,7 +222,7 @@ extension OnboardingViewController {
             let lbl = UILabel()
             
             lbl.font = .appFont(ofSize: 24, weight: .bold)
-            lbl.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+            lbl.textColor = UIColor._2MainColor111827FFFFFF
             
             return lbl
         }()
@@ -230,7 +230,7 @@ extension OnboardingViewController {
             let lbl = UILabel()
             
             lbl.font = .appFont(ofSize: 14, weight: .semiBold)
-            lbl.textColor = UIColor(red: 0.42, green: 0.45, blue: 0.5, alpha: 1)
+            lbl.textColor = UIColor._6_B_7280_9_CA_3_AF
             lbl.numberOfLines = 5
             
             return lbl

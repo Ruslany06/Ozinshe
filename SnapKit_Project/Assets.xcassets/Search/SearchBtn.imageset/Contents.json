@@ -3,6 +3,16 @@
     {
       "filename" : "SearchImage.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "SeacrhBtnDark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

@@ -14,7 +14,7 @@ class MainBannerTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = ._1MainColorFFFFFF111827
 //        contentView.layer.borderWidth = 1
 //        contentView.layer.borderColor = UIColor.blue.cgColor
         constraints()
@@ -35,7 +35,7 @@ class MainBannerTableViewCell: UITableViewCell {
         cv.delegate = self
         cv.register(MainBannerCollectionViewCell.self, forCellWithReuseIdentifier: "cvCell")
         cv.showsHorizontalScrollIndicator = false
-//        cv.backgroundColor = .brown
+        cv.backgroundColor = UIColor._1MainColorFFFFFF111827
 
         return cv
     }()
@@ -96,7 +96,7 @@ extension MainBannerTableViewCell {
         
         override init(frame: CGRect) {
             super.init(frame: frame)
-//            contentView.backgroundColor = .cyan
+            contentView.backgroundColor = .clear
 //            contentView.layer.borderWidth = 2
 //            contentView.layer.borderColor = UIColor.green.cgColor
             constraints()
@@ -121,7 +121,7 @@ extension MainBannerTableViewCell {
             
             lbl.text = "Қызғалдақтар мекені"
             lbl.font = .appFont(ofSize: 14, weight: .bold)
-            lbl.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+            lbl.textColor = UIColor._2MainColor111827FFFFFF
             lbl.numberOfLines = 1
             lbl.textAlignment = .left
             

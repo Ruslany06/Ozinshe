@@ -14,7 +14,8 @@ class SearchTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        Constraints()
+        contentView.backgroundColor = UIColor._1MainColorFFFFFF111827
+        constraints()
     }
     
     required init?(coder: NSCoder) {
@@ -37,7 +38,7 @@ class SearchTableViewCell: UITableViewCell {
         
         label.text = "Қызғалдақтар мекені"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 14)
-        label.textColor =  UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor =  UIColor._2MainColor111827FFFFFF
         return label
     }()
     
@@ -58,7 +59,7 @@ class SearchTableViewCell: UITableViewCell {
         view.addSubview(imageView)
         view.addSubview(label)
         
-        view.backgroundColor = UIColor(red: 0.97, green: 0.93, blue: 1, alpha: 1)
+        view.backgroundColor = UIColor.playBtnColor1C2431F8EEFF
         view.layer.cornerRadius = 8
         
         imageView.image = UIImage(named: "PlayIcon")
@@ -80,7 +81,7 @@ class SearchTableViewCell: UITableViewCell {
         return view
     }()
     // MARK: Constraints
-    func Constraints() {
+    func constraints() {
         contentView.addSubview(posterImageView)
         
         posterImageView.snp.makeConstraints{ make in

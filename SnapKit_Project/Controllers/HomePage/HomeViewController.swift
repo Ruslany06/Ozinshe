@@ -18,7 +18,7 @@ class HomeViewController: UIViewController, MovieProtocol, SendTheIdDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = ._1MainColorFFFFFF111827
         addNavBarImage()
         constraints()
         downloadMainBanners()
@@ -36,7 +36,7 @@ class HomeViewController: UIViewController, MovieProtocol, SendTheIdDelegate {
     lazy var tableView: UITableView = {
         let tv = UITableView()
         
-//        tv.backgroundColor = .lightGray
+        tv.backgroundColor = .clear
         tv.dataSource = self
         tv.delegate = self
         

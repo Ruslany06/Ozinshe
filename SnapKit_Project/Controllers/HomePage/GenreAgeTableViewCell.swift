@@ -18,7 +18,7 @@ class GenreAgeTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = ._1MainColorFFFFFF111827
 //        contentView.layer.borderWidth = 1
 //        contentView.layer.borderColor = UIColor.blue.cgColor
         constraints()
@@ -39,7 +39,7 @@ class GenreAgeTableViewCell: UITableViewCell {
         cv.delegate = self
         cv.register(GenreAgeCollectionViewCell.self, forCellWithReuseIdentifier: "cvCell")
         cv.showsHorizontalScrollIndicator = false
-//        cv.backgroundColor = .brown
+        cv.backgroundColor = UIColor._1MainColorFFFFFF111827
 
         return cv
     }()
@@ -59,7 +59,7 @@ class GenreAgeTableViewCell: UITableViewCell {
         
         lbl.text = "Жанрды таңдаңыз"
         lbl.font = .appFont(ofSize: 16, weight: .bold)
-        lbl.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        lbl.textColor = UIColor._2MainColor111827FFFFFF
         lbl.numberOfLines = 2
         
         return lbl
@@ -133,7 +133,7 @@ extension GenreAgeTableViewCell {
         
         override init(frame: CGRect) {
             super.init(frame: frame)
-//            contentView.backgroundColor = .cyan
+            contentView.backgroundColor = .clear
 //            contentView.layer.borderWidth = 2
 //            contentView.layer.borderColor = UIColor.green.cgColor
             constraints()

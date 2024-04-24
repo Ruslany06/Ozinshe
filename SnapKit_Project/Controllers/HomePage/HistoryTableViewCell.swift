@@ -14,7 +14,7 @@ class HistoryTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = ._1MainColorFFFFFF111827
 //        contentView.layer.borderWidth = 1
 //        contentView.layer.borderColor = UIColor.blue.cgColor
         constraints()
@@ -35,7 +35,7 @@ class HistoryTableViewCell: UITableViewCell {
         cv.delegate = self
         cv.register(HistoryCollectionViewCell.self, forCellWithReuseIdentifier: "cvCell")
         cv.showsHorizontalScrollIndicator = false
-//        cv.backgroundColor = .brown
+        cv.backgroundColor = UIColor._1MainColorFFFFFF111827
 
         return cv
     }()
@@ -55,7 +55,7 @@ class HistoryTableViewCell: UITableViewCell {
         
         lbl.text = "Қарауды жалғастырыңыз"
         lbl.font = .appFont(ofSize: 16, weight: .bold)
-        lbl.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        lbl.textColor = UIColor._2MainColor111827FFFFFF
         lbl.numberOfLines = 2
         
         return lbl
@@ -111,7 +111,7 @@ extension HistoryTableViewCell {
         
         override init(frame: CGRect) {
             super.init(frame: frame)
-//            contentView.backgroundColor = .cyan
+            contentView.backgroundColor = .clear
 //            contentView.layer.borderWidth = 2
 //            contentView.layer.borderColor = UIColor.green.cgColor
             constraints()
@@ -136,7 +136,7 @@ extension HistoryTableViewCell {
             
             lbl.text = "Глобус"
             lbl.font = .appFont(ofSize: 12, weight: .semiBold)
-            lbl.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+            lbl.textColor = UIColor._2MainColor111827FFFFFF
             lbl.textAlignment = .left
             
             return lbl

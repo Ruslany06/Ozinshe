@@ -10,12 +10,22 @@ import Localize_Swift
 
 class LanguageTableViewCell: UITableViewCell {
     
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.backgroundColor = UIColor.FFFFFF_1_C_2431
+        constraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     let languageLabel = {
         let label = UILabel()
         
         label.text = "English"
         label.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor = UIColor._2MainColor111827FFFFFF
         
         return label
     }()
@@ -28,17 +38,7 @@ class LanguageTableViewCell: UITableViewCell {
         
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        UISettings()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func UISettings() {
+    func constraints() {
         
         contentView.addSubview(languageLabel)
         contentView.addSubview(checkImageView)

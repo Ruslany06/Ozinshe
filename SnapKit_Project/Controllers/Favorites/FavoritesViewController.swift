@@ -15,18 +15,12 @@ class FavoritesViewController: UIViewController {
     
     var arrayFavorites:[Movie] = []
     
-    lazy var tableView: UITableView = {
-        let tv = UITableView()
-        
-        tv.dataSource = self
-        tv.delegate = self
-        
-        return tv
-    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor._1MainColorFFFFFF111827
+        
         title = "Тізім"
         self.tabBarItem.title = nil
         
@@ -46,12 +40,22 @@ class FavoritesViewController: UIViewController {
          - SFProDisplay-Bold
          */
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        tableView.reloadData()
         downloadFavorites()
     }
     
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        
+        tv.dataSource = self
+        tv.delegate = self
+        tv.backgroundColor = UIColor.clear
+        
+        return tv
+    }()
     func constraints() {
         view.addSubview(tableView)
         

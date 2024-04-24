@@ -16,7 +16,7 @@ public let arrowImageFactory: () -> UIImageView = {
 
 public let lineViewFactory: () -> UIView = {
     let view = UIView()
-    view.backgroundColor = UIColor(red: 0.82, green: 0.84, blue: 0.86, alpha: 1)
+    view.backgroundColor = UIColor(named: "D1D5DB-1C2431")
     view.translatesAutoresizingMaskIntoConstraints = false
     view.heightAnchor.constraint(equalToConstant: 1).isActive = true
     return view

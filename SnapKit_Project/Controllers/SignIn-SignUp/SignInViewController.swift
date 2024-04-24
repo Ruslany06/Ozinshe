@@ -16,7 +16,8 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor._1MainColorFFFFFF111827
+        navigationItem.backButtonTitle = ""
         title = "Авторизация"
         
         constraints()
@@ -29,7 +30,7 @@ class SignInViewController: UIViewController {
         
         label.text = "Сәлем"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor = UIColor._2MainColor111827FFFFFF
         
         return label
     }()
@@ -49,7 +50,7 @@ class SignInViewController: UIViewController {
         
         label.text = "Email"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 14)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor = UIColor._2MainColor111827FFFFFF
         
         return label
     }()
@@ -61,7 +62,8 @@ class SignInViewController: UIViewController {
         textfield.placeholder = "Сіздің email"
         textfield.layer.cornerRadius = 12.0
         textfield.layer.borderWidth = 1.0
-        textfield.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
+        textfield.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+        textfield.layer.backgroundColor = UIColor.FFFFFF_1_C_2431.cgColor
         textfield.textContentType = .emailAddress
         textfield.keyboardType = .emailAddress
         textfield.autocapitalizationType = .none
@@ -76,25 +78,26 @@ class SignInViewController: UIViewController {
         
         label.text = "Құпия сөз"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 14)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor = UIColor._2MainColor111827FFFFFF
         
         return label
     }()
     
     lazy var passwordTextField: TextFieldWithPadding! = {
-        let textField = TextFieldWithPadding()
+        let textfield = TextFieldWithPadding()
         
-        textField.padding = UIEdgeInsets(top: 0, left: 44, bottom: 0, right: 44)
-        textField.placeholder = "Сіздің құпия сөзіңіз"
-        textField.layer.cornerRadius = 12.0
-        textField.layer.borderWidth = 1.0
-        textField.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
-        textField.textContentType = .password
-        textField.isSecureTextEntry = true
-        textField.addTarget(self, action: #selector(editingDidBeginTextField), for: .editingDidBegin)
-        textField.addTarget(self, action: #selector(editingDidEndTextField), for: .editingDidEnd)
+        textfield.padding = UIEdgeInsets(top: 0, left: 44, bottom: 0, right: 44)
+        textfield.placeholder = "Сіздің құпия сөзіңіз"
+        textfield.layer.cornerRadius = 12.0
+        textfield.layer.borderWidth = 1.0
+        textfield.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+        textfield.layer.backgroundColor = UIColor.FFFFFF_1_C_2431.cgColor
+        textfield.textContentType = .password
+        textfield.isSecureTextEntry = true
+        textfield.addTarget(self, action: #selector(editingDidBeginTextField), for: .editingDidBegin)
+        textfield.addTarget(self, action: #selector(editingDidEndTextField), for: .editingDidEnd)
         
-        return textField
+        return textfield
     }()
     
     let emailImage = {
@@ -159,7 +162,7 @@ class SignInViewController: UIViewController {
         
         label.text = "Аккаунтыныз жоқ па?"
         label.font = UIFont(name: "SFProDisplay-Regular", size: 14)
-        label.textColor = UIColor(red: 0.42, green: 0.45, blue: 0.5, alpha: 1)
+        label.textColor = UIColor._6_B_7280_FFFFFF
         
         button.setTitle("Тіркелу", for: .normal)
         button.setTitleColor(UIColor(red: 0.7, green: 0.46, blue: 0.97, alpha: 1), for:.normal)
@@ -307,6 +310,24 @@ class SignInViewController: UIViewController {
     }
     
     // MARK: Functions
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateTextFieldBackground()
+    }
+    func updateTextFieldBackground() {
+        if traitCollection.userInterfaceStyle == .dark {
+            passwordTextField.backgroundColor = UIColor.FFFFFF_1_C_2431
+            passwordTextField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+            emailTextField.backgroundColor = UIColor.FFFFFF_1_C_2431
+            emailTextField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+        } else {
+            passwordTextField.backgroundColor = UIColor.FFFFFF_1_C_2431
+            passwordTextField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+            emailTextField.backgroundColor = UIColor.FFFFFF_1_C_2431
+            emailTextField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+        }
+    }
     func hideKeyboardWhenTapedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         tap.cancelsTouchesInView = false
@@ -331,7 +352,7 @@ class SignInViewController: UIViewController {
         view.layoutIfNeeded()
     }
     @objc func editingDidEndTextField(_ sender: TextFieldWithPadding) {
-        sender.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
+        sender.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
     }
     @objc func registrationButtonTapped() {
         let vc = SignUpViewController()

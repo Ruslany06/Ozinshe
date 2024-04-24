@@ -24,7 +24,7 @@ class SeasonsSeriesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor._1MainColorFFFFFF111827
         
         constraints()
         downloadSeasons()
@@ -42,14 +42,14 @@ class SeasonsSeriesViewController: UIViewController {
         cv.delegate = self
         cv.register(SeasonsCollectionViewCell.self, forCellWithReuseIdentifier: "cvCell")
         cv.showsHorizontalScrollIndicator = false
-//        cv.backgroundColor = .brown
+        cv.backgroundColor = UIColor._1MainColorFFFFFF111827
         
         return cv
     }()
     lazy var seriesTV: UITableView = {
         let tv = UITableView()
         
-//        tv.backgroundColor = .lightGray
+        tv.backgroundColor = UIColor._1MainColorFFFFFF111827
         tv.dataSource = self
         tv.delegate = self
         
@@ -179,9 +179,8 @@ extension SeasonsSeriesViewController {
         
         override init(frame: CGRect) {
             super.init(frame: frame)
-//            backgroundColor = .red
+            backgroundColor = .clear
             constraints()
-//            updateAppearance(isSelected: false)
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -194,9 +193,9 @@ extension SeasonsSeriesViewController {
             
             lbl.text = "1 сезон"
             lbl.font = .appFont(ofSize: 12, weight: .semiBold)
-            lbl.textColor = UIColor(red: 0.22, green: 0.25, blue: 0.32, alpha: 1)
+            lbl.textColor = UIColor._2MainColor111827FFFFFF
             lbl.layer.cornerRadius = 8
-            lbl.backgroundColor = UIColor(red: 0.95, green: 0.96, blue: 0.96, alpha: 1)
+            lbl.backgroundColor = UIColor.searchCellColorF3F4F6374151
             lbl.textAlignment = .center
             
             return lbl
@@ -218,8 +217,8 @@ extension SeasonsSeriesViewController {
                 numberOfSeasonsLabel.textColor = UIColor(displayP3Red: 249/255, green: 250/255, blue: 251/255, alpha: 1)
                 numberOfSeasonsLabel.backgroundColor = UIColor(displayP3Red: 151/255, green: 83/255, blue: 240/255, alpha: 1)
             } else {
-                numberOfSeasonsLabel.textColor = UIColor(displayP3Red: 55/255, green: 65/255, blue: 81/255, alpha: 1)
-                numberOfSeasonsLabel.backgroundColor = UIColor(displayP3Red: 243/255, green: 244/255, blue: 246/255, alpha: 1)
+                numberOfSeasonsLabel.textColor = UIColor._2MainColor111827FFFFFF
+                numberOfSeasonsLabel.backgroundColor = UIColor.searchCellColorF3F4F6374151
             }
             
         }
@@ -231,7 +230,7 @@ extension SeasonsSeriesViewController {
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
-            contentView.backgroundColor = .white
+            contentView.backgroundColor = UIColor._1MainColorFFFFFF111827
 //            contentView.layer.borderWidth = 1
 //            contentView.layer.borderColor = UIColor.blue.cgColor
             constraints()
@@ -256,7 +255,7 @@ extension SeasonsSeriesViewController {
             
             lbl.text = "1 -ші бөлім"
             lbl.font = .appFont(ofSize: 14, weight: .bold)
-            lbl.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+            lbl.textColor = UIColor._2MainColor111827FFFFFF
             lbl.layer.cornerRadius = 8
             
             return lbl

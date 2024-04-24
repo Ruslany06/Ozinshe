@@ -15,7 +15,7 @@ class ChangePasswordViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor._1MainColorFFFFFF111827
         title = "Құпия сөзді өзгерту"
         
         hideKeyboardWhenTapedAround()
@@ -39,7 +39,8 @@ class ChangePasswordViewController: UIViewController {
         textField.placeholder = "Сіздің құпия сөзіңіз"
         textField.layer.cornerRadius = 12.0
         textField.layer.borderWidth = 1.0
-        textField.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
+        textField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+        textField.layer.backgroundColor = UIColor.FFFFFF_1_C_2431.cgColor
         textField.textContentType = .newPassword
         textField.isSecureTextEntry = true
         textField.addTarget(self, action: #selector(editingDidBeginTextField), for: .editingDidBegin)
@@ -63,7 +64,8 @@ class ChangePasswordViewController: UIViewController {
         textField.placeholder = "Сіздің құпия сөзіңіз"
         textField.layer.cornerRadius = 12.0
         textField.layer.borderWidth = 1.0
-        textField.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
+        textField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+        textField.layer.backgroundColor = UIColor.FFFFFF_1_C_2431.cgColor
         textField.textContentType = .newPassword
         textField.isSecureTextEntry = true
         textField.addTarget(self, action: #selector(editingDidBeginTextField), for: .editingDidBegin)
@@ -194,6 +196,27 @@ class ChangePasswordViewController: UIViewController {
         }
     }
     //MARK: Functions
+    // Changing colors of TextFields depends on theme
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateTextFieldBackground()
+    }
+    func updateTextFieldBackground() {
+        if traitCollection.userInterfaceStyle == .dark {
+            passwordTextField.backgroundColor = UIColor.FFFFFF_1_C_2431
+            passwordTextField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+            passwordConfirmTextField.backgroundColor = UIColor.FFFFFF_1_C_2431
+            passwordConfirmTextField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+        } else {
+            passwordTextField.backgroundColor = UIColor.FFFFFF_1_C_2431
+            passwordTextField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+            passwordConfirmTextField.backgroundColor = UIColor.FFFFFF_1_C_2431
+            passwordConfirmTextField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
+        }
+        /// Не обязательное действие, так как пользователь заходит на этот экран после того как поменял тему в главном экране профиля. И цвет соответсвенно обновится при переходе экранов
+    }
+    
     func hideKeyboardWhenTapedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         tap.cancelsTouchesInView = false
@@ -220,7 +243,7 @@ class ChangePasswordViewController: UIViewController {
         sender.layer.borderColor = UIColor(red: 0.59, green: 0.33, blue: 0.94, alpha: 1.00).cgColor
     }
     @objc func editingDidEndTextField(_ sender: TextFieldWithPadding) {
-        sender.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
+        sender.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
     }
     func validationTextFields() -> Bool {
         let validator = Validation()

@@ -120,7 +120,7 @@ class DetailsMovieViewController: UIViewController {
     private let backgroundView = {
         let view = UIView()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.F_9_FAFB_111827
         view.layer.cornerRadius = 32
         view.clipsToBounds = true
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -132,7 +132,7 @@ class DetailsMovieViewController: UIViewController {
         
         lbl.text = "Айдар"
         lbl.font = .appFont(ofSize: 24, weight: .bold)
-        lbl.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        lbl.textColor = UIColor._2MainColor111827FFFFFF
         
         return lbl
     }()
@@ -162,9 +162,11 @@ class DetailsMovieViewController: UIViewController {
     private let descriptionGradient: Gradient = {
         let view = Gradient()
 
-        view.startColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
-        view.endColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+//        view.startColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
+//        view.endColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         view.backgroundColor = .clear
+        view.startColor = UIColor.gradientF9FAFB111827
+        view.endColor = UIColor.F_9_FAFB_111827
 //        view.layer.borderWidth = 1
         
         return view
@@ -223,7 +225,7 @@ class DetailsMovieViewController: UIViewController {
         
         lbl.text = "Бөлімдер:"
         lbl.font = .appFont(ofSize: 16, weight: .bold)
-        lbl.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        lbl.textColor = UIColor._2MainColor111827FFFFFF
         
         return lbl
     }()
@@ -260,7 +262,7 @@ class DetailsMovieViewController: UIViewController {
         
         lbl.text = "Скриншоттар:"
         lbl.font = .appFont(ofSize: 16, weight: .bold)
-        lbl.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        lbl.textColor = UIColor._2MainColor111827FFFFFF
         
         return lbl
     }()
@@ -273,7 +275,7 @@ class DetailsMovieViewController: UIViewController {
         cv.delegate = self
         cv.register(ScreenshotCollectionViewCell.self, forCellWithReuseIdentifier: "cvCell")
         cv.showsHorizontalScrollIndicator = false
-//        cv.backgroundColor = .brown
+        cv.backgroundColor = UIColor._1MainColorFFFFFF111827
         
         return cv
     }()
@@ -282,7 +284,7 @@ class DetailsMovieViewController: UIViewController {
         
         lbl.text = "Ұқсас телехикаялар:"
         lbl.font = .appFont(ofSize: 16, weight: .bold)
-        lbl.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        lbl.textColor = UIColor._2MainColor111827FFFFFF
         
         return lbl
     }()
@@ -295,7 +297,7 @@ class DetailsMovieViewController: UIViewController {
         cv.delegate = self
         cv.register(SimilarMoviesCollectionViewCell.self, forCellWithReuseIdentifier: "cvCell")
         cv.showsHorizontalScrollIndicator = false
-//        cv.backgroundColor = .brown
+        cv.backgroundColor = UIColor._1MainColorFFFFFF111827
         
         return cv
     }()
@@ -761,7 +763,7 @@ extension DetailsMovieViewController {
         
         override init(frame: CGRect) {
             super.init(frame: frame)
-//            backgroundColor = .red
+            backgroundColor = .clear
             constraints()
             
         }
@@ -787,7 +789,7 @@ extension DetailsMovieViewController {
             
             lbl.text = "Суперкөлік Самұрық"
             lbl.font = .appFont(ofSize: 12, weight: .semiBold)
-            lbl.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+            lbl.textColor = UIColor._2MainColor111827FFFFFF
             lbl.textAlignment = .left
             lbl.numberOfLines = 2
             

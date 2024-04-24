@@ -19,7 +19,8 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor._1MainColorFFFFFF111827
+        
         title = "Жеке деректер"
         constraints()
         hideKeyboardWhenTapedAround()
@@ -56,7 +57,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         let textfield = UITextField()
         
         textfield.font = .appFont(ofSize: 16, weight: .semiBold)
-        textfield.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        textfield.textColor = UIColor(named: "111827-FFFFFF")
         textfield.textContentType = .name
         textfield.autocapitalizationType = .none
         
@@ -79,7 +80,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         
         lbl.text = "xxxx@mail.ru"
         lbl.font = .appFont(ofSize: 16, weight: .semiBold)
-        lbl.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        lbl.textColor = UIColor(named: "111827-FFFFFF")
         
         return lbl
     }()
@@ -99,7 +100,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         let textfield = UITextField()
         
         textfield.font = .appFont(ofSize: 16, weight: .semiBold)
-        textfield.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        textfield.textColor = UIColor(named: "111827-FFFFFF")
         textfield.textContentType = .telephoneNumber
         textfield.keyboardType = .phonePad
         textfield.delegate = self
@@ -122,7 +123,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         let textfield = UITextField()
         
         textfield.font = .appFont(ofSize: 16, weight: .semiBold)
-        textfield.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        textfield.textColor = UIColor(named: "111827-FFFFFF")
         textfield.inputView = datePicker
         
         return textfield

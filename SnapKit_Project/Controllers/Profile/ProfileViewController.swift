@@ -14,7 +14,8 @@ class ProfileViewController: UIViewController, LanguageProtocol {
 // MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.FFFFFF_1_C_2431
+        navigationItem.backButtonTitle = ""
         сonstraints()
         updateAvatarImage()
         logOutBtnNavbar()
@@ -42,7 +43,6 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     let deleteAvatarButton = {
         let button = UIButton()
         
-        button.setTitle("Удалить фото профиля", for: .normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 9)!
         button.setTitleColor(UIColor(red: 0.11, green: 0.14, blue: 0.19, alpha: 1), for: .normal)
         button.addTarget(self, action: #selector(deleteAvatar), for: .touchUpInside)
@@ -56,7 +56,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         
         label.text = "Менің профилім"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor = UIColor(named: "111827-FFFFFF")
         
         return label
     }()
@@ -73,18 +73,17 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     
     let backgroundView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
+        view.backgroundColor = UIColor.F_9_FAFB_111827
         
         return view
     }()
     
     let personalDataButton: UIButton = {
         let button = UIButton()
-        let colorBlack = UIColor(red: 0.11, green: 0.14, blue: 0.19, alpha: 1)
         
         button.setTitle("Жеке деректер", for: .normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)!
-        button.setTitleColor(colorBlack, for: .normal)
+        button.setTitleColor(UIColor(named: "E5E7EB-1C2431"), for: .normal)
         button.contentHorizontalAlignment = .left
         button.addTarget(self, action: #selector(personalDataBtnTaped), for: .touchUpInside)
         
@@ -110,11 +109,10 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     
     let changePasswordButton: UIButton = {
         let button = UIButton()
-        let colorBlack = UIColor(red: 0.11, green: 0.14, blue: 0.19, alpha: 1)
         
         button.setTitle("Құпия сөзді өзгерту", for: .normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)!
-        button.setTitleColor(colorBlack, for: .normal)
+        button.setTitleColor(UIColor(named: "E5E7EB-1C2431"), for: .normal)
         button.contentHorizontalAlignment = .left
         button.addTarget(self, action: #selector(changePasswordBtnTaped), for: .touchUpInside)
         
@@ -123,11 +121,10 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     
     let languageChangeButton: UIButton = {
         let button = UIButton()
-        let colorBlack = UIColor(red: 0.11, green: 0.14, blue: 0.19, alpha: 1)
         
         button.setTitle("Тіл", for: .normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)!
-        button.setTitleColor(colorBlack, for: .normal)
+        button.setTitleColor(UIColor(named: "E5E7EB-1C2431"), for: .normal)
         button.contentHorizontalAlignment = .left
         button.addTarget(self, action: #selector(languageButtonTaped), for: .touchUpInside)
         
@@ -146,11 +143,10 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     
     let darkModeButton: UIButton = {
         let button = UIButton()
-        let colorBlack = UIColor(red: 0.11, green: 0.14, blue: 0.19, alpha: 1)
         
         button.setTitle("Қараңғы режим", for: .normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)!
-        button.setTitleColor(colorBlack, for: .normal)
+        button.setTitleColor(UIColor(named: "E5E7EB-1C2431"), for: .normal)
         button.contentHorizontalAlignment = .left
         
         return button
@@ -159,6 +155,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     let darkModeSwitch = {
         let switchControl = UISwitch()
         switchControl.isOn = false
+        switchControl.onTintColor = UIColor(red: 0.7, green: 0.46, blue: 0.97, alpha: 1)
         switchControl.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
         
         return switchControl
@@ -189,7 +186,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     let secretBtn = {
         let button = UIButton()
         
-        button.setTitle("DONT CLICK!", for: .normal)
+        button.setTitle("Audio Player!", for: .normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)!
         button.setTitleColor(UIColor(red: 1, green: 0, blue: 0, alpha: 1), for: .normal)
         button.contentHorizontalAlignment = .left
@@ -339,15 +336,27 @@ class ProfileViewController: UIViewController, LanguageProtocol {
             navigationItem.title = "Profile"
         }
     }
-// MARK: Functions
     
+// MARK: Functions
+
     @objc func switchValueChanged(_ sender: UISwitch) {
         if sender.isOn {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                windowScene.windows.forEach { window in
+                    window.overrideUserInterfaceStyle = .dark
+                }
+            }
             print("Switch is ON")
         } else {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                windowScene.windows.forEach { window in
+                    window.overrideUserInterfaceStyle = .light
+                }
+            }
             print("Switch is OFF")
         }
     }
+
     @objc func languageButtonTaped() {
         let languageVC = LanguageViewController()
         

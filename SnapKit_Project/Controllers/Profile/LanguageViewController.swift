@@ -15,15 +15,6 @@ protocol LanguageProtocol {
 
 class LanguageViewController: UIViewController, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate {
     
-    lazy var tableView: UITableView = {
-        let tv = UITableView()
-
-        tv.dataSource = self
-        tv.delegate = self
-
-        return tv
-    }()
-    
     var languageDelegate: LanguageProtocol?
     var viewTranslation = CGPoint (x: 0, y: 0)
     
@@ -32,7 +23,8 @@ class LanguageViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
-        UISettings()
+//        navigationController?.navigationBar.backgroundColor = UIColor.FFFFFF_111827
+        constraints()
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissView))
         tap.delegate = self
@@ -42,12 +34,22 @@ class LanguageViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss)))
     }
     
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+
+        tv.dataSource = self
+        tv.delegate = self
+        tv.backgroundColor = UIColor.clear
+
+        return tv
+    }()
+    
     let backgroundView = {
         let view = UIView()
         view.layer.cornerRadius = 32
         view.clipsToBounds = true
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.FFFFFF_1_C_2431
         return view
     }()
 
@@ -55,18 +57,18 @@ class LanguageViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         let label = UILabel()
         label.text = "Тіл"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor = UIColor._2MainColor111827FFFFFF
         return label
     }()
 
     let lineView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.82, green: 0.84, blue: 0.86, alpha: 1)
+        view.backgroundColor = UIColor.linevVewD1D5DB6B7280
         return view
     }()
     
     //MARK: UISettings and TableView
-    func UISettings() {
+    func constraints() {
         
         view.addSubview(backgroundView)
         view.addSubview(languageLabel)
@@ -94,7 +96,7 @@ class LanguageViewController: UIViewController, UIGestureRecognizerDelegate, UIT
             make.width.equalTo(64)
         }
     }
-    
+    // MARK: Functions
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if (touch.view?.isDescendant(of: backgroundView))! {
             return false
@@ -129,7 +131,6 @@ class LanguageViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         dismiss(animated: true)
     }
     
-
 // MARK: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
