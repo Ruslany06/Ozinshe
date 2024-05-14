@@ -5,27 +5,105 @@
   Created by Ruslan Yelguldinov on 15.11.2023.
   
 */
-
+"SLIDE_SUBTITLE" = "ÖZINŞE-ге қош келдің!";
+"FIRST_SLIDE_DESCRIPTION" = "Фильмдер, телехикаялар, ситкомдар, анимациялық жобалар, телебағдарламалар мен реалити-шоулар, аниме және тағы басқалары";
+"SECOND_SLIDE_DESCRIPTION" = "Кез келген құрылғыдан қара.\nСүйікті фильміңді  қосымша төлемсіз телефоннан, планшеттен, ноутбуктан қара";
+"THIRD_SLIDE_DESCRIPTION" = "Тіркелу оңай. Қазір тіркел де қалаған фильміңе қол жеткіз";
 // Profile
 "MY_PROFILE" = "Менің профилім";
 "LANGUAGE" = "Тіл";
-"PERSONAL_DATA" = "Жеке деректер";
 "CHANGE_PASSWORD" = "Құпия сөзді өзгерту";
 "EDIT" = "Өңдеу";
 "CURRENT_LANGUAGE" = "Қазақша";
 "DARK_MODE" = "Қараңғы режим";
 
 // Sign In / Sign Up
+//"HELLO" = "Сәлем";
+//"LOG_IN" = "Аккаунтқа кіріңіз";
+//"EMAIL_PLACEHOLDER" = "Сіздің email";
+//"PASSWORD" = "Құпия сөз";
+//"PASSWORD_PLACEHOLDER" = "Сіздің құпия сөзіңіз";
+//"FORGOT_PASSWORD" = "Құпия сөзді ұмыттыңыз ба?";
+//"SIGN_IN" = "Кіру";
+//"DO_NOT_HAVE_AN_ACCOUNT" = "Аккаунтыныз жоқ па?";
+//"REGISTRATION" = " Тіркелу";
+//"REPEAT_PASSWORD" = "Құпия сөзді қайталаңыз";
+//
+//"CONNECTION_ERROR" = "Қосылым қатесі";
+
+/// Personal Data VC
+"PROFILE" = "Профиль";
+"PERSONAL_DATA" = "Жеке деректер";
+"CHANGE_PASSWORD" = "Құпия сөзді өзгерту";
+"TERMS_AND_CONDITIONS" = "Ережелер мен шарттар";
+"ANNOUNCEMENT" = "Хабарландырулар";
+"DARK_MODE" = "Қараңғы режим";
+"YOUR_NAME" = "Сіздің атыңыз";
+"TELEPHONE" = "Телефон";
+"DATE_OF_BIRTH" = "Туылған күні";
+"SAVE_CHANGES" = "Өзгерістерді сақтау";
+"CHANGES_APPLIED" = "Өзгерістер сақталды";
+
+"EXIT" = "Шығу";
+"CONFIRM_EXIT_FROM_ACCOUNT" = "Сіз шынымен аккаунтыныздан шыққыңыз келеді ма?";
+"YES_EXIT" = "Иә, шығу";
+"NO" = "Жоқ";
+
+"AUTHORIZATION" = "Авторизация";
 "HELLO" = "Сәлем";
-"LOG_IN" = "Аккаунтқа кіріңіз";
-"EMAIL_PLACEHOLDER" = "Сіздің email";
+"LOGIN_INTO_ACCOUNT" = "Аккаунтқа кіріңіз";
 "PASSWORD" = "Құпия сөз";
-"PASSWORD_PLACEHOLDER" = "Сіздің құпия сөзіңіз";
-"FORGOT_PASSWORD" = "Құпия сөзді ұмыттыңыз ба?";
-"SIGN_IN" = "Кіру";
-"DO_NOT_HAVE_AN_ACCOUNT" = "Аккаунтыныз жоқ па?";
-"REGISTRATION" = " Тіркелу";
+"YOUR_EMAIL" = "Сіздің email";
+"YOUR_PASSWORD" = "Сіздің құпия сөзіңіз";
 "REPEAT_PASSWORD" = "Құпия сөзді қайталаңыз";
+"FORGOT_YOUR_PASSWORD" = "Құпия сөзді ұмыттыңыз ба?";
+"LOGIN" = "Кіру";
+"REGISTRATION" = "Тіркелу";
+"NO_ACCOUNT" = "Аккаунтыныз жоқ па? ";
+"GOT_ACCOUNT" = "Сізде аккаунт бар ма? ";
+"SIGN_UP" = "Тіркелу";
+"FILL_IN_DATA" = "Деректерді толтырыңыз";
+"PASS_NOT_MATCH" = "Құпия сөздер бірдей емес";
 
+"PASS_CHANGED" = "Құпия сөз сәтті өзгертілді";
+"LIST" = "Тізім";
+
+"SEARCH" = "Іздеу";
+"CATEGORIES" = "Санаттар";
+"SEARCH_RESULTS" = "Іздеу нәтижелері";
+"LOADING" = "Жүктеу";
+"PLAY" = "Қарау";
+"CONTINUE_PLAY" = "Қарауды жалғастырыңыз";
+"CHOOSE_GENRE" = "Жанрды таңдаңыз";
+"AGE_CATEGORY" = "Жасына сәйкес";
+"ALL" = "Барлығы";
+
+"DETAILS" = "Толығырақ";
+"DIRECTOR" = "Режиссер:";
+"PRODUCER" = "Продюсер:";
+"SECTIONS" = "Бөлімдер";
+"SCREENSHOTS" = "Скриншоттар";
+"SIMILAR_SERIES" = "Ұқсас телехикаялар";
+"SEASON" = " сезон, ";
+"SEASON_IN_SERIES" = " сезон";
+"SERIES" = " серия";
+"ADD_FAVORITE" = "Тізімге қосу";
+"SHARE" = "Бөлісу";
+"HIDE" = "Жасыру";
+"EPISODE" = "-ші бөлім";
+
+"EMAIL_IN_USE" = "Мұндай email-ы бар пайдаланушы тіркелген";
+"SKIP" = "Өткізу";
+"NEXT" = "Әрі қарай";
+
+"INPUT_ERROR" = "Енгізу қатесі";
+"FILL_ALL_FIELDS" = "Барлық өрістерді толтырыңыз";
+"WRONG_FORMAT" = "Қате формат";
+"WRONG_FORMAT_TEXT" = "Кемінде 4 ең көбі 18 таңба. Латынның бас және кіші әріптері. Астын сызу сипаты";
+"WRONG_EMAIL" = "Email форматы дұрыс емес";
+"WRONG_EMAIL_TEXT" = "Қайта тексеріңіз";
+"WRONG_PASSWORD" = "Қате құпия сөз";
+"WRONG_PASSWORD_TEXT" = "Кемінде 6 таңбаны пайдаланыңыз.\n2) Кіші әріппен жазылған кемінде бір таңба.\n3) Кем дегенде бір ерекше таңба.";
 "CONNECTION_ERROR" = "Қосылым қатесі";
-
+"OOPS" = "Кешіріңіз";
+"NOT_AVAILABLE" = "Қызмет әзірленуде";

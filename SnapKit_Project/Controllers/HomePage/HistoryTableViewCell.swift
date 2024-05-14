@@ -53,7 +53,7 @@ class HistoryTableViewCell: UITableViewCell {
     private let categoryTitleLabel = {
         let lbl = UILabel()
         
-        lbl.text = "Қарауды жалғастырыңыз"
+        lbl.text = "CONTINUE_PLAY".localized()
         lbl.font = .appFont(ofSize: 16, weight: .bold)
         lbl.textColor = UIColor._2MainColor111827FFFFFF
         lbl.numberOfLines = 2

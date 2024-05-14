@@ -19,6 +19,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         сonstraints()
         updateAvatarImage()
         logOutBtnNavbar()
+        checkSwitchState()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -197,65 +198,65 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     func сonstraints() {
         view.addSubview(avatarImageView)
         avatarImageView.snp.makeConstraints { make in
-            make.size.equalTo(112)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(32)
+            make.size.equalTo(dynamicValue(for: 112))
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(dynamicValue(for: 32))
             make.centerX.equalTo(view)
         }
         view.addSubview(deleteAvatarButton)
         deleteAvatarButton.snp.makeConstraints { make in
-            make.left.equalTo(avatarImageView.snp.right).offset(16)
+            make.left.equalTo(avatarImageView.snp.right).offset(dynamicValue(for: 16))
             make.bottom.equalTo(avatarImageView)
-            make.size.equalTo(16)
+            make.size.equalTo(dynamicValue(for: 16))
         }
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(avatarImageView.snp.bottom).offset(32)
+            make.top.equalTo(avatarImageView.snp.bottom).offset(dynamicValue(for: 32))
             make.centerX.equalTo(view)
         }
         view.addSubview(emailLabel)
         emailLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.top.equalTo(titleLabel.snp.bottom).offset(dynamicValue(for: 8))
             make.centerX.equalTo(view)
         }
         view.addSubview(backgroundView)
         backgroundView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.top.equalTo(emailLabel.snp.bottom).offset(24)
+            make.top.equalTo(emailLabel.snp.bottom).offset(dynamicValue(for: 24))
         }
         view.addSubview(personalDataButton)
         personalDataButton.snp.makeConstraints {make in
-            make.top.equalTo(emailLabel.snp.bottom).offset(24)
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(64)
+            make.top.equalTo(emailLabel.snp.bottom).offset(dynamicValue(for: 24))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.height.equalTo(dynamicValue(for: 64))
         }
         view.addSubview(arrowImage1)
         arrowImage1.snp.makeConstraints { make in
             make.centerY.equalTo(personalDataButton)
             make.right.equalTo(personalDataButton.snp.right).inset(0)
-            make.size.equalTo(16)
+            make.size.equalTo(dynamicValue(for: 16))
         }
         view.addSubview(line1)
         line1.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
             make.top.equalTo(personalDataButton.snp.bottom).offset(0)
         }
         view.addSubview(personalDataLabel)
         personalDataLabel.snp.makeConstraints { make in
             make.centerY.equalTo(personalDataButton)
-            make.right.equalTo(arrowImage1.snp.left).offset(-8)
+            make.right.equalTo(arrowImage1.snp.left).offset(dynamicValue(for: -8))
         }
         view.addSubview(changePasswordButton)
         changePasswordButton.snp.makeConstraints { make in
             make.top.equalTo(line1.snp.bottom).offset(0)
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(64)
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.height.equalTo(dynamicValue(for: 64))
         }
         view.addSubview(arrowImage2)
         arrowImage2.snp.makeConstraints { make in
             make.centerY.equalTo(changePasswordButton)
             make.right.equalTo(changePasswordButton.snp.right).inset(0)
-            make.size.equalTo(16)
+            make.size.equalTo(dynamicValue(for: 16))
         }
         view.addSubview(line2)
         line2.snp.makeConstraints { make in
@@ -265,30 +266,30 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         view.addSubview(languageChangeButton)
         languageChangeButton.snp.makeConstraints { make in
             make.top.equalTo(line2.snp.bottom).offset(0)
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(64)
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.height.equalTo(dynamicValue(for: 64))
         }
         view.addSubview(arrowImage3)
         arrowImage3.snp.makeConstraints { make in
             make.centerY.equalTo(languageChangeButton)
             make.right.equalTo(languageChangeButton.snp.right).inset(0)
-            make.size.equalTo(16)
+            make.size.equalTo(dynamicValue(for: 16))
         }
         view.addSubview(line3)
         line3.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
             make.top.equalTo(languageChangeButton.snp.bottom).offset(0)
         }
         view.addSubview(languageLabel)
         languageLabel.snp.makeConstraints { make in
             make.centerY.equalTo(languageChangeButton)
-            make.right.equalTo(arrowImage3.snp.left).offset(-8)
+            make.right.equalTo(arrowImage3.snp.left).offset(dynamicValue(for: -8))
         }
         view.addSubview(darkModeButton)
         darkModeButton.snp.makeConstraints { make in
             make.top.equalTo(line3.snp.bottom).offset(0)
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(64)
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.height.equalTo(dynamicValue(for: 64))
         }
         view.addSubview(darkModeSwitch)
         darkModeSwitch.snp.makeConstraints { make in
@@ -304,8 +305,8 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         view.addSubview(secretBtn)
         secretBtn.snp.makeConstraints { make in
             make.top.equalTo(darkModeButton.snp.bottom).offset(0)
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(64)
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.height.equalTo(dynamicValue(for: 64))
         }
     }
     
@@ -338,23 +339,33 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     }
     
 // MARK: Functions
-
+    let defaults = UserDefaults.standard
+    let themeKey = "appKey"
+    
     @objc func switchValueChanged(_ sender: UISwitch) {
         if sender.isOn {
+            defaults.set(true, forKey: themeKey)
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                 windowScene.windows.forEach { window in
                     window.overrideUserInterfaceStyle = .dark
                 }
             }
-            print("Switch is ON")
         } else {
+            defaults.set(false, forKey: themeKey)
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                 windowScene.windows.forEach { window in
                     window.overrideUserInterfaceStyle = .light
                 }
             }
-            print("Switch is OFF")
         }
+    }
+    func checkSwitchState() {
+        if defaults.bool(forKey: themeKey) {
+            darkModeSwitch.setOn(true, animated: true)
+        } else {
+            darkModeSwitch.setOn(false, animated: true)
+        }
+            
     }
 
     @objc func languageButtonTaped() {

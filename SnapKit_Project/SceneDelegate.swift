@@ -66,8 +66,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //                }
 //            }
 //        }
-
+        let defaults = UserDefaults.standard
+        let themeKey = "appKey"
         
+            if defaults.bool(forKey: themeKey) {
+                self.window?.overrideUserInterfaceStyle = .dark
+            } else {
+                self.window?.overrideUserInterfaceStyle = .light
+            }
+                
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

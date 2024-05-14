@@ -21,7 +21,8 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         view.backgroundColor = UIColor._1MainColorFFFFFF111827
         
-        title = "Жеке деректер"
+        title = "PERSONAL_DATA".localized()
+        
         constraints()
         hideKeyboardWhenTapedAround()
         scrollingAreaWithKeyboard()
@@ -47,7 +48,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
     private let nameLabel = {
         let lbl = UILabel()
         
-        lbl.text = "Сіздің атыңыз"
+        lbl.text = "YOUR_NAME".localized()
         lbl.font = .appFont(ofSize: 14, weight: .bold)
         lbl.textColor = UIColor(red: 0.61, green: 0.64, blue: 0.69, alpha: 1)
         
@@ -90,7 +91,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
     private let phoneNumberLabel = {
         let lbl = UILabel()
         
-        lbl.text = "Телефон"
+        lbl.text = "TELEPHONE".localized()
         lbl.font = .appFont(ofSize: 14, weight: .bold)
         lbl.textColor = UIColor(red: 0.61, green: 0.64, blue: 0.69, alpha: 1)
         
@@ -113,7 +114,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
     private let dateOfBirthLabel = {
         let lbl = UILabel()
         
-        lbl.text = "Туылған күні"
+        lbl.text = "DATE_OF_BIRTH".localized()
         lbl.font = .appFont(ofSize: 14, weight: .bold)
         lbl.textColor = UIColor(red: 0.61, green: 0.64, blue: 0.69, alpha: 1)
         
@@ -144,7 +145,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         let button = UIButton()
         
         button.backgroundColor = UIColor(red: 0.5, green: 0.18, blue: 0.99, alpha: 1)
-        button.setTitle("Өзгерістерді сақтау", for: .normal)
+        button.setTitle("SAVE_CHANGES".localized(), for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.cornerRadius = 12
         button.addTarget(self, action: #selector(saveChangesBtnTapped), for: .touchUpInside)
@@ -222,22 +223,22 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
             make.width.equalTo(scrollView)
         }
         labelsStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(24)
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalToSuperview().inset(dynamicValue(for: 24))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
         }
         linesStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(89)
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalToSuperview().inset(dynamicValue(for: 89))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
         }
         textFieldsStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(53)
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalToSuperview().inset(dynamicValue(for: 53))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
         }
         saveChangesButton.snp.makeConstraints { make in
-            make.top.equalTo(linesStackView.snp.bottom).offset(24)
-            make.bottom.equalToSuperview().inset(8)
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(56)
+            make.top.equalTo(linesStackView.snp.bottom).offset(dynamicValue(for: 24))
+            make.bottom.equalToSuperview().inset(dynamicValue(for: 8))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.height.equalTo(dynamicValue(for: 56))
         }
     }
     
@@ -301,7 +302,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         if userName.isEmpty {
             
             userNameTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
-            let alert = UIAlertController(title: "Енгізу қатесі", message: "Барлық өрістерді толтырыңыз", preferredStyle: .alert)
+            let alert = UIAlertController(title: "INPUT_ERROR".localized(), message: "FILL_ALL_FIELDS".localized(), preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default)
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
@@ -311,7 +312,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         if phoneNumber.isEmpty {
             
             phoneNumberTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
-            let alert = UIAlertController(title: "Енгізу қатесі", message: "Барлық өрістерді толтырыңыз", preferredStyle: .alert)
+            let alert = UIAlertController(title: "INPUT_ERROR".localized(), message: "FILL_ALL_FIELDS".localized(), preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default)
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
@@ -322,7 +323,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         if validator.isValid(name: userName) == false {
             
             userNameTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
-            let alert = UIAlertController(title: "Қате формат", message: "Кемінде 4 ең көбі 18 таңба. Латынның бас және кіші әріптері. Астын сызу сипаты", preferredStyle: .alert)
+            let alert = UIAlertController(title: "WRONG_FORMAT".localized(), message: "WRONG_FORMAT_TEXT".localized(), preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default)
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
@@ -334,7 +335,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         if validator.isValidPhoneNumber(phoneNumber) == false {
             
             phoneNumberTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
-            let alert = UIAlertController(title: "Енгізу қатесі", message: "Барлық өрістерді толтырыңыз", preferredStyle: .alert)
+            let alert = UIAlertController(title: "INPUT_ERROR".localized(), message: "FILL_ALL_FIELDS".localized(), preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default)
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
@@ -451,7 +452,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
             if response.response?.statusCode == 200 {
                 self.downloadData()
                 
-                SVProgressHUD.showSuccess(withStatus: "Changes applied")
+                SVProgressHUD.showSuccess(withStatus: "CHANGES_APPLIED".localized())
                 SVProgressHUD.dismiss(withDelay: 1.5)
             } else {
                 var ErrorString = "CONNECTION_ERROR".localized()

@@ -26,7 +26,7 @@ class VideoPlayerViewController: UIViewController {
     let videoPlayer = YouTubePlayerHostingView()
     
     func playerSettings() {
-        videoPlayer.backgroundColor = .cyan
+        videoPlayer.backgroundColor = .black
         videoPlayer.player.source = .video(id: video_link, startSeconds: nil, endSeconds: nil)
     }
     

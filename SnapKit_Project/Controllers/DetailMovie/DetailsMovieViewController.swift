@@ -11,8 +11,9 @@ import Alamofire
 import SwiftyJSON
 import SVProgressHUD
 import SDWebImage
+import Localize_Swift
 
-class DetailsMovieViewController: UIViewController {
+class DetailsMovieViewController: UIViewController, LanguageProtocol {
     
     var movie = Movie()
     var similarMovies: [Movie] = []
@@ -30,7 +31,8 @@ class DetailsMovieViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        
+        configureViews()
+        languageDidChange()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -42,14 +44,14 @@ class DetailsMovieViewController: UIViewController {
     private let scrollView = {
         let scroll = UIScrollView()
         
-//        scroll.backgroundColor = .cyan
+        scroll.backgroundColor = UIColor._1MainColorFFFFFF111827
         
         return scroll
     }()
     private let customContentView = {
         let view = UIView()
         
-//        view.backgroundColor = .lightGray
+//        view.backgroundColor = UIColor._1MainColorFFFFFF111827
         
         return view
     }()
@@ -101,8 +103,8 @@ class DetailsMovieViewController: UIViewController {
     }()
     private let addFavoriteLabel = {
         let lbl = UILabel()
-        
-        lbl.text = "Тізімге қосу"
+       
+        lbl.text = "ADD_FAVORITE".localized()
         lbl.font = .appFont(ofSize: 12, weight: .semiBold)
         lbl.textColor = UIColor(red: 0.82, green: 0.84, blue: 0.86, alpha: 1)
         
@@ -111,7 +113,7 @@ class DetailsMovieViewController: UIViewController {
     private let shareLabel = {
         let lbl = UILabel()
         
-        lbl.text = "Бөлісу"
+        lbl.text = "SHARE".localized()
         lbl.font = .appFont(ofSize: 12, weight: .semiBold)
         lbl.textColor = UIColor(red: 0.82, green: 0.84, blue: 0.86, alpha: 1)
         
@@ -173,8 +175,8 @@ class DetailsMovieViewController: UIViewController {
     }()
     private let expandDescriptionButton = {
         let btn = UIButton()
-        
-        btn.setTitle("Толығырақ", for: .normal)
+       
+        btn.setTitle("DETAILS".localized(), for: .normal)
         btn.titleLabel?.font = .appFont(ofSize: 14, weight: .semiBold)
         btn.setTitleColor(UIColor(red: 0.7, green: 0.46, blue: 0.97, alpha: 1), for:.normal)
         btn.addTarget(self, action: #selector(expandDescription), for: .touchUpInside)
@@ -183,8 +185,8 @@ class DetailsMovieViewController: UIViewController {
     }()
     private let directorLabel = {
         let lbl = UILabel()
-        
-        lbl.text = "Режиссер:"
+       
+        lbl.text = "DIRECTOR".localized()
         lbl.font = .appFont(ofSize: 14, weight: .regular)
         lbl.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.39, alpha: 1)
         
@@ -192,8 +194,8 @@ class DetailsMovieViewController: UIViewController {
     }()
     private let producerLabel = {
         let lbl = UILabel()
-        
-        lbl.text = "Продюсер:"
+       
+        lbl.text = "PRODUCER".localized()
         lbl.font = .appFont(ofSize: 14, weight: .regular)
         lbl.textColor = UIColor(red: 0.29, green: 0.33, blue: 0.39, alpha: 1)
         
@@ -222,8 +224,8 @@ class DetailsMovieViewController: UIViewController {
     
     private let seriesLabel = {
         let lbl = UILabel()
-        
-        lbl.text = "Бөлімдер:"
+     
+        lbl.text = "SECTIONS".localized()
         lbl.font = .appFont(ofSize: 16, weight: .bold)
         lbl.textColor = UIColor._2MainColor111827FFFFFF
         
@@ -237,7 +239,7 @@ class DetailsMovieViewController: UIViewController {
         container.font = .appFont(ofSize: 12, weight: .semiBold)
         container.foregroundColor = UIColor(red: 0.61, green: 0.64, blue: 0.69, alpha: 1)
         
-        configuration.attributedTitle = AttributedString("5 сезон, 46 серия", attributes: container)
+        configuration.attributedTitle = AttributedString("SEASON".localized() + "SERIES".localized(), attributes: container)
         let btn = UIButton(configuration: configuration)
         
         btn.addTarget(self, action: #selector(seasonAndSeriesButtonTapped), for: .touchUpInside)
@@ -260,7 +262,7 @@ class DetailsMovieViewController: UIViewController {
     private let screenshotsLabel = {
         let lbl = UILabel()
         
-        lbl.text = "Скриншоттар:"
+        lbl.text = "SCREENSHOTS".localized()
         lbl.font = .appFont(ofSize: 16, weight: .bold)
         lbl.textColor = UIColor._2MainColor111827FFFFFF
         
@@ -275,14 +277,14 @@ class DetailsMovieViewController: UIViewController {
         cv.delegate = self
         cv.register(ScreenshotCollectionViewCell.self, forCellWithReuseIdentifier: "cvCell")
         cv.showsHorizontalScrollIndicator = false
-        cv.backgroundColor = UIColor._1MainColorFFFFFF111827
+        cv.backgroundColor = UIColor.F_9_FAFB_111827
         
         return cv
     }()
     private let similarMoviesLabel = {
         let lbl = UILabel()
-        
-        lbl.text = "Ұқсас телехикаялар:"
+       
+        lbl.text = "SIMILAR_SERIES".localized()
         lbl.font = .appFont(ofSize: 16, weight: .bold)
         lbl.textColor = UIColor._2MainColor111827FFFFFF
         
@@ -297,7 +299,7 @@ class DetailsMovieViewController: UIViewController {
         cv.delegate = self
         cv.register(SimilarMoviesCollectionViewCell.self, forCellWithReuseIdentifier: "cvCell")
         cv.showsHorizontalScrollIndicator = false
-        cv.backgroundColor = UIColor._1MainColorFFFFFF111827
+        cv.backgroundColor = UIColor.F_9_FAFB_111827
         
         return cv
     }()
@@ -363,32 +365,32 @@ class DetailsMovieViewController: UIViewController {
         }
         posterImageView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-            make.height.equalTo(364)
+            make.height.equalTo(dynamicValue(for: 364))
         }
         backgroundView.snp.makeConstraints { make in
-            make.top.equalTo(posterImageView.snp.bottom).inset(40)
+            make.top.equalTo(posterImageView.snp.bottom).inset(dynamicValue(for: 40))
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         backButton.snp.makeConstraints { make in
-            make.top.equalTo(posterImageView.safeAreaLayoutGuide).inset(16)
-            make.left.equalToSuperview().inset(24)
-            make.size.equalTo(40)
+            make.top.equalTo(posterImageView.safeAreaLayoutGuide).inset(dynamicValue(for: 16))
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
+            make.size.equalTo(dynamicValue(for: 40))
         }
         playMovieButton.snp.makeConstraints { make in
             make.centerX.equalTo(posterImageView)
-            make.bottom.equalTo(posterImageView.snp.bottom).inset(78)
-            make.size.equalTo(132)
+            make.bottom.equalTo(posterImageView.snp.bottom).inset(dynamicValue(for: 78))
+            make.size.equalTo(dynamicValue(for: 132))
         }
         addFavoriteButton.snp.makeConstraints { make in
             make.centerY.equalTo(playMovieButton)
-            make.right.equalTo(playMovieButton.snp.left).offset(-18)
-            make.size.equalTo(40)
+            make.right.equalTo(playMovieButton.snp.left).offset(dynamicValue(for: -18))
+            make.size.equalTo(dynamicValue(for: 40))
         }
         shareButton.snp.makeConstraints { make in
             make.centerY.equalTo(playMovieButton)
-            make.left.equalTo(playMovieButton.snp.right).offset(18)
-            make.size.equalTo(40)
+            make.left.equalTo(playMovieButton.snp.right).offset(dynamicValue(for: 18))
+            make.size.equalTo(dynamicValue(for: 40))
         }
         addFavoriteLabel.snp.makeConstraints { make in
             make.centerX.equalTo(addFavoriteButton)
@@ -399,39 +401,39 @@ class DetailsMovieViewController: UIViewController {
             make.top.equalTo(shareButton.snp.bottom).offset(0)
         }
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(backgroundView.snp.top).inset(24)
-            make.left.equalTo(backgroundView.snp.left).inset(24)
+            make.top.equalTo(backgroundView.snp.top).inset(dynamicValue(for: 24))
+            make.left.equalTo(backgroundView.snp.left).inset(dynamicValue(for: 24))
         }
         categoryYearLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.left.equalTo(backgroundView.snp.left).inset(24)
+            make.top.equalTo(titleLabel.snp.bottom).offset(dynamicValue(for: 8))
+            make.left.equalTo(backgroundView.snp.left).inset(dynamicValue(for: 24))
         }
         line1.snp.makeConstraints { make in
-            make.top.equalTo(categoryYearLabel.snp.bottom).offset(24)
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalTo(categoryYearLabel.snp.bottom).offset(dynamicValue(for: 24))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
         }
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(line1.snp.bottom).offset(24)
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalTo(line1.snp.bottom).offset(dynamicValue(for: 24))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
         }
         descriptionGradient.snp.makeConstraints { make in
             make.edges.equalTo(descriptionLabel)
         }
         expandDescriptionButton.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(16)
-            make.left.equalToSuperview().inset(24)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(dynamicValue(for: 16))
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
         }
         directorLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(24)
-            expandDescriptionButtonConstraint = make.top.equalTo(descriptionLabel.snp.bottom).offset(24).priority(.low).constraint
-            make.top.equalTo(expandDescriptionButton.snp.bottom).offset(24).priority(.medium)
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
+            expandDescriptionButtonConstraint = make.top.equalTo(descriptionLabel.snp.bottom).offset(dynamicValue(for: 24)).priority(.low).constraint
+            make.top.equalTo(expandDescriptionButton.snp.bottom).offset(dynamicValue(for: 24)).priority(.medium)
         }
         producerLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(24)
-            make.top.equalTo(directorLabel.snp.bottom).offset(8)
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
+            make.top.equalTo(directorLabel.snp.bottom).offset(dynamicValue(for: 8))
         }
         directorNameLabel.snp.makeConstraints { make in
-            make.left.equalTo(directorLabel.snp.right).offset(20)
+            make.left.equalTo(directorLabel.snp.right).offset(dynamicValue(for: 20))
             make.top.equalTo(directorLabel)
         }
         producerNameLabel.snp.makeConstraints { make in
@@ -439,43 +441,43 @@ class DetailsMovieViewController: UIViewController {
             make.top.equalTo(producerLabel)
         }
         line2.snp.makeConstraints { make in
-            make.top.equalTo(producerNameLabel.snp.bottom).offset(24)
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalTo(producerNameLabel.snp.bottom).offset(dynamicValue(for: 24))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
         }
         seriesLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(24)
-            make.top.equalTo(line2.snp.bottom).offset(24)
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
+            make.top.equalTo(line2.snp.bottom).offset(dynamicValue(for: 24))
         }
         arrowImageView.snp.makeConstraints { make in
             make.right.equalTo(seasonAndSeriesButton.snp.right).inset(0)
 //            make.right.equalToSuperview().inset(24)
             make.centerY.equalTo(seasonAndSeriesButton)
-            make.size.equalTo(16)
+            make.size.equalTo(dynamicValue(for: 16))
         }
         seasonAndSeriesButton.snp.makeConstraints { make in
             make.centerY.equalTo(seriesLabel)
-            make.right.equalToSuperview().inset(24)
+            make.right.equalToSuperview().inset(dynamicValue(for: 24))
             make.left.equalTo(seriesLabel.snp.right).inset(0)
         }
         screenshotsLabel.snp.makeConstraints { make in
-            seriesLabelConstraint = make.top.equalTo(line2.snp.bottom).offset(3).priority(.low).constraint
-            make.top.equalTo(seriesLabel.snp.bottom).offset(32).priority(.medium)
-            make.left.equalToSuperview().inset(24)
+            seriesLabelConstraint = make.top.equalTo(line2.snp.bottom).offset(dynamicValue(for: 3)).priority(.low).constraint
+            make.top.equalTo(seriesLabel.snp.bottom).offset(dynamicValue(for: 32)).priority(.medium)
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
         }
         screenshotsCV.snp.makeConstraints { make in
-            make.top.equalTo(screenshotsLabel.snp.bottom).offset(16)
+            make.top.equalTo(screenshotsLabel.snp.bottom).offset(dynamicValue(for: 16))
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(112)
+            make.height.equalTo(dynamicValue(for: 112))
         }
         similarMoviesLabel.snp.makeConstraints { make in
-            make.top.equalTo(screenshotsCV.snp.bottom).offset(32)
-            make.left.equalToSuperview().inset(24)
+            make.top.equalTo(screenshotsCV.snp.bottom).offset(dynamicValue(for: 32))
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
         }
         similarMoviesCV.snp.makeConstraints { make in
-            make.top.equalTo(similarMoviesLabel.snp.bottom).offset(16)
+            make.top.equalTo(similarMoviesLabel.snp.bottom).offset(dynamicValue(for: 16))
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview().inset(40)
-            make.height.equalTo(224)
+            make.bottom.equalToSuperview().inset(dynamicValue(for: 40))
+            make.height.equalTo(dynamicValue(for: 224))
         }
     }
     
@@ -491,16 +493,17 @@ class DetailsMovieViewController: UIViewController {
         
         directorNameLabel.text = movie.director
         producerNameLabel.text = movie.producer
+        descriptionLabel.text = movie.description
+//        seasonAndSeriesButton.setTitle("\(movie.seasonCount) сезон" + ", " + "\(movie.seriesCount) серия", for: .normal)
         
+        configureSeasonAndSeriesButton()
+    }
+    func configureSeasonAndSeriesButton() {
         var container = AttributeContainer()
         container.font = .appFont(ofSize: 12, weight: .semiBold)
         container.foregroundColor = UIColor(red: 0.61, green: 0.64, blue: 0.69, alpha: 1)
         
-        seasonAndSeriesButton.configuration?.attributedTitle = AttributedString("\(movie.seasonCount) сезон" + ", " + "\(movie.seriesCount) серия", attributes: container)
-        
-//        seasonAndSeriesButton.setTitle("\(movie.seasonCount) сезон" + ", " + "\(movie.seriesCount) серия", for: .normal)
-        
-        descriptionLabel.text = movie.description
+        seasonAndSeriesButton.configuration?.attributedTitle = AttributedString("\(movie.seasonCount)" + "SEASON".localized() + "\(movie.seriesCount)" + "SERIES".localized(), attributes: container)
     }
     // MARK: AF request - DownloadSimilar
     func downloadSimilar() {
@@ -624,14 +627,14 @@ class DetailsMovieViewController: UIViewController {
                 activityViewController.popoverPresentationController?.sourceView = self.view
                 self.present(activityViewController, animated: true, completion: nil)
     }
-    @objc func expandDescription(_ sender: Any) {
+    @objc func expandDescription() {
         if descriptionLabel.numberOfLines > 4 {
             descriptionLabel.numberOfLines = 4
-            expandDescriptionButton.setTitle("Толығырақ", for: .normal)
+            expandDescriptionButton.setTitle("DETAILS".localized(), for: .normal)
             descriptionGradient.isHidden = false
         } else {
             descriptionLabel.numberOfLines = 30
-            expandDescriptionButton.setTitle("Жасыру", for: .normal)
+            expandDescriptionButton.setTitle("HIDE".localized(), for: .normal)
             descriptionGradient.isHidden = true
         }
     }
@@ -666,7 +669,25 @@ class DetailsMovieViewController: UIViewController {
         
         setupDescriptionLabelAttributes()
     }
-//    descriptionLabel.numberOfLines + 1
+    // MARK: Localization
+    func languageDidChange() {
+        addFavoriteLabel.text = "ADD_FAVORITE".localized()
+        shareLabel.text = "SHARE".localized()
+        directorLabel.text = "DIRECTOR".localized()
+        producerLabel.text = "PRODUCER".localized()
+        seriesLabel.text = "SECTIONS".localized()
+        screenshotsLabel.text = "SCREENSHOTS".localized()
+        similarMoviesLabel.text = "SIMILAR_SERIES".localized()
+        configureSeasonAndSeriesButton()
+        
+        if descriptionLabel.numberOfLines == 4 {
+            expandDescriptionButton.setTitle("DETAILS".localized(), for: .normal)
+        } else {
+            expandDescriptionButton.setTitle("HIDE".localized(), for: .normal)
+        }
+        
+    }
+    
 }
 // MARK: Extension Screenshot CV
 extension DetailsMovieViewController: UICollectionViewDataSource, UICollectionViewDelegate {

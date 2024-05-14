@@ -11,6 +11,8 @@ import Alamofire
 import SwiftyJSON
 import SDWebImage
 import SVProgressHUD
+import Localize_Swift
+
 // MARK: HomeViewConrtoller
 class HomeViewController: UIViewController, MovieProtocol, SendTheIdDelegate {
 
@@ -23,7 +25,9 @@ class HomeViewController: UIViewController, MovieProtocol, SendTheIdDelegate {
         constraints()
         downloadMainBanners()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
     func addNavBarImage() {
         let image = UIImage(named: "logoMainPage")!
         
@@ -210,7 +214,7 @@ class HomeViewController: UIViewController, MovieProtocol, SendTheIdDelegate {
                 
                 if let array = json.array {
                     var newmainMovie1 = MainMovie()
-                    newmainMovie1.categoryName = "Жанрды таңдаңыз"
+                    newmainMovie1.categoryName = "CHOOSE_GENRE".localized()
                     newmainMovie1.cellType = .genre
                     
                     for item in array {
@@ -266,7 +270,7 @@ class HomeViewController: UIViewController, MovieProtocol, SendTheIdDelegate {
                 
                 if let array = json.array {
                     var newmainMovie1 = MainMovie()
-                    newmainMovie1.categoryName = "Жасына сәйкес"
+                    newmainMovie1.categoryName = "AGE_CATEGORY".localized()
                     newmainMovie1.cellType = .ageCategory
                     
                     for item in array {

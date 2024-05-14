@@ -14,5 +14,7 @@ class Storage {
     static let sharedInstance = Storage()
     
     public var avatarImage: Data = Data()
+    
+    public var themeKey: String = ""
 
 }

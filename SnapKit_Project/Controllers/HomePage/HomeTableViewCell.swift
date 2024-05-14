@@ -98,7 +98,7 @@ class HomeTableViewCell: UITableViewCell {
     let expandLabel = {
         let lbl = UILabel()
         
-        lbl.text = "Барлығы"
+        lbl.text = "ALL".localized()
         lbl.font = .appFont(ofSize: 14, weight: .semiBold)
         lbl.textColor = UIColor(red: 0.7, green: 0.46, blue: 0.97, alpha: 1)
         

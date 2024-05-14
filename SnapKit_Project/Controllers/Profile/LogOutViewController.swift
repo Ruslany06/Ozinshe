@@ -36,7 +36,7 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
 
     let titleLabel = {
         let label = UILabel()
-        label.text = "Шығу"
+        label.text = "EXIT".localized()
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
         label.textColor = UIColor._2MainColor111827FFFFFF
         return label
@@ -51,7 +51,7 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
     let subTitleLabel = {
         let label = UILabel()
         
-        label.text = "Сіз шынымен аккаунтыныздан"
+        label.text = "CONFIRM_EXIT_FROM_ACCOUNT".localized()
         label.font = UIFont(name: "SFProDisplay-Regular", size: 16)
         label.textColor = UIColor(red: 0.61, green: 0.64, blue: 0.69, alpha: 1)
         
@@ -62,7 +62,7 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
         let button = UIButton()
         
         button.backgroundColor = UIColor(red: 0.5, green: 0.18, blue: 0.99, alpha: 1)
-        button.setTitle("Иә, шығу", for: .normal)
+        button.setTitle("YES_EXIT".localized(), for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.cornerRadius = 12
         button.addTarget(self, action: #selector(yesLogOut), for: .touchUpInside)
@@ -74,7 +74,7 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
         let button = UIButton()
         
         button.backgroundColor = UIColor.clear
-        button.setTitle("Жоқ", for: .normal)
+        button.setTitle("NO".localized(), for: .normal)
         button.setTitleColor(UIColor._5415_C_6_B_376_F_7, for: .normal)
         button.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
         button.setTitleColor(UIColor.red, for: .highlighted)
@@ -92,31 +92,31 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
         
         backgroundView.snp.makeConstraints { make in
             make.bottom.left.right.equalToSuperview().inset(0)
-            make.height.equalTo(303)
+            make.height.equalTo(dynamicValue(for: 303))
         }
         titleLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(24)
-            make.top.equalTo(backgroundView.snp.top).inset(58)
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
+            make.top.equalTo(backgroundView.snp.top).inset(dynamicValue(for: 58))
         }
         lineView.snp.makeConstraints { make in
             make.centerX.equalTo(backgroundView)
-            make.top.equalTo(backgroundView.snp.top).inset(21)
-            make.height.equalTo(5)
-            make.width.equalTo(64)
+            make.top.equalTo(backgroundView.snp.top).inset(dynamicValue(for: 21))
+            make.height.equalTo(dynamicValue(for: 5))
+            make.width.equalTo(dynamicValue(for: 64))
         }
         subTitleLabel.snp.makeConstraints { make in
-            make.left.equalTo(backgroundView).inset(24)
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.left.equalTo(backgroundView).inset(dynamicValue(for: 24))
+            make.top.equalTo(titleLabel.snp.bottom).offset(dynamicValue(for: 8))
         }
         yesButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(backgroundView).inset(24)
-            make.top.equalTo(subTitleLabel.snp.bottom).offset(32)
-            make.height.equalTo(56)
+            make.horizontalEdges.equalTo(backgroundView).inset(dynamicValue(for: 24))
+            make.top.equalTo(subTitleLabel.snp.bottom).offset(dynamicValue(for: 32))
+            make.height.equalTo(dynamicValue(for: 56))
         }
         noButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(backgroundView).inset(24)
-            make.top.equalTo(yesButton.snp.bottom).offset(8)
-            make.height.equalTo(56)
+            make.horizontalEdges.equalTo(backgroundView).inset(dynamicValue(for: 24))
+            make.top.equalTo(yesButton.snp.bottom).offset(dynamicValue(for: 8))
+            make.height.equalTo(dynamicValue(for: 56))
         }
     }
    

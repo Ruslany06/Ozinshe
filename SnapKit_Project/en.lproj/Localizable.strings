@@ -5,26 +5,104 @@
   Created by Ruslan Yelguldinov on 15.11.2023.
   
 */
+"SLIDE_SUBTITLE" = "Welcome to ÖZINŞE!";
+"FIRST_SLIDE_DESCRIPTION" = "Movies, TV series, sitcoms, animation projects, TV shows and reality shows, anime and much more.";
+"SECOND_SLIDE_DESCRIPTION" = "Watch on any device.\nWatch your favorite movie on your phone, tablet or laptop for free";
+"THIRD_SLIDE_DESCRIPTION" = "It is easy to register. Register now and get the desired movie";
 
 // Profile
 "MY_PROFILE" = "My profile";
 "LANGUAGE" = "Language";
-"PERSONAL_DATA" = "Personal data";
 "CHANGE_PASSWORD" = "Change password";
 "EDIT" = "Edit";
 "CURRENT_LANGUAGE" = "English";
 "DARK_MODE" = "Dark mode";
 
 // Sign In / Sign Up
-"HELLO" = "Hello";
-"LOG_IN" = "Log in to your account";
-"EMAIL_PLACEHOLDER" = "Your email";
-"PASSWORD" = "Password";
-"PASSWORD_PLACEHOLDER" = "You password";
-"FORGOT_PASSWORD" = "Forgot your password?";
-"SIGN_IN" = "Sign in";
-"DO_NOT_HAVE_AN_ACCOUNT" = "Don't have an account?";
-"REGISTRATION" = " Registration";
-"REPEAT_PASSWORD" = "Repeat your password";
+//"HELLO" = "Hello";
+//"LOG_IN" = "Log in to your account";
+//"EMAIL_PLACEHOLDER" = "Your email";
+//"PASSWORD" = "Password";
+//"PASSWORD_PLACEHOLDER" = "You password";
+//"FORGOT_PASSWORD" = "Forgot your password?";
+//"SIGN_IN" = "Sign in";
+//"DO_NOT_HAVE_AN_ACCOUNT" = "Don't have an account?";
+//"REGISTRATION" = " Registration";
+//"REPEAT_PASSWORD" = "Repeat your password";
+//
+//"CONNECTION_ERROR" = "Connection error";
 
-"CONNECTION_ERROR" = "Connection error";
+"PROFILE" = "Profile";
+"PERSONAL_DATA" = "Personal data";
+"CHANGE_PASSWORD" = "Change password";
+"TERMS_AND_CONDITIONS" = "Terms and conditions";
+"ANNOUNCEMENT" = "Announcement";
+
+"YOUR_NAME" = "Your name";
+"TELEPHONE" = "Telephone";
+"DATE_OF_BIRTH" = "Date of birth";
+"SAVE_CHANGES" = "Save changes";
+"CHANGES_APPLIED" = "Changes applied";
+
+"EXIT" = "Exit";
+"CONFIRM_EXIT_FROM_ACCOUNT" = "Are you really want to log out from the account?";
+"YES_EXIT" = "Yes, exit";
+"NO" = "No";
+
+"AUTHORIZATION" = "Authorization";
+"HELLO" = "Hello";
+"LOGIN_INTO_ACCOUNT" = "Log in to your account";
+"PASSWORD" = "Password";
+"YOUR_EMAIL" = "Your email";
+"YOUR_PASSWORD" = "Your password";
+"REPEAT_PASSWORD" = "Repeat the password";
+"FORGOT_YOUR_PASSWORD" = "Forgot your password?";
+"LOGIN" = "Sign in";
+"REGISTRATION" = "Register";
+"NO_ACCOUNT" = "No account? ";
+"GOT_ACCOUNT" = "Do you have an account? ";
+"SIGN_UP" = "Sign up";
+
+"FILL_IN_DATA" = "Fill in the data";
+"PASS_NOT_MATCH" = "Passwords don't match";
+"PASS_CHANGED" = "The password has been successfully changed";
+
+"LIST" = "List";
+
+"SEARCH" = "Search";
+"CATEGORIES" = "Categories";
+"SEARCH_RESULTS" = "Search results";
+"LOADING" = "Loading";
+"PLAY" = "Play";
+"CONTINUE_PLAY" = "Continue to watch";
+"AGE_CATEGORY" = "According to the age";
+"CHOOSE_GENRE" = "Choose a genre";
+"ALL" = "All";
+
+"DETAILS" = "Details";
+"DIRECTOR" = "Director:";
+"PRODUCER" = "Producer:";
+"SECTIONS" = "Sections";
+"SCREENSHOTS" = "Screenshots";
+"SIMILAR_SERIES" = "Similar series";
+"SEASON" = " season, ";
+"SEASON_IN_SERIES" = " season";
+"SERIES" = " episode";
+"ADD_FAVORITE" = "Add to favorites";
+"SHARE" = "Share";
+"HIDE" = "Hide";
+"EPISODE" = " episode";
+"EMAIL_IN_USE" = "A user with such an email is registered";
+"SKIP" = "Skip";
+"NEXT" = "Next";
+
+"INPUT_ERROR" = "Input error";
+"FILL_ALL_FIELDS" = "Fill in all the fields";
+"WRONG_FORMAT" = "Wrong format";
+"WRONG_FORMAT_TEXT" = "From 4 to 18 characters. Uppercase and lowercase Latin letters. Underlined character";
+"WRONG_EMAIL" = "Incorrect email format";
+"WRONG_EMAIL_TEXT" = "Please check again";
+"WRONG_PASSWORD" = "Invalid password";
+"WRONG_PASSWORD_TEXT" = "Use at least 6 characters.\n2) At least one lowercase character.\n3) At least one special character.";
+"OOPS" = "Sorry";
+"NOT_AVAILABLE" = "Service is currently under development";
