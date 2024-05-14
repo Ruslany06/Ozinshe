@@ -11,9 +11,10 @@ import SnapKit
 import Alamofire
 import SwiftyJSON
 import SVProgressHUD
+import Localize_Swift
 
-class SearchViewController: UIViewController {
-    
+class SearchViewController: UIViewController, LanguageProtocol {
+   
     var categories: [Categories] = []
     var movies: [Movie] = []
     
@@ -21,7 +22,8 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor._1MainColorFFFFFF111827
         navigationItem.backButtonTitle = ""
-        title = "Іздеу"
+        navigationItem.title = "SEARCH".localized()
+//        title = "SEARCH".localized()
         self.tabBarItem.title = nil
         
         constraints()
@@ -30,7 +32,11 @@ class SearchViewController: UIViewController {
         downloadCategories()
         CVLeftLayout()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarItem.title = nil
+        self.tableView.reloadData()
+        languageDidChange()
+    }
     // MARK: CollectionView Settings
     lazy var collectionView = {
         let cvFlowLayout = UICollectionViewFlowLayout()
@@ -70,7 +76,7 @@ class SearchViewController: UIViewController {
     let searchTextField: TextFieldWithPadding = {
         let textField = TextFieldWithPadding()
         textField.padding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 56)
-        textField.placeholder = "Іздеу"
+        textField.placeholder = "SEARCH".localized()
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor(red: 0.9, green: 0.92, blue: 0.94, alpha: 1).cgColor
         textField.layer.cornerRadius = 12
@@ -93,7 +99,7 @@ class SearchViewController: UIViewController {
     }()
     let titleLabel = {
         let label = UILabel()
-        label.text = "Санаттар"
+        label.text = "CATEGORIES".localized()
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
         label.textColor = UIColor._2MainColor111827FFFFFF
         
@@ -121,31 +127,31 @@ class SearchViewController: UIViewController {
         view.addSubview(clearButton)
         
         searchButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(24)
-            make.right.equalToSuperview().inset(24)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(dynamicValue(for: 24))
+            make.right.equalToSuperview().inset(dynamicValue(for: 24))
             make.size.equalTo(56)
         }
         searchTextField.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(24)
-            make.left.equalToSuperview().inset(24)
-            make.right.equalTo(searchButton.snp.left).offset(-16)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(dynamicValue(for: 24))
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
+            make.right.equalTo(searchButton.snp.left).offset(dynamicValue(for: -16))
             make.height.equalTo(56)
         }
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(searchTextField.snp.bottom).offset(35)
-            make.left.equalToSuperview().inset(24)
+            make.top.equalTo(searchTextField.snp.bottom).offset(dynamicValue(for: 35))
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
             make.height.equalTo(29)
         }
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(16)
+            make.top.equalTo(titleLabel.snp.bottom).offset(dynamicValue(for: 16))
             make.horizontalEdges.equalToSuperview().inset(0)
-            make.bottom.equalToSuperview().inset(222)
+            make.bottom.equalToSuperview().inset(dynamicValue(for: 222))
         }
         tableView.snp.makeConstraints { make in
             tableViewToCollectionViewConstraint = make.top.equalTo(collectionView.snp.bottom).offset(0).priority(1000).constraint
-            tableViewToTitleLabelConstraint = make.top.equalTo(titleLabel.snp.bottom).offset(16).priority(900).constraint
+            tableViewToTitleLabelConstraint = make.top.equalTo(titleLabel.snp.bottom).offset(dynamicValue(for: 16)).priority(900).constraint
             
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(0)
         }
         clearButton.snp.makeConstraints { make in
@@ -196,7 +202,13 @@ class SearchViewController: UIViewController {
         searchTextField.text = ""
         textFieldValueChanged()
     }
-    
+    // MARK: Localization
+    func languageDidChange() {
+        navigationItem.title = "SEARCH".localized()
+        titleLabel.text = "CATEGORIES".localized()
+        searchTextField.placeholder = "SEARCH".localized()
+        
+    }
 // MARK: DownloadSearchMovies
     @objc func textFieldValueChanged() {
         
@@ -205,7 +217,7 @@ class SearchViewController: UIViewController {
         if searchText.isEmpty {
             
             clearButton.isHidden = true
-            titleLabel.text = "Санаттар"
+            titleLabel.text = "CATEGORIES".localized()
             
             tableViewToCollectionViewConstraint.activate()
             view.layoutIfNeeded()
@@ -215,12 +227,12 @@ class SearchViewController: UIViewController {
             return
         } else {
             clearButton.isHidden = false
-            titleLabel.text = "Іздеу нәтижелері"
+            titleLabel.text = "SEARCH_RESULTS".localized()
             
             tableViewToCollectionViewConstraint.deactivate()
             view.layoutIfNeeded()
             
-            SVProgressHUD.show(withStatus: "Жүктеу")
+            SVProgressHUD.show(withStatus: "LOADING".localized())
             
             let headers: HTTPHeaders = [
                 "Authorization" : "Bearer \(Storage.sharedInstance.accessToken)"
@@ -355,4 +367,5 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         DetailsMovieVC.movie = movies[indexPath.row]
         navigationController?.pushViewController(DetailsMovieVC, animated: true)
     }
+
 }

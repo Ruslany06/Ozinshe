@@ -21,7 +21,7 @@ class FavoritesViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor._1MainColorFFFFFF111827
         
-        title = "Тізім"
+        title = "LIST".localized()
         self.tabBarItem.title = nil
         
         constraints()
@@ -43,8 +43,8 @@ class FavoritesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        tableView.reloadData()
         downloadFavorites()
+        tableView.reloadData()
     }
     
     lazy var tableView: UITableView = {

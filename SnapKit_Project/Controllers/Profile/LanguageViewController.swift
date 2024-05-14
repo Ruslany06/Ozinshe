@@ -77,23 +77,23 @@ class LanguageViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         
         backgroundView.snp.makeConstraints { make in
             make.bottom.left.right.equalToSuperview().inset(0)
-            make.height.equalTo(303)
+            make.height.equalTo(dynamicValue(for: 303))
         }
         languageLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(24)
-            make.top.equalTo(backgroundView.snp.top).inset(58)
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
+            make.top.equalTo(backgroundView.snp.top).inset(dynamicValue(for: 58))
         }
         tableView.snp.makeConstraints { make in
             make.centerX.equalTo(backgroundView)
-            make.horizontalEdges.equalTo(backgroundView.snp.horizontalEdges).inset(24)
+            make.horizontalEdges.equalTo(backgroundView.snp.horizontalEdges).inset(dynamicValue(for: 24))
             make.bottom.equalTo(backgroundView.snp.bottom).inset(0)
-            make.top.equalTo(languageLabel.snp.bottom).offset(12)
+            make.top.equalTo(languageLabel.snp.bottom).offset(dynamicValue(for: 12))
         }
         lineView.snp.makeConstraints { make in
             make.centerX.equalTo(backgroundView)
-            make.top.equalTo(backgroundView.snp.top).inset(21)
-            make.height.equalTo(5)
-            make.width.equalTo(64)
+            make.top.equalTo(backgroundView.snp.top).inset(dynamicValue(for: 21))
+            make.height.equalTo(dynamicValue(for: 5))
+            make.width.equalTo(dynamicValue(for: 64))
         }
     }
     // MARK: Functions

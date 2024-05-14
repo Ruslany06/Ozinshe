@@ -11,24 +11,27 @@ import Alamofire
 import SwiftyJSON
 import SVProgressHUD
 import Gifu
+import Localize_Swift
 
-class SignInViewController: UIViewController {
+class SignInViewController: UIViewController, LanguageProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor._1MainColorFFFFFF111827
         navigationItem.backButtonTitle = ""
-        title = "Авторизация"
+        navigationItem.title = "AUTHORIZATION".localized()
         
         constraints()
         hideKeyboardWhenTapedAround()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        languageDidChange()
+    }
     // MARK: UISettings
     let titleLabel = {
         let label = UILabel()
         
-        label.text = "Сәлем"
+        label.text = "HELLO".localized()
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
         label.textColor = UIColor._2MainColor111827FFFFFF
         
@@ -38,7 +41,7 @@ class SignInViewController: UIViewController {
     let subTitleLabel = {
         let label = UILabel()
         
-        label.text = "Аккаунтқа кіріңіз"
+        label.text = "LOGIN_INTO_ACCOUNT".localized()
         label.font = UIFont(name: "SFProDisplay-Regular", size: 16)
         label.textColor = UIColor(red: 0.42, green: 0.45, blue: 0.5, alpha: 1)
         
@@ -59,7 +62,7 @@ class SignInViewController: UIViewController {
         let textfield = TextFieldWithPadding()
         
         textfield.padding = UIEdgeInsets(top: 0, left: 44, bottom: 0, right: 16)
-        textfield.placeholder = "Сіздің email"
+        textfield.placeholder = "YOUR_EMAIL".localized()
         textfield.layer.cornerRadius = 12.0
         textfield.layer.borderWidth = 1.0
         textfield.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
@@ -76,7 +79,7 @@ class SignInViewController: UIViewController {
     let passwordLabel = {
         let label = UILabel()
         
-        label.text = "Құпия сөз"
+        label.text = "PASSWORD".localized()
         label.font = UIFont(name: "SFProDisplay-Bold", size: 14)
         label.textColor = UIColor._2MainColor111827FFFFFF
         
@@ -87,7 +90,7 @@ class SignInViewController: UIViewController {
         let textfield = TextFieldWithPadding()
         
         textfield.padding = UIEdgeInsets(top: 0, left: 44, bottom: 0, right: 44)
-        textfield.placeholder = "Сіздің құпия сөзіңіз"
+        textfield.placeholder = "YOUR_PASSWORD".localized()
         textfield.layer.cornerRadius = 12.0
         textfield.layer.borderWidth = 1.0
         textfield.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
@@ -130,17 +133,17 @@ class SignInViewController: UIViewController {
     lazy var recoverPasswordButton = {
         let button = UIButton()
         
-        button.setTitle("Құпия сөзді ұмыттыңыз ба?", for: .normal)
+        button.setTitle("FORGOT_YOUR_PASSWORD".localized(), for: .normal)
         button.setTitleColor(UIColor(red: 0.7, green: 0.46, blue: 0.97, alpha: 1), for:.normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 14)
         
         return button
     }()
     
-    lazy var signInButton = {
+    let signInButton = {
         let button = UIButton()
-        
-        button.setTitle("Кіру", for: .normal)
+       
+        button.setTitle("LOGIN".localized(), for: .normal)
         button.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for:.normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         button.backgroundColor = UIColor(red: 0.5, green: 0.18, blue: 0.99, alpha: 1)
@@ -149,35 +152,43 @@ class SignInViewController: UIViewController {
 
         return button
     }()
-    
-    let registrationButtonView = {
-        let view = UIView()
+    let noAccountLabel = {
         let label = UILabel()
-        let button = UIButton()
-        
-        view.addSubview(label)
-        view.addSubview(button)
-        
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-        
-        label.text = "Аккаунтыныз жоқ па?"
+        label.text = "NO_ACCOUNT".localized()
         label.font = UIFont(name: "SFProDisplay-Regular", size: 14)
         label.textColor = UIColor._6_B_7280_FFFFFF
         
-        button.setTitle("Тіркелу", for: .normal)
+        return label
+    }()
+    let sighnUpRecommendsButton = {
+        let button = UIButton()
+        
+        button.setTitle("SIGN_UP".localized(), for: .normal)
         button.setTitleColor(UIColor(red: 0.7, green: 0.46, blue: 0.97, alpha: 1), for:.normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 14)
         button.addTarget(self, action: #selector(registrationButtonTapped), for: .touchUpInside)
         
-        label.snp.makeConstraints { make in
+        return button
+    }()
+    lazy var registrationButtonView = {
+        let view = UIView()
+//        let label = UILabel()
+//        let button = UIButton()
+        
+        view.addSubview(noAccountLabel)
+        view.addSubview(sighnUpRecommendsButton)
+        
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        
+        noAccountLabel.snp.makeConstraints { make in
             make.centerY.equalTo(view)
             make.verticalEdges.equalToSuperview().inset(0)
             make.left.equalToSuperview().inset(0)
         }
-        button.snp.makeConstraints { make in
+        sighnUpRecommendsButton.snp.makeConstraints { make in
             make.centerY.equalTo(view)
             make.verticalEdges.equalToSuperview().inset(0)
-            make.left.equalTo(label.snp.right).offset(4)
+            make.left.equalTo(noAccountLabel.snp.right).offset(4)
             make.right.equalToSuperview().inset(0)
         }
         return view
@@ -195,7 +206,7 @@ class SignInViewController: UIViewController {
     let validationEmailLabel = {
         let label = UILabel()
         
-        label.text = "Қате формат"
+        label.text = "WRONG_FORMAT".localized()
         label.font = .appFont(ofSize: 14, weight: .regular)
         label.textColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1)
         label.isHidden = true
@@ -205,7 +216,7 @@ class SignInViewController: UIViewController {
     let validationPasswordLabel = {
         let label = UILabel()
         
-        label.text = "Қате құпия сөз"
+        label.text = "WRONG_PASSWORD".localized()
         label.font = .appFont(ofSize: 14, weight: .regular)
         label.textColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1)
         label.isHidden = true
@@ -237,39 +248,39 @@ class SignInViewController: UIViewController {
         view.addSubview(validationPasswordLabel)
         
         titleLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(24)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(dynamicValue(for: 16))
         }
         subTitleLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(24)
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
             make.top.equalTo(titleLabel.snp.bottom).offset(0)
         }
         emailLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(24)
-            make.top.equalTo(subTitleLabel.snp.bottom).offset(29)
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
+            make.top.equalTo(subTitleLabel.snp.bottom).offset(dynamicValue(for: 29))
         }
         emailTextField.snp.makeConstraints {make in
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.top.equalTo(emailLabel.snp.bottom).offset(4)
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.top.equalTo(emailLabel.snp.bottom).offset(dynamicValue(for: 4))
             make.height.equalTo(56)
         }
         passwordLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(24)
-            passwordToEmailConstraint = make.top.equalTo(emailTextField.snp.bottom).offset(16).priority(1000).constraint
-            validationEmailConstraint = make.top.equalTo(validationEmailLabel.snp.bottom).offset(16).priority(500).constraint
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
+            passwordToEmailConstraint = make.top.equalTo(emailTextField.snp.bottom).offset(dynamicValue(for: 16)).priority(1000).constraint
+            validationEmailConstraint = make.top.equalTo(validationEmailLabel.snp.bottom).offset(dynamicValue(for: 16)).priority(500).constraint
         }
         passwordTextField.snp.makeConstraints {make in
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.top.equalTo(passwordLabel.snp.bottom).offset(4)
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.top.equalTo(passwordLabel.snp.bottom).offset(dynamicValue(for: 4))
             make.height.equalTo(56)
         }
         emailImage.snp.makeConstraints {make in
-            make.left.equalTo(emailTextField.snp.left).inset(16)
+            make.left.equalTo(emailTextField.snp.left).inset(dynamicValue(for: 16))
             make.centerY.equalTo(emailTextField)
             make.size.equalTo(20)
         }
         passwordImage.snp.makeConstraints {make in
-            make.left.equalTo(passwordTextField.snp.left).inset(16)
+            make.left.equalTo(passwordTextField.snp.left).inset(dynamicValue(for: 16))
             make.centerY.equalTo(passwordTextField)
             make.size.equalTo(20)
         }
@@ -279,33 +290,33 @@ class SignInViewController: UIViewController {
             make.size.equalTo(56)
         }
         recoverPasswordButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(24)
-            recoverBtnToPasswordConstraint = make.top.equalTo(passwordTextField.snp.bottom).offset(16).priority(1000).constraint
-            validationPasswordConstraint = make.top.equalTo(validationPasswordLabel.snp.bottom).offset(16).priority(500).constraint
+            make.right.equalToSuperview().inset(dynamicValue(for: 24))
+            recoverBtnToPasswordConstraint = make.top.equalTo(passwordTextField.snp.bottom).offset(dynamicValue(for: 16)).priority(1000).constraint
+            validationPasswordConstraint = make.top.equalTo(validationPasswordLabel.snp.bottom).offset(dynamicValue(for: 16)).priority(500).constraint
         }
         signInButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.top.equalTo(recoverPasswordButton.snp.bottom).offset(40)
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.top.equalTo(recoverPasswordButton.snp.bottom).offset(dynamicValue(for: 40))
             make.height.equalTo(56)
         }
         registrationButtonView.snp.makeConstraints { make in
-            make.top.equalTo(signInButton.snp.bottom).offset(24)
+            make.top.equalTo(signInButton.snp.bottom).offset(dynamicValue(for: 24))
             make.height.equalTo(22)
             make.centerX.equalTo(view)
         }
         gifImageView.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(24)
+            make.right.equalToSuperview().inset(dynamicValue(for: 24))
 //            make.top.equalTo(view.safeAreaLayoutGuide).inset(0)
             make.bottom.equalTo(emailLabel.snp.bottom)
-            make.size.equalTo(130)
+            make.size.equalTo(dynamicValue(for: 130))
         }
         validationEmailLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(24)
-            make.top.equalTo(emailTextField.snp.bottom).inset(-16)
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
+            make.top.equalTo(emailTextField.snp.bottom).inset(dynamicValue(for: -16))
         }
         validationPasswordLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(24)
-            make.top.equalTo(passwordTextField.snp.bottom).inset(-16)
+            make.left.equalToSuperview().inset(dynamicValue(for: 24))
+            make.top.equalTo(passwordTextField.snp.bottom).inset(dynamicValue(for: -16))
         }
     }
     
@@ -368,7 +379,7 @@ class SignInViewController: UIViewController {
         
         if (email.isEmpty || password.isEmpty) {
             
-            let alert = UIAlertController(title: "Енгізу қатесі", message: "Барлық өрістерді толтырыңыз", preferredStyle: .alert)
+            let alert = UIAlertController(title: "INPUT_ERROR".localized(), message: "FILL_ALL_FIELDS".localized(), preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default)
             alert.addAction(okAction)
             
@@ -457,6 +468,19 @@ class SignInViewController: UIViewController {
         tabBarVC.modalPresentationStyle = .fullScreen
         
         present(tabBarVC, animated: true, completion: nil)
+    }
+    //MARK: Localization
+    func languageDidChange() {
+        navigationItem.title = "AUTHORIZATION".localized()
+        titleLabel.text = "HELLO".localized()
+        subTitleLabel.text = "LOGIN_INTO_ACCOUNT".localized()
+        emailTextField.placeholder = "YOUR_EMAIL".localized()
+        passwordLabel.text = "PASSWORD".localized()
+        passwordTextField.placeholder = "YOUR_PASSWORD".localized()
+        recoverPasswordButton.setTitle("FORGOT_YOUR_PASSWORD".localized(), for: .normal)
+        signInButton.setTitle("LOGIN".localized(), for: .normal)
+        noAccountLabel.text = "NO_ACCOUNT".localized()
+        sighnUpRecommendsButton.setTitle("SIGN_UP".localized(), for: .normal)
     }
     
 }

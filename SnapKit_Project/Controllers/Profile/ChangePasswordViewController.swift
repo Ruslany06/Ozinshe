@@ -16,7 +16,7 @@ class ChangePasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor._1MainColorFFFFFF111827
-        title = "Құпия сөзді өзгерту"
+        navigationItem.title = "CHANGE_PASSWORD".localized()
         
         hideKeyboardWhenTapedAround()
         constraints()
@@ -25,7 +25,7 @@ class ChangePasswordViewController: UIViewController {
     private let passwordLabel = {
         let label = UILabel()
         
-        label.text = "Құпия сөз"
+        label.text = "PASSWORD".localized()
         label.font = UIFont(name: "SFProDisplay-Bold", size: 14)
         label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
         
@@ -36,7 +36,7 @@ class ChangePasswordViewController: UIViewController {
         let textField = TextFieldWithPadding()
         
         textField.padding = UIEdgeInsets(top: 0, left: 44, bottom: 0, right: 44)
-        textField.placeholder = "Сіздің құпия сөзіңіз"
+        textField.placeholder = "YOUR_PASSWORD".localized()
         textField.layer.cornerRadius = 12.0
         textField.layer.borderWidth = 1.0
         textField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
@@ -51,7 +51,7 @@ class ChangePasswordViewController: UIViewController {
     private let passwordConfirmLabel = {
         let label = UILabel()
         
-        label.text = "Құпия сөзді қайталаңыз"
+        label.text = "REPEAT_PASSWORD".localized()
         label.font = UIFont(name: "SFProDisplay-Bold", size: 14)
         label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
         
@@ -61,7 +61,7 @@ class ChangePasswordViewController: UIViewController {
         let textField = TextFieldWithPadding()
         
         textField.padding = UIEdgeInsets(top: 0, left: 44, bottom: 0, right: 44)
-        textField.placeholder = "Сіздің құпия сөзіңіз"
+        textField.placeholder = "YOUR_PASSWORD".localized()
         textField.layer.cornerRadius = 12.0
         textField.layer.borderWidth = 1.0
         textField.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
@@ -113,7 +113,7 @@ class ChangePasswordViewController: UIViewController {
         let button = UIButton()
         
         button.backgroundColor = UIColor(red: 0.5, green: 0.18, blue: 0.99, alpha: 1)
-        button.setTitle("Өзгерістерді сақтау", for: .normal)
+        button.setTitle("SAVE_CHANGES".localized(), for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.cornerRadius = 12
         button.addTarget(self, action: #selector(saveChangesBtnTapped), for: .touchUpInside)
@@ -123,7 +123,7 @@ class ChangePasswordViewController: UIViewController {
     private let validationLabel = {
         let lbl = UILabel()
         
-        lbl.text = "Құпия сөздер сәйкес келмеді"
+        lbl.text = "PASS_NOT_MATCH".localized()
         lbl.font = .appFont(ofSize: 14, weight: .regular)
         lbl.textColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1)
         lbl.isHidden = true
@@ -147,51 +147,51 @@ class ChangePasswordViewController: UIViewController {
         view.addSubview(validationLabel)
         
         passwordLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(24)
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(dynamicValue(for: 24))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
         }
         passwordTextField.snp.makeConstraints { make in
-            make.top.equalTo(passwordLabel.snp.bottom).offset(4)
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(56)
+            make.top.equalTo(passwordLabel.snp.bottom).offset(dynamicValue(for: 4))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.height.equalTo(dynamicValue(for: 56))
         }
         passwordImage.snp.makeConstraints {make in
-            make.left.equalTo(passwordTextField.snp.left).inset(16)
+            make.left.equalTo(passwordTextField.snp.left).inset(dynamicValue(for: 16))
             make.centerY.equalTo(passwordTextField)
-            make.size.equalTo(20)
+            make.size.equalTo(dynamicValue(for: 20))
         }
         showPasswordButton.snp.makeConstraints { make in
-            make.right.equalTo(passwordTextField.snp.right).inset(16)
+            make.right.equalTo(passwordTextField.snp.right).inset(dynamicValue(for: 16))
             make.centerY.equalTo(passwordTextField)
-            make.size.equalTo(56)
+            make.size.equalTo(dynamicValue(for: 56))
         }
         passwordConfirmLabel.snp.makeConstraints { make in
-            make.top.equalTo(passwordTextField.snp.bottom).offset(24)
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(dynamicValue(for: 24))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
         }
         passwordConfirmTextField.snp.makeConstraints { make in
-            make.top.equalTo(passwordConfirmLabel.snp.bottom).offset(4)
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(56)
+            make.top.equalTo(passwordConfirmLabel.snp.bottom).offset(dynamicValue(for: 4))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.height.equalTo(dynamicValue(for: 56))
         }
         passwordImage2.snp.makeConstraints {make in
-            make.left.equalTo(passwordConfirmTextField.snp.left).inset(16)
+            make.left.equalTo(passwordConfirmTextField.snp.left).inset(dynamicValue(for: 16))
             make.centerY.equalTo(passwordConfirmTextField)
-            make.size.equalTo(20)
+            make.size.equalTo(dynamicValue(for: 20))
         }
         showPasswordButton2.snp.makeConstraints { make in
-            make.right.equalTo(passwordConfirmTextField.snp.right).inset(16)
+            make.right.equalTo(passwordConfirmTextField.snp.right).inset(dynamicValue(for: 16))
             make.centerY.equalTo(passwordConfirmTextField)
-            make.size.equalTo(56)
+            make.size.equalTo(dynamicValue(for: 56))
         }
         saveChangesButton.snp.makeConstraints { make in
-            make.top.equalTo(passwordConfirmTextField.snp.bottom).offset(24).priority(.medium)
-            validLabelConstraint = make.top.equalTo(validationLabel.snp.bottom).offset(16).priority(.low).constraint
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(56)
+            make.top.equalTo(passwordConfirmTextField.snp.bottom).offset(dynamicValue(for: 24)).priority(.medium)
+            validLabelConstraint = make.top.equalTo(validationLabel.snp.bottom).offset(dynamicValue(for: 16)).priority(.low).constraint
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.height.equalTo(dynamicValue(for: 56))
         }
         validationLabel.snp.makeConstraints { make in
-            make.top.equalTo(passwordConfirmTextField.snp.bottom).offset(16)
+            make.top.equalTo(passwordConfirmTextField.snp.bottom).offset(dynamicValue(for: 16))
             make.centerX.equalToSuperview()
         }
     }
@@ -298,7 +298,7 @@ class ChangePasswordViewController: UIViewController {
                 }
                 
                 if response.response?.statusCode == 200 {
-                    SVProgressHUD.showSuccess(withStatus: "Password changed")
+                    SVProgressHUD.showSuccess(withStatus: "PASS_CHANGED".localized())
                     SVProgressHUD.dismiss(withDelay: 1.5)
                 } else {
                     var ErrorString = "CONNECTION_ERROR".localized()

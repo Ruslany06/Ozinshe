@@ -8,8 +8,9 @@
 import UIKit
 import SnapKit
 import AdvancedPageControl
+import Localize_Swift
 
-class OnboardingViewController: UIViewController {
+class OnboardingViewController: UIViewController, LanguageProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,19 +20,23 @@ class OnboardingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        
+        languageDidChange()
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
         navigationItem.title = ""
     }
     
-    var arraySlides = [["firstSlide", "ÖZINŞE-ге қош келдің!", "Фильмдер, телехикаялар, ситкомдар, анимациялық жобалар, телебағдарламалар мен реалити-шоулар, аниме және тағы басқалары"],
-                       ["secondSlide", "ÖZINŞE-ге қош келдің!", "Кез келген құрылғыдан қара\nСүйікті фильміңді  қосымша төлемсіз телефоннан, планшеттен, ноутбуктан қара"],
-                       ["thirdSlide", "ÖZINŞE-ге қош келдің!", "Тіркелу оңай. Қазір тіркел де қалаған фильміңе қол жеткіз"]]
-    
+//    var arraySlides = [["firstSlide", "ÖZINŞE-ге қош келдің!", "Фильмдер, телехикаялар, ситкомдар, анимациялық жобалар, телебағдарламалар мен реалити-шоулар, аниме және тағы басқалары"],
+//                       ["secondSlide", "ÖZINŞE-ге қош келдің!", "Кез келген құрылғыдан қара\nСүйікті фильміңді  қосымша төлемсіз телефоннан, планшеттен, ноутбуктан қара"],
+//                       ["thirdSlide", "ÖZINŞE-ге қош келдің!", "Тіркелу оңай. Қазір тіркел де қалаған фильміңе қол жеткіз"]]
+    var arraySlides = [
+        ["firstSlide", "SLIDE_SUBTITLE".localized(), "FIRST_SLIDE_DESCRIPTION".localized()],
+        ["secondSlide", "SLIDE_SUBTITLE".localized(), "SECOND_SLIDE_DESCRIPTION".localized()],
+        ["thirdSlide", "SLIDE_SUBTITLE".localized(), "THIRD_SLIDE_DESCRIPTION".localized()]
+    ]
+
     // MARK: UIElements
     lazy var collectionView = {
         let cvFlowLayout = UICollectionViewFlowLayout()
@@ -55,7 +60,7 @@ class OnboardingViewController: UIViewController {
     let continueButton = {
         let btn = UIButton()
         
-        btn.setTitle("Әрі қарай", for: .normal)
+        btn.setTitle("NEXT".localized(), for: .normal)
         btn.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for:.normal)
         btn.titleLabel?.font = .appFont(ofSize: 16, weight: .semiBold)
         btn.backgroundColor = UIColor(red: 0.5, green: 0.18, blue: 0.99, alpha: 1)
@@ -69,7 +74,7 @@ class OnboardingViewController: UIViewController {
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16)
         
         let btn = UIButton(configuration: configuration)
-        btn.setTitle("Өткізу", for: .normal)
+        btn.setTitle("SKIP".localized(), for: .normal)
         btn.setTitleColor(UIColor._2MainColor111827FFFFFF, for:.normal)
         btn.titleLabel?.font = .appFont(ofSize: 12, weight: .semiBold)
         btn.backgroundColor = UIColor.F_9_FAFB_111827
@@ -103,7 +108,12 @@ class OnboardingViewController: UIViewController {
         
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+    //MARK: Localization
+    func languageDidChange() {
+        print(arraySlides)
+        continueButton.setTitle("NEXT".localized(), for: .normal)
+        skipButton.setTitle("SKIP".localized(), for: .normal)
+    }
     //MARK: Constraints
     func constraints() {
         view.addSubview(collectionView)

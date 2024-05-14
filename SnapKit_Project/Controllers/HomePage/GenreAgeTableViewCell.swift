@@ -5,6 +5,7 @@
 //  Created by Ruslan Yelguldinov on 23.02.2024.
 //
 import UIKit
+import Localize_Swift
 
 protocol SendTheIdDelegate: AnyObject {
     func sendID(categoryID: Int, cellType: CellType, categoryName: String)
@@ -24,12 +25,14 @@ class GenreAgeTableViewCell: UITableViewCell {
         constraints()
         CVTopLayout()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder) hasnt been implement")
         
     }
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        collectionView.reloadData()
+    }
+
     private lazy var collectionView = {
         let cvFlowLayout = UICollectionViewFlowLayout()
         cvFlowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
@@ -57,7 +60,7 @@ class GenreAgeTableViewCell: UITableViewCell {
     private let titleLabel = {
         let lbl = UILabel()
         
-        lbl.text = "Жанрды таңдаңыз"
+        lbl.text = "CHOOSE_GENRE".localized()
         lbl.font = .appFont(ofSize: 16, weight: .bold)
         lbl.textColor = UIColor._2MainColor111827FFFFFF
         lbl.numberOfLines = 2

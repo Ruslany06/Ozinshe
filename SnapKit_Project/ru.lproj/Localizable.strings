@@ -5,27 +5,103 @@
   Created by Ruslan Yelguldinov on 15.11.2023.
   
 */
-
+"SLIDE_SUBTITLE" = "Добро пожаловать в ÖZINŞE!";
+"FIRST_SLIDE_DESCRIPTION" = "Фильмы, сериалы, ситкомы, анимационные проекты, телепередачи и реалити-шоу, аниме и многое другое";
+"SECOND_SLIDE_DESCRIPTION" = "Смотрите на любом устройстве.\nСмотрите любимый фильм на телефоне, планшете или ноутбуке бесплатно";
+"THIRD_SLIDE_DESCRIPTION" = "Зарегистрироваться легко. Зарегистрируйтесь сейчас и получите желаемый фильм";
 // Profile
 "MY_PROFILE" = "Мой профиль";
 "LANGUAGE" = "Язык";
-"PERSONAL_DATA" = "Персональные данные";
 "CHANGE_PASSWORD" = "Изменить пароль";
 "EDIT" = "Изменить";
 "CURRENT_LANGUAGE" = "Русский";
 "DARK_MODE" = "Темный режим";
 
 // Sign In / Sign Up
+//"HELLO" = "Привет";
+//"LOG_IN" = "Войдите в ваш аккаунт";
+//"EMAIL_PLACEHOLDER" = "Ваш email";
+//"PASSWORD" = "Пароль";
+//"PASSWORD_PLACEHOLDER" = "Ваш пароль";
+//"FORGOT_PASSWORD" = "Забыли пароль?";
+//"SIGN_IN" = "Войти";
+//"DO_NOT_HAVE_AN_ACCOUNT" = "Отсутствует аккаунт?";
+//"REGISTRATION" = " Зарегистрироваться";
+//"REPEAT_PASSWORD" = "Повторите пароль";
+//
+//"CONNECTION_ERROR" = "Ошибка соединения";
+
+"PROFILE" = "Профиль";
+"PERSONAL_DATA" = "Личные данные";
+"TERMS_AND_CONDITIONS" = "Условия и положения";
+"ANNOUNCEMENT" = "Объявление";
+
+"YOUR_NAME" = "Ваше имя";
+"TELEPHONE" = "Телефон";
+"DATE_OF_BIRTH" = "Дата рождения";
+"SAVE_CHANGES" = "Сохранить изменения";
+"CHANGES_APPLIED" = "Измнения сохранены";
+
+"EXIT" = "Выход";
+"CONFIRM_EXIT_FROM_ACCOUNT" = "Вы действительно хотите выйти из аккаунта?";
+"YES_EXIT" = "Да, выйти";
+"NO" = "Нет";
+
+// SignIn-SignUp
+"AUTHORIZATION" = "Авторизация";
 "HELLO" = "Привет";
-"LOG_IN" = "Войдите в ваш аккаунт";
-"EMAIL_PLACEHOLDER" = "Ваш email";
+"LOGIN_INTO_ACCOUNT" = "Войдите в аккаунт";
 "PASSWORD" = "Пароль";
-"PASSWORD_PLACEHOLDER" = "Ваш пароль";
-"FORGOT_PASSWORD" = "Забыли пароль?";
-"SIGN_IN" = "Войти";
-"DO_NOT_HAVE_AN_ACCOUNT" = "Отсутствует аккаунт?";
-"REGISTRATION" = " Зарегистрироваться";
+"YOUR_EMAIL" = "Ваш email";
+"YOUR_PASSWORD" = "Ваш пароль";
 "REPEAT_PASSWORD" = "Повторите пароль";
+"FORGOT_YOUR_PASSWORD" = "Забыли пароль?";
+"LOGIN" = "Войти";
+"REGISTRATION" = "Зарегистрироваться";
+"NO_ACCOUNT" = "Нет аккаунта? ";
+"GOT_ACCOUNT" = "У вас есть аккаунт? ";
+"SIGN_UP" = "Регистрация";
+"FILL_IN_DATA" = "Заполните данные";
+"PASS_NOT_MATCH" = "Пароли не совпадают";
+"PASS_CHANGED" = "Пароль успешно изменен";
 
+"LIST" = "Список";
+
+"SEARCH" = "Поиск";
+"CATEGORIES" = "Категории";
+"SEARCH_RESULTS" = "Результаты поиска";
+"LOADING" = "Загрузка";
+"PLAY" = "Смотреть";
+"CONTINUE_PLAY" = "Продолжить просмотр";
+"AGE_CATEGORY" = "В зависимости от возраста";
+"CHOOSE_GENRE" = "Выберите жанр";
+"ALL" = "Все";
+
+"DETAILS" = "Подробнее";
+"DIRECTOR" = "Режиссер:";
+"PRODUCER" = "Продюсер:";
+"SECTIONS" = "Разделы";
+"SCREENSHOTS" = "Скриншоты";
+"SIMILAR_SERIES" = "Похожие сериалы";
+"SEASON" = " сезон, ";
+"SEASON_IN_SERIES" = " сезон";
+"SERIES" = " серия";
+"ADD_FAVORITE" = "В избранное";
+"SHARE" = "Поделиться";
+"HIDE" = "Скрыть";
+"EPISODE" = " серия";
+"EMAIL_IN_USE" = "Пользователь с таким email уже зарегистрирован";
+"SKIP" = "Пропустить";
+"NEXT" = "Далее";
+
+"INPUT_ERROR" = "Ошибка ввода";
+"FILL_ALL_FIELDS" = "Заполните все поля";
+"WRONG_FORMAT" = "Неверный формат";
+"WRONG_FORMAT_TEXT" = "От 4 до 18 символов. Прописные и строчные латинские буквы. Подчеркнутый символ";
+"WRONG_EMAIL" = "Некорректный формат email";
+"WRONG_EMAIL_TEXT" = "Пожалуйста, проверьте еще раз";
+"WRONG_PASSWORD" = "Неверный пароль";
+"WRONG_PASSWORD_TEXT" = "Используйте не менее 6 символов.\n2) Хотя бы один символ нижнего регистра.\n3) Хотя бы один специальный символ.";
 "CONNECTION_ERROR" = "Ошибка соединения";
-
+"OOPS" = "Приносим свои извинения";
+"NOT_AVAILABLE" = "Сервис находится в разработке";

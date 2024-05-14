@@ -11,6 +11,7 @@ import Alamofire
 import SwiftyJSON
 import SVProgressHUD
 import SDWebImage
+import Localize_Swift
 
 class SeasonsSeriesViewController: UIViewController {
     
@@ -29,7 +30,12 @@ class SeasonsSeriesViewController: UIViewController {
         constraints()
         downloadSeasons()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        languageDidChange()
+        seasonsCV.reloadData()
+        seriesTV.reloadData()
+    }
     private lazy var seasonsCV = {
         let cvFlowLayout = UICollectionViewFlowLayout()
         cvFlowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
@@ -211,7 +217,7 @@ extension SeasonsSeriesViewController {
         }
         
         func setData(season: Season, currentSeason: Int) {
-            numberOfSeasonsLabel.text = "\(season.number) сезон"
+            numberOfSeasonsLabel.text = "\(season.number)" + "SEASON_IN_SERIES".localized()
             
             if currentSeason == season.number - 1 {
                 numberOfSeasonsLabel.textColor = UIColor(displayP3Red: 249/255, green: 250/255, blue: 251/255, alpha: 1)
@@ -253,7 +259,7 @@ extension SeasonsSeriesViewController {
         private let numberOfSeriesLabel = {
             let lbl = UILabel()
             
-            lbl.text = "1 -ші бөлім"
+            lbl.text = "EPISODE".localized()
             lbl.font = .appFont(ofSize: 14, weight: .bold)
             lbl.textColor = UIColor._2MainColor111827FFFFFF
             lbl.layer.cornerRadius = 8
@@ -278,7 +284,7 @@ extension SeasonsSeriesViewController {
         }
         
         func setData(series: Series) {
-            numberOfSeriesLabel.text = "\(series.number) - ші бөлім"
+            numberOfSeriesLabel.text = "\(series.number)" + "EPISODE".localized()
             posterImageview.sd_setImage(with: URL(string: "https://img.youtube.com/vi/\(series.link)/hqdefault.jpg"))
         }
         

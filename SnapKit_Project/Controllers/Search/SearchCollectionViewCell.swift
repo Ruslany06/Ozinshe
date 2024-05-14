@@ -72,7 +72,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
         }
         categoryLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 16))
             make.verticalEdges.equalToSuperview().inset(0)
             make.height.equalTo(34)
         }
