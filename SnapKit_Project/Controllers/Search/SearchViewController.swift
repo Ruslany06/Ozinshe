@@ -23,7 +23,6 @@ class SearchViewController: UIViewController, LanguageProtocol {
         view.backgroundColor = UIColor._1MainColorFFFFFF111827
         navigationItem.backButtonTitle = ""
         navigationItem.title = "SEARCH".localized()
-//        title = "SEARCH".localized()
         self.tabBarItem.title = nil
         
         constraints()
@@ -53,7 +52,7 @@ class SearchViewController: UIViewController, LanguageProtocol {
     func CVLeftLayout() {
         let layout = LeftAlignedCollectionViewFlowLayout()
         
-        layout.sectionInset = UIEdgeInsets(top: 16.0, left: 24.0, bottom: 16.0, right: 24.0)
+        layout.sectionInset = UIEdgeInsets(top: 16.0, left: dynamicValue(for: 24.0), bottom: 16.0, right: dynamicValue(for: 24.0))
         layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 8
         layout.estimatedItemSize.width = 100

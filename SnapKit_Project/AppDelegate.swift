@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
-        // Setting of color of NavBar and TabBar in dark/light theme. PS: (Colors were changing while scrolling the screen)
+        /// Setting of color of NavBar and TabBar in dark/light theme. PS: (Colors were changing while scrolling the screen)
         if #available(iOS 15, *) {
             // MARK: Navigation bar appearance
             let navigationBarAppearance = UINavigationBarAppearance()

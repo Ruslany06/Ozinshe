@@ -155,18 +155,24 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func yesLogOut() {
         UserDefaults.standard.removeObject(forKey: "accessToken")
         
-        let signInVC = SignInViewController()
-//        let signInNavController = UINavigationController(rootViewController: signInVC)
-//        navigationController?.show(signInVC, sender: self)
-        navigationController?.pushViewController(signInVC, animated: true)
-        
-//        let appDelegate  = UIApplication.shared.delegate as! AppDelegate
-//        appDelegate.window?.rootViewController = signInNavController
-//        appDelegate.window?.makeKeyAndVisible()
-        
-//        vc.modalPresentationStyle = .overFullScreen
-//        present(vc, animated: true)
-        
+        let rootVC = OnboardingViewController()
+        let rootNavVC = UINavigationController(rootViewController: rootVC)
 
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            let window = sceneDelegate.window
+            
+            window?.rootViewController = rootNavVC
+            window?.makeKeyAndVisible()
+            
+            UIView.transition(with: window!,
+                              duration: 0.5,
+                              options: .transitionCrossDissolve ,
+                              animations: nil,
+                              completion: nil)
+        }
+        
     }
+    
+    
+    
 }

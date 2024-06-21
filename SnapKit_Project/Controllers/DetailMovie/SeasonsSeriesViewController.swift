@@ -131,7 +131,6 @@ extension SeasonsSeriesViewController: UITableViewDataSource, UITableViewDelegat
     //CVCell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return seasons.count
-//        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -171,7 +170,8 @@ extension SeasonsSeriesViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let playerVC = VideoPlayerViewController()
         
-        playerVC.video_link = movie.video_link
+//        playerVC.video_link = movie.video_link
+        playerVC.video_link = seasons[currentSeason].videos[indexPath.row].link
         navigationController?.show(playerVC, sender: self)
     }
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
