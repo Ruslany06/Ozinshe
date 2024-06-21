@@ -14,40 +14,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-//        guard let windowScene = (scene as? UIWindowScene) else { return }
-//
-//        window = UIWindow(windowScene: windowScene)
-//
-//        let rootVC = ToothlessDancing()
-//
-//        let signInNavController = UINavigationController(rootViewController: signInVC)
-//
-//        window?.rootViewController = rootVC
-//        window?.makeKeyAndVisible()
+        guard let windowScene = scene as? UIWindowScene else { return }
         
-        (UIApplication.shared.delegate as? AppDelegate)?.self.window = window
-
-        if let windowScene = scene as? UIWindowScene {
-            if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-                Storage.sharedInstance.accessToken = accessToken
-
-                self.window = UIWindow(windowScene: windowScene)
-                let rootTabBarVC = TabBarController()
-                self.window?.rootViewController = rootTabBarVC
-                self.window?.makeKeyAndVisible()
-            } else {
-//                let signInVC = SignInViewController()
-//                let signInNavController = UINavigationController(rootViewController: signInVC)
-                let rootVC = OnboardingViewController()
-                let rootVCNavController = UINavigationController(rootViewController: rootVC)
-                window = UIWindow(windowScene: windowScene)
-                window?.rootViewController = rootVCNavController
-                window?.makeKeyAndVisible()
-            }
+        window = UIWindow(windowScene: windowScene)
+        
+        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+            
+            Storage.sharedInstance.accessToken = accessToken
+            let rootTabBarVC = TabBarController()
+            window?.rootViewController = rootTabBarVC
+        } else {
+            let rootVC = OnboardingViewController()
+            let rootNavVC = UINavigationController(rootViewController: rootVC)
+            window?.rootViewController = rootNavVC
         }
         
+<<<<<<< HEAD
 //        if let windowScene = scene as? UIWindowScene {
 //            if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
 //                Storage.sharedInstance.accessToken = accessToken
@@ -68,6 +53,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        }
         let defaults = UserDefaults.standard
         let themeKey = "appKey"
+=======
+        window?.makeKeyAndVisible()
+        
+        
+        let defaults = UserDefaults.standard
+        let themeKey = "appKey"
+        
+        if defaults.bool(forKey: themeKey) {
+            self.window?.overrideUserInterfaceStyle = .dark
+        } else {
+            self.window?.overrideUserInterfaceStyle = .light
+        }
+>>>>>>> temp-branch
         
             if defaults.bool(forKey: themeKey) {
                 self.window?.overrideUserInterfaceStyle = .dark

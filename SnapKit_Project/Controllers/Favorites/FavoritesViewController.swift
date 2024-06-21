@@ -16,7 +16,6 @@ class FavoritesViewController: UIViewController {
     var arrayFavorites:[Movie] = []
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor._1MainColorFFFFFF111827
