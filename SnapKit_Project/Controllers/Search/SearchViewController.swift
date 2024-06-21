@@ -23,10 +23,6 @@ class SearchViewController: UIViewController, LanguageProtocol {
         view.backgroundColor = UIColor._1MainColorFFFFFF111827
         navigationItem.backButtonTitle = ""
         navigationItem.title = "SEARCH".localized()
-<<<<<<< HEAD
-//        title = "SEARCH".localized()
-=======
->>>>>>> temp-branch
         self.tabBarItem.title = nil
         
         constraints()

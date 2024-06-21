@@ -170,7 +170,6 @@ extension SeasonsSeriesViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let playerVC = VideoPlayerViewController()
         
-//        playerVC.video_link = movie.video_link
         playerVC.video_link = seasons[currentSeason].videos[indexPath.row].link
         navigationController?.show(playerVC, sender: self)
     }

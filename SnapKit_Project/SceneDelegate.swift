@@ -32,28 +32,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window?.rootViewController = rootNavVC
         }
         
-<<<<<<< HEAD
-//        if let windowScene = scene as? UIWindowScene {
-//            if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-//                Storage.sharedInstance.accessToken = accessToken
-//
-//                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-//                    let viewController = TabBarController()
-//                    appDelegate.window?.rootViewController = viewController
-//                    appDelegate.window?.makeKeyAndVisible()
-//                }
-//            } else {
-//                let signInVC = SignInViewController()
-//                let signInNavController = UINavigationController(rootViewController: signInVC)
-//                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-//                    appDelegate.window?.rootViewController = signInNavController
-//                    appDelegate.window?.makeKeyAndVisible()
-//                }
-//            }
-//        }
-        let defaults = UserDefaults.standard
-        let themeKey = "appKey"
-=======
         window?.makeKeyAndVisible()
         
         
@@ -65,14 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             self.window?.overrideUserInterfaceStyle = .light
         }
->>>>>>> temp-branch
-        
-            if defaults.bool(forKey: themeKey) {
-                self.window?.overrideUserInterfaceStyle = .dark
-            } else {
-                self.window?.overrideUserInterfaceStyle = .light
-            }
-                
+                        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
