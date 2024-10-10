@@ -7,9 +7,14 @@
 
 import UIKit
 import SnapKit
+import Alamofire
+import SwiftyJSON
+import SVProgressHUD
 import Localize_Swift
 
 class ProfileViewController: UIViewController, LanguageProtocol {
+    
+    var userData: Profile?
     
 // MARK: ViewDidLoad
     override func viewDidLoad() {
@@ -20,16 +25,15 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         updateAvatarImage()
         logOutBtnNavbar()
         checkSwitchState()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
+        downloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         languageDidChange()
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+    }
+
 // MARK: UIElements
     let avatarImageView: UIImageView = {
         let image = UIImageView()
@@ -416,7 +420,45 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         let VC = ChangePasswordViewController()
         navigationController?.pushViewController(VC, animated: true)
     }
-}
+    
+    // MARK: API request - downloadData: email
+    func setData() {
+        guard let userData = userData else { return }
+        emailLabel.text = userData.user_email
+    }
+    func downloadData() {
+        let headers: HTTPHeaders = [
+            "Authorization" : "Bearer \(Storage.sharedInstance.accessToken)"
+        ]
+        
+        AF.request("http://api.ozinshe.com/core/V1/user/profile", method: .get, headers: headers).responseData { response in
+            
+            var resultString = ""
+            if let data = response.data {
+                resultString = String(data: data, encoding: .utf8)!
+                print(resultString)
+            }
+            
+            if response.response?.statusCode == 200 {
+                let json = JSON(response.data!)
+                
+                self.userData = Profile(json: json)
+                self.setData()
+                
+            } else {
+                var ErrorString = "CONNECTION_ERROR".localized()
+                if let sCode = response.response?.statusCode {
+                    ErrorString = ErrorString + " \(sCode)"
+                }
+                ErrorString = ErrorString + " \(resultString)"
+                SVProgressHUD.showError(withStatus: "\(ErrorString)")
+            }
+            
+        }
+        
+    }
+} // Profile class
+
 
 // MARK: ImagePickerClass
     class ImagePicker: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
