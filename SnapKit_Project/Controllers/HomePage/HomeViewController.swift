@@ -26,8 +26,22 @@ class HomeViewController: UIViewController, MovieProtocol, SendTheIdDelegate {
         downloadMainBanners()
     }
     override func viewWillAppear(_ animated: Bool) {
+        updateLocalizedStrings()
         tableView.reloadData()
+        
     }
+    
+    func updateLocalizedStrings() {
+        for (index, mainMovie) in mainMovies.enumerated() {
+            if mainMovie.cellType == .genre {
+                mainMovies[index].categoryName = "CHOOSE_GENRE".localized()
+            }
+            if mainMovie.cellType == .ageCategory {
+                mainMovies[index].categoryName = "AGE_CATEGORY".localized()
+            }
+        }
+    }
+    
     func addNavBarImage() {
         let image = UIImage(named: "logoMainPage")!
         
@@ -43,6 +57,7 @@ class HomeViewController: UIViewController, MovieProtocol, SendTheIdDelegate {
         tv.backgroundColor = .clear
         tv.dataSource = self
         tv.delegate = self
+        tv.separatorStyle = .none
         
         return tv
     }()
@@ -214,6 +229,7 @@ class HomeViewController: UIViewController, MovieProtocol, SendTheIdDelegate {
                 
                 if let array = json.array {
                     var newmainMovie1 = MainMovie()
+                    // MARK: PRROCESS
                     newmainMovie1.categoryName = "CHOOSE_GENRE".localized()
                     newmainMovie1.cellType = .genre
                     
@@ -305,6 +321,7 @@ class HomeViewController: UIViewController, MovieProtocol, SendTheIdDelegate {
     
     
 }
+
 // MARK: Extension HomeTVCell configuration
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     

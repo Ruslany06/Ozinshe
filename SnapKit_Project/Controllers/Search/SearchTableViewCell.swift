@@ -31,6 +31,7 @@ class SearchTableViewCell: UITableViewCell {
         iv.image = UIImage(named: "poster")
         iv.contentMode = .scaleToFill
         iv.layer.cornerRadius = 8
+        iv.clipsToBounds = true
         
         return iv
     }()
@@ -85,13 +86,15 @@ class SearchTableViewCell: UITableViewCell {
         return view
     }()
 
+    lazy var lineView = lineViewFactory()
+    
     // MARK: Constraints
     func constraints() {
         contentView.addSubview(posterImageView)
         posterImageView.snp.makeConstraints{ make in
             make.top.equalToSuperview().inset(dynamicValue(for: 24))
             make.left.equalToSuperview().inset(dynamicValue(for: 24))
-            make.height.equalTo(104)
+            make.height.equalTo(dynamicValue(for: 104))
             make.width.equalTo(71)
         }
         contentView.addSubview(titleLabel)
@@ -103,11 +106,17 @@ class SearchTableViewCell: UITableViewCell {
         subtitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(dynamicValue(for: 8))
             make.left.equalTo(titleLabel)
+            make.right.equalToSuperview().inset(dynamicValue(for: 24))
         }
         contentView.addSubview(playView)
         playView.snp.makeConstraints { make in
             make.left.equalTo(posterImageView.snp.right).offset(dynamicValue(for: 17))
             make.top.equalTo(subtitleLabel.snp.bottom).offset(dynamicValue(for: 24))
+        }
+        contentView.addSubview(lineView)
+        lineView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.bottom.equalToSuperview().inset(dynamicValue(for: 0))
         }
     }
 // MARK: Functions

@@ -45,6 +45,7 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
     let lineView = {
         let view = UIView()
         view.backgroundColor = UIColor.linevVewD1D5DB6B7280
+        view.layer.cornerRadius = 100
         return view
     }()
     

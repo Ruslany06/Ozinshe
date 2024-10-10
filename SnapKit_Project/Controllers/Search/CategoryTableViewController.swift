@@ -29,7 +29,7 @@ enum CategoryType {
         }
     }
 }
-
+// MARK: CategoryTVController
 class CategoryTableViewController: UITableViewController {
     
     var categoryID = 0 // parameter (filter movies by categoryID)
@@ -41,7 +41,7 @@ class CategoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor._1MainColorFFFFFF111827
-
+        tableView.separatorStyle = .none
         self.title = categoryName
         downloadMovieByCategoryId()
     }
@@ -56,19 +56,19 @@ class CategoryTableViewController: UITableViewController {
         let headers: HTTPHeaders = [
             "Authorization" : "Bearer \(Storage.sharedInstance.accessToken)"
         ]
-
-        var parameters: [String: Any] = [:]
-                
-                switch categoryType {
-                case .categoryId:
-                    parameters[categoryType.parameterName] = categoryID
-                case .genreId:
-                    parameters[categoryType.parameterName] = categoryID
-                case .ageCategoryId:
-                    parameters[categoryType.parameterName] = categoryID
-                }
         
-//        let parameters = ["categoryId": categoryID, "name" :categoryName] as [String : Any]
+        var parameters: [String: Any] = [:]
+        
+        switch categoryType {
+        case .categoryId:
+            parameters[categoryType.parameterName] = categoryID
+        case .genreId:
+            parameters[categoryType.parameterName] = categoryID
+        case .ageCategoryId:
+            parameters[categoryType.parameterName] = categoryID
+        }
+        
+        //        let parameters = ["categoryId": categoryID, "name" :categoryName] as [String : Any]
         
         AF.request(URLs.MOVIES_BY_CATEGORY_URL, method: .get, parameters: parameters, headers: headers).responseData { response in
             
@@ -124,7 +124,7 @@ class CategoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 152
+        return dynamicValue(for: 152)
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let DetailsMovieVC = DetailsMovieViewController()
@@ -157,6 +157,7 @@ class CategoryTableViewCell: UITableViewCell {
         iv.image = UIImage(named: "poster")
         iv.contentMode = .scaleToFill
         iv.layer.cornerRadius = 8
+        iv.clipsToBounds = true
         
         return iv
     }()
@@ -211,12 +212,14 @@ class CategoryTableViewCell: UITableViewCell {
         return view
     }()
     
+    lazy var lineView = lineViewFactory()
+    
     func constraints() {
         contentView.addSubview(posterImageView)
         posterImageView.snp.makeConstraints{ make in
             make.top.equalToSuperview().inset(dynamicValue(for: 24))
             make.left.equalToSuperview().inset(dynamicValue(for: 24))
-            make.height.equalTo(104)
+            make.height.equalTo(dynamicValue(for: 104))
             make.width.equalTo(71)
         }
         contentView.addSubview(titleLabel)
@@ -228,13 +231,18 @@ class CategoryTableViewCell: UITableViewCell {
         subtitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(dynamicValue(for: 8))
             make.left.equalTo(titleLabel)
+            make.right.equalToSuperview().inset(dynamicValue(for: 24))
         }
         contentView.addSubview(playView)
         playView.snp.makeConstraints { make in
             make.left.equalTo(posterImageView.snp.right).offset(dynamicValue(for: 17))
             make.top.equalTo(subtitleLabel.snp.bottom).offset(dynamicValue(for: 24))
         }
-        
+        contentView.addSubview(lineView)
+        lineView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.bottom.equalToSuperview().inset(dynamicValue(for: 0))
+        }
     }
 // MARK: Functions
     func setData(movie: Movie) {

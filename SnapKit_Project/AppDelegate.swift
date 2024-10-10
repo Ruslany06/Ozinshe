@@ -37,8 +37,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithOpaqueBackground()
             tabBarAppearance.backgroundColor = UIColor.FFFFFF_1_C_2431
+            tabBarAppearance.shadowImage = nil  // Убираем тень
+            tabBarAppearance.shadowColor = nil  // Убираем цвет тени
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
             UITabBar.appearance().standardAppearance = tabBarAppearance
+            
         }
         return true
     }

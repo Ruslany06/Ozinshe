@@ -24,6 +24,7 @@ class GenreAgeTableViewCell: UITableViewCell {
 //        contentView.layer.borderColor = UIColor.blue.cgColor
         constraints()
         CVTopLayout()
+        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder) hasnt been implement")
@@ -32,7 +33,7 @@ class GenreAgeTableViewCell: UITableViewCell {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         collectionView.reloadData()
     }
-
+    
     private lazy var collectionView = {
         let cvFlowLayout = UICollectionViewFlowLayout()
         cvFlowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
@@ -69,18 +70,20 @@ class GenreAgeTableViewCell: UITableViewCell {
     }()
     // MARK: Constraints
     func constraints() {
-        contentView.addSubview(collectionView)
         contentView.addSubview(titleLabel)
+        contentView.addSubview(collectionView)
         
+        // MARK: IN PROGRESS OF REPAIRING
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(22)
+            make.left.equalToSuperview().inset(24)
+        }
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview().inset(10)
         }
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.equalToSuperview().inset(24)
-        }
+
     }
     
     func setData(mainMovie: MainMovie) {
@@ -130,7 +133,7 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
 
 }
 
-// MARK: History CVCell
+// MARK: GenreAge CVCell
 extension GenreAgeTableViewCell {
     class GenreAgeCollectionViewCell: UICollectionViewCell {
         

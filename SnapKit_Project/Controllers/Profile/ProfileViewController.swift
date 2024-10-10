@@ -94,9 +94,9 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     lazy var arrowImage2 = arrowImageFactory()
     lazy var arrowImage3 = arrowImageFactory()
 
-    lazy var line1 = lineViewFactory()
-    lazy var line2 = lineViewFactory()
-    lazy var line3 = lineViewFactory()
+    lazy var lineView1 = lineViewFactory()
+    lazy var lineView2 = lineViewFactory()
+    lazy var lineView3 = lineViewFactory()
     
     let personalDataLabel: UILabel = {
         let label = UILabel()
@@ -162,7 +162,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         return switchControl
     }()
     
-    let changeAvatarButton = {
+    private let changeAvatarButton = {
         let button = UIButton()
         
         button.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
@@ -170,7 +170,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         
         return button
     }()
-    func logOutBtnNavbar() {
+    private func logOutBtnNavbar() {
         let logoutButton = UIButton(type: .custom)
         logoutButton.setImage(UIImage(named: "Logout"), for: .normal)
         logoutButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
@@ -184,16 +184,16 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     
     let imagePicker = ImagePicker()
     
-    let secretBtn = {
-        let button = UIButton()
-        
-        button.setTitle("Audio Player!", for: .normal)
-        button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)!
-        button.setTitleColor(UIColor(red: 1, green: 0, blue: 0, alpha: 1), for: .normal)
-        button.contentHorizontalAlignment = .left
-        button.addTarget(self, action: #selector(secretBtnTaped), for: .touchUpInside)
-        return button
-    }()
+//    let openApudioPlayer = {
+//        let button = UIButton()
+//        
+//        button.setTitle("Audio Player!", for: .normal)
+//        button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)!
+//        button.setTitleColor(UIColor(red: 1, green: 0, blue: 0, alpha: 1), for: .normal)
+//        button.contentHorizontalAlignment = .left
+//        button.addTarget(self, action: #selector(audioPlayerTaped), for: .touchUpInside)
+//        return button
+//    }()
 // MARK: Constraints
     func сonstraints() {
         view.addSubview(avatarImageView)
@@ -236,8 +236,8 @@ class ProfileViewController: UIViewController, LanguageProtocol {
             make.right.equalTo(personalDataButton.snp.right).inset(0)
             make.size.equalTo(dynamicValue(for: 16))
         }
-        view.addSubview(line1)
-        line1.snp.makeConstraints { make in
+        view.addSubview(lineView1)
+        lineView1.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
             make.top.equalTo(personalDataButton.snp.bottom).offset(0)
         }
@@ -248,7 +248,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         }
         view.addSubview(changePasswordButton)
         changePasswordButton.snp.makeConstraints { make in
-            make.top.equalTo(line1.snp.bottom).offset(0)
+            make.top.equalTo(lineView1.snp.bottom).offset(0)
             make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
             make.height.equalTo(dynamicValue(for: 64))
         }
@@ -258,14 +258,14 @@ class ProfileViewController: UIViewController, LanguageProtocol {
             make.right.equalTo(changePasswordButton.snp.right).inset(0)
             make.size.equalTo(dynamicValue(for: 16))
         }
-        view.addSubview(line2)
-        line2.snp.makeConstraints { make in
+        view.addSubview(lineView2)
+        lineView2.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
             make.top.equalTo(changePasswordButton.snp.bottom).offset(0)
         }
         view.addSubview(languageChangeButton)
         languageChangeButton.snp.makeConstraints { make in
-            make.top.equalTo(line2.snp.bottom).offset(0)
+            make.top.equalTo(lineView2.snp.bottom).offset(0)
             make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
             make.height.equalTo(dynamicValue(for: 64))
         }
@@ -275,8 +275,8 @@ class ProfileViewController: UIViewController, LanguageProtocol {
             make.right.equalTo(languageChangeButton.snp.right).inset(0)
             make.size.equalTo(dynamicValue(for: 16))
         }
-        view.addSubview(line3)
-        line3.snp.makeConstraints { make in
+        view.addSubview(lineView3)
+        lineView3.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
             make.top.equalTo(languageChangeButton.snp.bottom).offset(0)
         }
@@ -287,7 +287,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         }
         view.addSubview(darkModeButton)
         darkModeButton.snp.makeConstraints { make in
-            make.top.equalTo(line3.snp.bottom).offset(0)
+            make.top.equalTo(lineView3.snp.bottom).offset(0)
             make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
             make.height.equalTo(dynamicValue(for: 64))
         }
@@ -302,12 +302,12 @@ class ProfileViewController: UIViewController, LanguageProtocol {
             make.centerX.equalTo(avatarImageView)
             make.centerY.equalTo(avatarImageView)
         }
-        view.addSubview(secretBtn)
-        secretBtn.snp.makeConstraints { make in
-            make.top.equalTo(darkModeButton.snp.bottom).offset(0)
-            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
-            make.height.equalTo(dynamicValue(for: 64))
-        }
+//        view.addSubview(openApudioPlayer)
+//        openApudioPlayer.snp.makeConstraints { make in
+//            make.top.equalTo(darkModeButton.snp.bottom).offset(0)
+//            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+//            make.height.equalTo(dynamicValue(for: 64))
+//        }
     }
     
     // MARK: Localize
@@ -404,10 +404,10 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         present(vc, animated: true)
         
     }
-    @objc func secretBtnTaped() {
-        let VC = ToothlessDancing()
-        navigationController?.pushViewController(VC, animated: true)
-    }
+//    @objc func audioPlayerTaped() {
+//        let VC = ToothlessDancing()
+//        navigationController?.pushViewController(VC, animated: true)
+//    }
     @objc func personalDataBtnTaped() {
         let VC = PersonalDataViewController()
         navigationController?.pushViewController(VC, animated: true)

@@ -51,7 +51,6 @@
 		443EBD7C2BAC426200793DA7 /* PersonalDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443EBD7B2BAC426200793DA7 /* PersonalDataViewController.swift */; };
 		443EBD7E2BAC427C00793DA7 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443EBD7D2BAC427C00793DA7 /* ChangePasswordViewController.swift */; };
 		443EBD802BAC46CB00793DA7 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443EBD7F2BAC46CB00793DA7 /* Profile.swift */; };
-		44422AE52B177E0C00859D7D /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44422AE42B177E0C00859D7D /* FriendsTableViewCell.swift */; };
 		4459BA5C2B9B899500D3EF80 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4459BA5B2B9B899500D3EF80 /* Gradient.swift */; };
 		4459BA5E2B9B89DA00D3EF80 /* LabelMaxLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4459BA5D2B9B89DA00D3EF80 /* LabelMaxLines.swift */; };
 		4467FEDD2B57E6D400A7B199 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4467FEDC2B57E6D400A7B199 /* SearchCollectionViewCell.swift */; };
@@ -68,7 +67,6 @@
 		44A57A2B2B739D4100EA7876 /* Arfa sms.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 44A57A2A2B739D4100EA7876 /* Arfa sms.mp3 */; };
 		44A57A2D2B739D4900EA7876 /* Al Bano - Felicita.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 44A57A2C2B739D4900EA7876 /* Al Bano - Felicita.mp3 */; };
 		44A57A2F2B739ECC00EA7876 /* Phelisium - Searching you.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 44A57A2E2B739ECC00EA7876 /* Phelisium - Searching you.mp3 */; };
-		44AA286C2B1620AA002F0B73 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AA286B2B1620AA002F0B73 /* FriendsViewController.swift */; };
 		44C6838B2B18E46F00078389 /* GIFLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C6838A2B18E46F00078389 /* GIFLoader.swift */; };
 		44C6838D2B18E9C000078389 /* PandaGIF.gif in Resources */ = {isa = PBXBuildFile; fileRef = 44C6838C2B18E9C000078389 /* PandaGIF.gif */; };
 		44D3F4282B0519FA0043C09F /* Localize_Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 44D3F4272B0519FA0043C09F /* Localize_Swift */; };
@@ -151,7 +149,6 @@
 		443EBD7B2BAC426200793DA7 /* PersonalDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDataViewController.swift; sourceTree = "<group>"; };
 		443EBD7D2BAC427C00793DA7 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		443EBD7F2BAC46CB00793DA7 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
-		44422AE42B177E0C00859D7D /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
 		4459BA5B2B9B899500D3EF80 /* Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
 		4459BA5D2B9B89DA00D3EF80 /* LabelMaxLines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMaxLines.swift; sourceTree = "<group>"; };
 		4467FEDC2B57E6D400A7B199 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -166,7 +163,6 @@
 		44A57A2A2B739D4100EA7876 /* Arfa sms.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Arfa sms.mp3"; sourceTree = "<group>"; };
 		44A57A2C2B739D4900EA7876 /* Al Bano - Felicita.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Al Bano - Felicita.mp3"; sourceTree = "<group>"; };
 		44A57A2E2B739ECC00EA7876 /* Phelisium - Searching you.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Phelisium - Searching you.mp3"; sourceTree = "<group>"; };
-		44AA286B2B1620AA002F0B73 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		44C6838A2B18E46F00078389 /* GIFLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFLoader.swift; sourceTree = "<group>"; };
 		44C6838C2B18E9C000078389 /* PandaGIF.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = PandaGIF.gif; sourceTree = "<group>"; };
 		44D3F42C2B0520490043C09F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -353,15 +349,6 @@
 			path = DetailMovie;
 			sourceTree = "<group>";
 		};
-		44422AE62B17906A00859D7D /* Friends */ = {
-			isa = PBXGroup;
-			children = (
-				44AA286B2B1620AA002F0B73 /* FriendsViewController.swift */,
-				44422AE42B177E0C00859D7D /* FriendsTableViewCell.swift */,
-			);
-			path = Friends;
-			sourceTree = "<group>";
-		};
 		44777B9A2B091420004E6907 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,7 +400,6 @@
 				443A5E662B8A0389003282EC /* DetailMovie */,
 				443A5E512B87504F003282EC /* HomePage */,
 				442A88922B65199A0000826A /* Search */,
-				44422AE62B17906A00859D7D /* Friends */,
 				44EF734E2AF9386200ECF4F4 /* SignIn-SignUp */,
 				44EF734D2AF9384900ECF4F4 /* Favorites */,
 				44EF734C2AF9383A00ECF4F4 /* Profile */,
@@ -624,7 +610,6 @@
 				4459BA5E2B9B89DA00D3EF80 /* LabelMaxLines.swift in Sources */,
 				44EF73582AFA9B4300ECF4F4 /* MovieTableViewCell.swift in Sources */,
 				44777BA02B0A733F004E6907 /* Storage.swift in Sources */,
-				44AA286C2B1620AA002F0B73 /* FriendsViewController.swift in Sources */,
 				442D31582B1A321D00A3BF7E /* Genres.swift in Sources */,
 				441F9DDA2B0E53FD003269CD /* TextFieldWithPading.swift in Sources */,
 				441CE10B2AF407560048A89B /* SecondViewController.swift in Sources */,
@@ -635,7 +620,6 @@
 				4417ABE02B7FD56D00A8DEB7 /* SignUpViewController.swift in Sources */,
 				44EF73562AF93D0A00ECF4F4 /* SearchViewController.swift in Sources */,
 				443A5E652B890681003282EC /* GenreAgeTableViewCell.swift in Sources */,
-				44422AE52B177E0C00859D7D /* FriendsTableViewCell.swift in Sources */,
 				448F49142B9F305F00212F1C /* SeasonsSeries.swift in Sources */,
 				443A5E592B88DBDA003282EC /* MainBannerTableViewCell.swift in Sources */,
 				443A5E6A2B8A5184003282EC /* ViewLinesAndArrows.swift in Sources */,

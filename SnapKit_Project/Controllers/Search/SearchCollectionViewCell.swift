@@ -30,23 +30,37 @@ class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
     }
 }
 
+// MARK: SearchCVC
 class SearchCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = UIColor.searchCellColorF3F4F6374151
+        contentView.layer.cornerRadius = 8
         constraints()
-
+        
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
+    }
+  
+    override var isHighlighted: Bool {
+        didSet {
+            contentView.backgroundColor = isHighlighted ? UIColor.highlitedSearchCellColorE5E7EB1C2431 : UIColor.searchCellColorF3F4F6374151
+        }
+    }
+    override var isSelected: Bool {
+        didSet {
+            contentView.backgroundColor = isSelected ? UIColor.highlitedSearchCellColorE5E7EB1C2431 : UIColor.searchCellColorF3F4F6374151
+        }
     }
     
     let cellView = {
         let view = UIView()
 
-        view.backgroundColor = UIColor.searchCellColorF3F4F6374151
+        view.backgroundColor = .clear
         view.layer.cornerRadius = 8
         
         return view
@@ -54,7 +68,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
     let categoryLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "dgdfgdfgdf3123123d"
+        label.text = "label text in cell"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 12)
         label.textColor = UIColor._2MainColor111827FFFFFF
 //        label.layer.borderWidth = 1
@@ -74,7 +88,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
             make.centerX.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 16))
             make.verticalEdges.equalToSuperview().inset(0)
-            make.height.equalTo(34)
+            make.height.equalTo(dynamicValue(for: 34))
         }
     }
     

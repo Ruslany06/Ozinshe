@@ -19,15 +19,34 @@ class SignInViewController: UIViewController, LanguageProtocol {
         super.viewDidLoad()
         view.backgroundColor = UIColor._1MainColorFFFFFF111827
         navigationItem.backButtonTitle = ""
-        navigationItem.title = "AUTHORIZATION".localized()
+        navigationItem.title = nil
         
         constraints()
         hideKeyboardWhenTapedAround()
+        scrollingAreaWithKeyboard()
     }
     override func viewWillAppear(_ animated: Bool) {
         languageDidChange()
     }
     // MARK: UISettings
+    private let scrollView = {
+        let scroll = UIScrollView()
+        
+//        scroll.backgroundColor = .cyan
+        scroll.showsVerticalScrollIndicator = false
+        if #available(iOS 17.4, *) {
+            scroll.bouncesVertically = false
+        }
+        
+        return scroll
+    }()
+    private let customContentView = {
+        let view = UIView()
+        
+//        view.backgroundColor = .lightGray
+        
+        return view
+    }()
     let titleLabel = {
         let label = UILabel()
         
@@ -129,7 +148,6 @@ class SignInViewController: UIViewController, LanguageProtocol {
         
         return button
     }()
-    
     lazy var recoverPasswordButton = {
         let button = UIButton()
         
@@ -139,7 +157,6 @@ class SignInViewController: UIViewController, LanguageProtocol {
         
         return button
     }()
-    
     let signInButton = {
         let button = UIButton()
        
@@ -231,25 +248,39 @@ class SignInViewController: UIViewController, LanguageProtocol {
     
     // MARK: Constraints
     func constraints() {
-        view.addSubview(titleLabel)
-        view.addSubview(subTitleLabel)
-        view.addSubview(emailLabel)
-        view.addSubview(emailTextField)
-        view.addSubview(passwordLabel)
-        view.addSubview(passwordTextField)
-        view.addSubview(emailImage)
-        view.addSubview(passwordImage)
-        view.addSubview(showPasswordButton)
-        view.addSubview(recoverPasswordButton)
-        view.addSubview(signInButton)
-        view.addSubview(registrationButtonView)
-        view.addSubview(gifImageView)
-        view.addSubview(validationEmailLabel)
-        view.addSubview(validationPasswordLabel)
+        view.addSubview(scrollView)
+        scrollView.addSubview(customContentView)        
+        customContentView.addSubview(titleLabel)
+        customContentView.addSubview(subTitleLabel)
+        customContentView.addSubview(emailLabel)
+        customContentView.addSubview(emailTextField)
+        customContentView.addSubview(passwordLabel)
+        customContentView.addSubview(passwordTextField)
+        customContentView.addSubview(emailImage)
+        customContentView.addSubview(passwordImage)
+        customContentView.addSubview(showPasswordButton)
+        customContentView.addSubview(recoverPasswordButton)
+        customContentView.addSubview(signInButton)
+        customContentView.addSubview(registrationButtonView)
+        customContentView.addSubview(gifImageView)
+        customContentView.addSubview(validationEmailLabel)
+        customContentView.addSubview(validationPasswordLabel)
         
+        scrollView.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview()
+        }
+        customContentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView)
+            make.width.equalTo(scrollView) // ширина должна быть зафиксирована
+            make.bottom.equalToSuperview() // чтобы контент не пропадал и расширялся дальше
+            // Ограничение по минимальной высоте, чтобы scrollView не схлопывался
+            make.height.greaterThanOrEqualTo(view.safeAreaLayoutGuide.snp.height).priority(.low)
+        }
         titleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(dynamicValue(for: 24))
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(dynamicValue(for: 16))
+//            make.top.equalTo(view.safeAreaLayoutGuide).inset(dynamicValue(for: 16))
+            make.top.equalToSuperview().inset(dynamicValue(for: 16))
         }
         subTitleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(dynamicValue(for: 24))
@@ -296,19 +327,20 @@ class SignInViewController: UIViewController, LanguageProtocol {
         }
         signInButton.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
-            make.top.equalTo(recoverPasswordButton.snp.bottom).offset(dynamicValue(for: 40))
+//            make.top.equalTo(recoverPasswordButton.snp.bottom).offset(dynamicValue(for: 40))
+            make.bottom.equalTo(registrationButtonView.snp.top).offset(dynamicValue(for: -24))
             make.height.equalTo(56)
         }
         registrationButtonView.snp.makeConstraints { make in
-            make.top.equalTo(signInButton.snp.bottom).offset(dynamicValue(for: 24))
+//            make.top.equalTo(signInButton.snp.bottom).offset(dynamicValue(for: 24))
+            make.bottom.equalToSuperview().offset(dynamicValue(for: -12))
             make.height.equalTo(22)
-            make.centerX.equalTo(view)
+            make.centerX.equalTo(customContentView)
         }
         gifImageView.snp.makeConstraints { make in
             make.right.equalToSuperview().inset(dynamicValue(for: 24))
-//            make.top.equalTo(view.safeAreaLayoutGuide).inset(0)
             make.bottom.equalTo(emailLabel.snp.bottom)
-            make.size.equalTo(dynamicValue(for: 130))
+            make.size.equalTo(dynamicValue(for: 120))
         }
         validationEmailLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(dynamicValue(for: 24))
@@ -344,6 +376,45 @@ class SignInViewController: UIViewController, LanguageProtocol {
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
+    
+    // MARK: Scroll Screen for visibility keyboard
+    func scrollingAreaWithKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+        
+    @objc func keyboardWillShow(_ notification: Notification) {
+        
+        guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+
+        let keyboardFrameInView = view.convert(keyboardFrame, from: nil)
+
+        // Получаем фреймы кнопки signInButton и вью registrationButtonView относительно superview
+        let signInButtonFrame = signInButton.superview?.convert(signInButton.frame, to: view)
+        let registrationButtonFrame = registrationButtonView.superview?.convert(registrationButtonView.frame, to: view)
+
+        // Находим максимальную Y-координату между двумя элементами
+        if let signInButtonFrame = signInButtonFrame, let registrationButtonFrame = registrationButtonFrame {
+            let maxY = max(signInButtonFrame.maxY, registrationButtonFrame.maxY)
+            
+            // Если максимальная Y-координата выше клавиатуры, добавляем отступ
+            if maxY > keyboardFrameInView.origin.y {
+                let scrollOffset = maxY - keyboardFrameInView.origin.y + 20 // Учитываем дополнительный отступ
+                
+                scrollView.contentInset.bottom = scrollOffset
+                scrollView.verticalScrollIndicatorInsets.bottom = scrollOffset
+            }
+        }
+    }
+    @objc func keyboardWillHide(_ notification: Notification) {
+        // Сбрасываем contentInset, когда клавиатура скрывается
+        scrollView.contentInset.bottom = 0
+        scrollView.verticalScrollIndicatorInsets.bottom = 0
+    }
+    
+    
+    
+    
     @objc func touchDownShowPassword(_ sender: UIButton) {
         passwordTextField.isSecureTextEntry = false
     }
@@ -471,7 +542,6 @@ class SignInViewController: UIViewController, LanguageProtocol {
     }
     //MARK: Localization
     func languageDidChange() {
-        navigationItem.title = "AUTHORIZATION".localized()
         titleLabel.text = "HELLO".localized()
         subTitleLabel.text = "LOGIN_INTO_ACCOUNT".localized()
         emailTextField.placeholder = "YOUR_EMAIL".localized()

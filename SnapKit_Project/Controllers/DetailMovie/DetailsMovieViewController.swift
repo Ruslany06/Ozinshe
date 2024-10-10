@@ -45,14 +45,16 @@ class DetailsMovieViewController: UIViewController, LanguageProtocol {
         let scroll = UIScrollView()
         
         scroll.backgroundColor = UIColor._1MainColorFFFFFF111827
-        
+        scroll.showsVerticalScrollIndicator = false
+        scroll.contentInsetAdjustmentBehavior = .never
+
         return scroll
     }()
     private let customContentView = {
         let view = UIView()
         
 //        view.backgroundColor = UIColor._1MainColorFFFFFF111827
-        
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     private let posterImageView = {
@@ -63,6 +65,16 @@ class DetailsMovieViewController: UIViewController, LanguageProtocol {
         iv.clipsToBounds = true
         
         return iv
+    }()
+    private let posterGradient: Gradient = {
+        let view = Gradient()
+        
+        view.backgroundColor = .clear
+        view.startColor = UIColor(red: 0.071, green: 0.122, blue: 0.243, alpha: 0)
+        view.endColor = UIColor(red: 0.071, green: 0.122, blue: 0.243, alpha: 0.6)
+        //        view.layer.borderWidth = 1
+        
+        return view
     }()
     private let backButton = {
         let btn = UIButton()
@@ -164,10 +176,8 @@ class DetailsMovieViewController: UIViewController, LanguageProtocol {
     private let descriptionGradient: Gradient = {
         let view = Gradient()
 
-//        view.startColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
-//        view.endColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         view.backgroundColor = .clear
-        view.startColor = UIColor.gradientF9FAFB111827
+        view.startColor = UIColor.gradientDiscriptionF9FAFB111827
         view.endColor = UIColor.F_9_FAFB_111827
 //        view.layer.borderWidth = 1
         
@@ -329,6 +339,7 @@ class DetailsMovieViewController: UIViewController, LanguageProtocol {
         view.addSubview(scrollView)
         scrollView.addSubview(customContentView)
         customContentView.addSubview(posterImageView)
+        customContentView.addSubview(posterGradient)
         customContentView.addSubview(backButton)
         customContentView.addSubview(playMovieButton)
         customContentView.addSubview(addFavoriteButton)
@@ -356,7 +367,8 @@ class DetailsMovieViewController: UIViewController, LanguageProtocol {
         customContentView.addSubview(similarMoviesCV)
         
         scrollView.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalToSuperview()
         }
         customContentView.snp.makeConstraints { make in
@@ -366,6 +378,9 @@ class DetailsMovieViewController: UIViewController, LanguageProtocol {
         posterImageView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
             make.height.equalTo(dynamicValue(for: 364))
+        }
+        posterGradient.snp.makeConstraints { make in
+            make.edges.equalTo(posterImageView)
         }
         backgroundView.snp.makeConstraints { make in
             make.top.equalTo(posterImageView.snp.bottom).inset(dynamicValue(for: 40))
@@ -379,7 +394,8 @@ class DetailsMovieViewController: UIViewController, LanguageProtocol {
         }
         playMovieButton.snp.makeConstraints { make in
             make.centerX.equalTo(posterImageView)
-            make.bottom.equalTo(posterImageView.snp.bottom).inset(dynamicValue(for: 78))
+//      (for: 78))
+            make.bottom.equalTo(posterImageView.snp.bottom).inset(dynamicValue(for: 44))
             make.size.equalTo(dynamicValue(for: 132))
         }
         addFavoriteButton.snp.makeConstraints { make in
@@ -505,6 +521,17 @@ class DetailsMovieViewController: UIViewController, LanguageProtocol {
         
         seasonAndSeriesButton.configuration?.attributedTitle = AttributedString("\(movie.seasonCount)" + "SEASON".localized() + "\(movie.seriesCount)" + "SERIES".localized(), attributes: container)
     }
+    func setupDescriptionLabelAttributes() {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.minimumLineHeight = 22
+        paragraphStyle.alignment = .left
+        
+        if let labelText = descriptionLabel.text {
+            let attributedString = NSMutableAttributedString(string: labelText, attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+            attributedString.addAttribute(NSAttributedString.Key.kern, value: 0.5, range: NSRange(location: 0, length: attributedString.length))
+            descriptionLabel.attributedText = attributedString
+        }
+    }
     // MARK: AF request - DownloadSimilar
     func downloadSimilar() {
         SVProgressHUD.show()
@@ -543,18 +570,6 @@ class DetailsMovieViewController: UIViewController, LanguageProtocol {
                 SVProgressHUD.showError(withStatus: "\(ErrorString)")
             }
             
-        }
-    }
-    
-    func setupDescriptionLabelAttributes() {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.minimumLineHeight = 22
-        paragraphStyle.alignment = .left
-        
-        if let labelText = descriptionLabel.text {
-            let attributedString = NSMutableAttributedString(string: labelText, attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
-            attributedString.addAttribute(NSAttributedString.Key.kern, value: 0.5, range: NSRange(location: 0, length: attributedString.length))
-            descriptionLabel.attributedText = attributedString
         }
     }
     

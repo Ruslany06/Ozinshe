@@ -30,8 +30,6 @@ class LanguageViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         tap.delegate = self
         view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
-        
-        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss)))
     }
     
     lazy var tableView: UITableView = {
@@ -64,6 +62,7 @@ class LanguageViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     let lineView = {
         let view = UIView()
         view.backgroundColor = UIColor.linevVewD1D5DB6B7280
+        view.layer.cornerRadius = 100
         return view
     }()
     
@@ -102,29 +101,6 @@ class LanguageViewController: UIViewController, UIGestureRecognizerDelegate, UIT
             return false
         }
         return true
-    }
-    
-    @objc func handleDismiss(sender: UIPanGestureRecognizer) {
-        switch sender.state {
-        case.changed:
-            viewTranslation = sender.translation(in: view)
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.backgroundView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
-                self.languageLabel.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
-                self.tableView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
-                self.lineView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
-            })
-        case .ended:
-            if viewTranslation.y < 100 { UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: { self.backgroundView.transform = .identity
-                self.languageLabel.transform = .identity
-                self.tableView.transform = .identity
-                self.lineView.transform = .identity
-            })
-            } else {
-                dismiss(animated: true, completion: nil)
-            }
-        default : break
-        }
     }
     
     @objc func dismissView() {

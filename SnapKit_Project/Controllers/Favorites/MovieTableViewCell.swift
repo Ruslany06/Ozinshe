@@ -16,6 +16,7 @@ class MovieTableViewCell: UITableViewCell {
         
         contentView.backgroundColor = UIColor._1MainColorFFFFFF111827
         constraints()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -23,17 +24,18 @@ class MovieTableViewCell: UITableViewCell {
         
     }
     
-    let posterImageView = {
+    private let posterImageView = {
         let iv = UIImageView()
         
         iv.image = UIImage(named: "poster")
         iv.contentMode = .scaleToFill
         iv.layer.cornerRadius = 8
+        iv.clipsToBounds = true
         
         return iv
     }()
     
-    let titleLabel = {
+    private let titleLabel = {
         let label = UILabel()
         
         label.text = "Қызғалдақтар мекені"
@@ -42,7 +44,7 @@ class MovieTableViewCell: UITableViewCell {
         return label
     }()
     
-    let subtitleLabel = {
+    private let subtitleLabel = {
         let label = UILabel()
         
         label.text = "2020 • Телехикая • Мультфильм мекені"
@@ -51,14 +53,14 @@ class MovieTableViewCell: UITableViewCell {
         return label
     }()
     
-    let playLabel: UILabel = {
+    private let playLabel: UILabel = {
             let label = UILabel()
             label.text = "PLAY".localized()
             label.font = UIFont(name: "SFProDisplay-Bold", size: 12)
             label.textColor = UIColor(red: 0.59, green: 0.33, blue: 0.94, alpha: 1)
             return label
         }()
-    lazy var playView: UIView = {
+    private lazy var playView: UIView = {
         let view = UIView()
         let imageView = UIImageView()
         
@@ -83,32 +85,39 @@ class MovieTableViewCell: UITableViewCell {
         
         return view
     }()
+    private lazy var lineView = lineViewFactory()
+    
     func constraints() {
         contentView.addSubview(posterImageView)
-        
         posterImageView.snp.makeConstraints{ make in
             make.top.equalToSuperview().inset(dynamicValue(for: 24))
             make.left.equalToSuperview().inset(dynamicValue(for: 24))
             make.height.equalTo(dynamicValue(for: 104))
+//            make.height.equalTo(104)
             make.width.equalTo(dynamicValue(for: 71))
         }
-        
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.left.equalTo(posterImageView.snp.right).offset(dynamicValue(for: 17))
             make.top.equalToSuperview().inset(dynamicValue(for: 24))
         }
-        
         contentView.addSubview(subtitleLabel)
         subtitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(dynamicValue(for: 8))
             make.left.equalTo(titleLabel)
+            make.right.equalToSuperview().inset(dynamicValue(for: 24))
         }
         contentView.addSubview(playView)
         playView.snp.makeConstraints { make in
             make.left.equalTo(posterImageView.snp.right).offset(dynamicValue(for: 17))
             make.top.equalTo(subtitleLabel.snp.bottom).offset(dynamicValue(for: 24))
         }
+        contentView.addSubview(lineView)
+        lineView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.bottom.equalToSuperview().inset(dynamicValue(for: 0))
+        }
+        
     }
 // MARK: Functions
     func setData(movie: Movie) {

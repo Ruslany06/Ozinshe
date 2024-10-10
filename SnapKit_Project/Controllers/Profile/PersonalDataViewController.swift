@@ -10,18 +10,16 @@ import SnapKit
 import SVProgressHUD
 import Alamofire
 import SwiftyJSON
+import Localize_Swift
 
 class PersonalDataViewController: UIViewController, UITextFieldDelegate {
 
     var userData: Profile?
     
-//    var profile = Profile()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor._1MainColorFFFFFF111827
-        
-        title = "PERSONAL_DATA".localized()
+        navigationItem.title = "PERSONAL_DATA".localized()
         
         constraints()
         hideKeyboardWhenTapedAround()
@@ -35,6 +33,10 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         let scroll = UIScrollView()
         
 //        scroll.backgroundColor = .cyan
+        scroll.showsVerticalScrollIndicator = false
+        if #available(iOS 17.4, *) {
+            scroll.bouncesVertically = false
+        }
         
         return scroll
     }()
@@ -76,7 +78,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         
         return lbl
     }()
-    private lazy var emailAdressLabel = {
+    private let emailAdressLabel = {
         let lbl = UILabel()
         
         lbl.text = "xxxx@mail.ru"
@@ -152,32 +154,32 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         
         return button
     }()
-    
     private lazy var labelsStackView: UIStackView = {
-            let stackView = UIStackView()
-            
-            stackView.axis = .vertical
-            stackView.spacing = 68
-            
-            return stackView
-        }()
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.spacing = dynamicValue(for: 68)
+        
+        return stackView
+    }()
     private lazy var textFieldsStackView: UIStackView = {
-            let stackView = UIStackView()
-            
-            stackView.axis = .vertical
-            stackView.spacing = 65
-            
-            return stackView
-        }()
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.spacing = dynamicValue(for: 65)
+        
+        return stackView
+    }()
     private lazy var linesStackView: UIStackView = {
-            let stackView = UIStackView()
-            
-            stackView.axis = .vertical
-            stackView.spacing = 89
-            
-            return stackView
-        }()
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.spacing = dynamicValue(for: 88)
+        
+        return stackView
+    }()
     
+    // MARK: Constraints
     func constraints() {
 //        view.addSubview(nameLabel)
 //        view.addSubview(nameTextField)
@@ -196,6 +198,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         scrollView.addSubview(customContentView)
         customContentView.addSubview(labelsStackView)
         customContentView.addSubview(linesStackView)
+        // Стек текстовых полей на самом вверху, так как его могут перекрывать другие стеки или элементы и открытие клавиатуры может быть невозможным
         customContentView.addSubview(textFieldsStackView)
         customContentView.addSubview(saveChangesButton)
         
@@ -220,26 +223,45 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         }
         customContentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
-            make.width.equalTo(scrollView)
+            make.width.equalTo(scrollView) // ширина должна быть зафиксирована
+            make.bottom.equalToSuperview() // чтобы контент не пропадал и расширялся дальше
+            // Ограничение по минимальной высоте, чтобы scrollView не схлопывался
+            make.height.greaterThanOrEqualTo(view.safeAreaLayoutGuide.snp.height).priority(.low)
         }
+        
         labelsStackView.snp.makeConstraints { make in
+            
+            nameLabel.snp.makeConstraints { make in make.height.equalTo(dynamicValue(for: 21)) }
+            emailLabel.snp.makeConstraints { make in make.height.equalTo(dynamicValue(for: 21)) }
+            phoneNumberLabel.snp.makeConstraints { make in make.height.equalTo(dynamicValue(for: 21)) }
+            dateOfBirthLabel.snp.makeConstraints { make in make.height.equalTo(dynamicValue(for: 21)) }
+            
             make.top.equalToSuperview().inset(dynamicValue(for: 24))
             make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
         }
-        linesStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(dynamicValue(for: 89))
-            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
-        }
+        
         textFieldsStackView.snp.makeConstraints { make in
+            
+            userNameTextField.snp.makeConstraints { make in make.height.equalTo(dynamicValue(for: 24)) }
+            emailAdressLabel.snp.makeConstraints { make in make.height.equalTo(dynamicValue(for: 24)) }
+            phoneNumberTextField.snp.makeConstraints { make in make.height.equalTo(dynamicValue(for: 24)) }
+            dateOfBirthTextField.snp.makeConstraints { make in make.height.equalTo(dynamicValue(for: 24)) }
+            
             make.top.equalToSuperview().inset(dynamicValue(for: 53))
             make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
         }
+        
+        linesStackView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(dynamicValue(for: 88))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+        }
+        
         saveChangesButton.snp.makeConstraints { make in
-            make.top.equalTo(linesStackView.snp.bottom).offset(dynamicValue(for: 24))
             make.bottom.equalToSuperview().inset(dynamicValue(for: 8))
             make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
             make.height.equalTo(dynamicValue(for: 56))
         }
+        
     }
     
     // MARK: Functions
@@ -252,17 +274,60 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
         
     }
+    
+    private var selectedDate: Date?
+    
     @objc func datePickerValueChanged(_ sender: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
+        
+        if Localize.currentLanguage() == "kk" {
+            formatter.locale = Locale(identifier: "kk_KZ")
+        }
+        if Localize.currentLanguage() == "ru" {
+            formatter.locale = Locale(identifier: "ru_RU")
+        }
+        if Localize.currentLanguage() == "en" {
+            formatter.locale = Locale(identifier: "en_ENG")
+        }
+        
+        formatter.dateFormat = "dd MMMM yyyy"
         let dateString = formatter.string(from: sender.date)
         dateOfBirthTextField.text = dateString
+        
+        // Сохраняем выбранную дату для последующей отправки на сервер
+        selectedDate = sender.date
     }
+    
+    func updateDateOfBirthDisplay() {
+        guard let birthDateString = userData?.birthDate else { return }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd" // Формат даты от сервера
+        if let birthDate = formatter.date(from: birthDateString) {
+            
+            // Форматируем дату для отображения
+            formatter.dateFormat = "dd MMMM yyyy"
+            
+            if Localize.currentLanguage() == "kk" {
+                formatter.locale = Locale(identifier: "kk_KZ")
+            }
+            if Localize.currentLanguage() == "ru" {
+                formatter.locale = Locale(identifier: "ru_RU")
+            }
+            if Localize.currentLanguage() == "en" {
+                formatter.locale = Locale(identifier: "en_ENG")
+            }
+            
+            let displayDateString = formatter.string(from: birthDate)
+            dateOfBirthTextField.text = displayDateString // Обновляем текстовое поле
+        }
+    }
+
     @objc func saveChangesBtnTapped() {
         
         if validationOfAllTextfields() {
-                saveChanges(self)
-            }
+            saveChanges(self)
+        }
     }
 // MARK: Validation and format
     // mask example: `+X (XXX) XXX-XXXX`
@@ -348,11 +413,12 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         return true
     }
 
-// MARK: Scroll Screen for adaptive layout
+// MARK: Scroll Screen for visibility keyboard
     func scrollingAreaWithKeyboard() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
     @objc func keyboardWillShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
               let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
@@ -363,7 +429,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         let keyboardFrameInView = view.convert(keyboardFrame, from: nil)
         
         if saveButtonFrame.maxY > keyboardFrameInView.origin.y {
-            let scrollOffset = saveButtonFrame.maxY - keyboardFrameInView.origin.y + 130 // отступ
+            let scrollOffset = saveButtonFrame.maxY - keyboardFrameInView.origin.y + 20 // отступ
                 
             scrollView.contentInset.bottom = scrollOffset
             scrollView.verticalScrollIndicatorInsets.bottom = scrollOffset
@@ -375,7 +441,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         scrollView.verticalScrollIndicatorInsets.bottom = 0
     }
     
-    // MARK: AF request - downloadData, saveChanges
+    // MARK: AF request - DownloadData
     func setData() {
         
         guard let userData = userData else {
@@ -383,8 +449,10 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         }
         userNameTextField.text = userData.name
         phoneNumberTextField.text = userData.phoneNumber
-        dateOfBirthTextField.text = userData.birthDate
+//        dateOfBirthTextField.text = userData.birthDate
         emailAdressLabel.text = userData.user_email
+        
+        updateDateOfBirthDisplay()
     }
     
     func downloadData() {
@@ -409,6 +477,7 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
                 
                 self.userData = Profile(json: json)
                 self.setData()
+                self.updateDateOfBirthDisplay()
                 
             } else {
                 var ErrorString = "CONNECTION_ERROR".localized()
@@ -422,13 +491,26 @@ class PersonalDataViewController: UIViewController, UITextFieldDelegate {
         }
         
     }
-    
+    // MARK: API request - Save changes
     func saveChanges(_ sender: Any) {
         
         SVProgressHUD.show()
+        
+        let formatter = DateFormatter()
+           formatter.dateFormat = "yyyy-MM-dd" // Формат для сервера
+           
+           // Преобразуем выбранную дату (из UIDatePicker), если она есть
+           var birthDate = ""
+           if let selectedDate = selectedDate {
+               birthDate = formatter.string(from: selectedDate)
+           } else {
+               // Можно обработать случай, если дата не выбрана, и сделать валидный запрос
+               birthDate = userData?.birthDate ?? "" // Либо используйте старую дату
+           }
+        
        
         let email = userNameTextField.text!
-        let birthDate = dateOfBirthTextField.text!
+//        let birthDate = dateOfBirthTextField.text!
         let phoneNumber = phoneNumberTextField.text!
         let language = userData?.language
         

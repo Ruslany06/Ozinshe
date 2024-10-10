@@ -20,7 +20,7 @@ class FavoritesViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor._1MainColorFFFFFF111827
         
-        title = "LIST".localized()
+        navigationItem.title = "LIST".localized()
         self.tabBarItem.title = nil
         
         constraints()
@@ -42,6 +42,8 @@ class FavoritesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationItem.title = "LIST".localized()
+        self.tabBarItem.title = nil
         downloadFavorites()
         tableView.reloadData()
     }
@@ -52,9 +54,11 @@ class FavoritesViewController: UIViewController {
         tv.dataSource = self
         tv.delegate = self
         tv.backgroundColor = UIColor.clear
+        tv.separatorStyle = .none
         
         return tv
     }()
+    
     func constraints() {
         view.addSubview(tableView)
         
@@ -121,7 +125,7 @@ class FavoritesViewController: UIViewController {
         return cell
         }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 152
+        return dynamicValue(for: 152) 
         }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

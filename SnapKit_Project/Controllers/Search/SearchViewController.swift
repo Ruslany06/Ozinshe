@@ -33,7 +33,8 @@ class SearchViewController: UIViewController, LanguageProtocol {
     }
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarItem.title = nil
-        self.tableView.reloadData()
+        tableView.reloadData()
+        collectionView.reloadData()
         languageDidChange()
     }
     // MARK: CollectionView Settings
@@ -46,7 +47,8 @@ class SearchViewController: UIViewController, LanguageProtocol {
         cv.delegate = self
         cv.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: "cvCell")
         cv.backgroundColor = UIColor._1MainColorFFFFFF111827
-        
+        cv.allowsSelection = true
+
         return cv
     }()
     func CVLeftLayout() {
@@ -67,7 +69,8 @@ class SearchViewController: UIViewController, LanguageProtocol {
         tv.dataSource = self
         tv.delegate = self
         tv.backgroundColor = UIColor._1MainColorFFFFFF111827
-
+        tv.separatorStyle = .none
+        
         return tv
     }()
     
@@ -150,7 +153,7 @@ class SearchViewController: UIViewController, LanguageProtocol {
             tableViewToCollectionViewConstraint = make.top.equalTo(collectionView.snp.bottom).offset(0).priority(1000).constraint
             tableViewToTitleLabelConstraint = make.top.equalTo(titleLabel.snp.bottom).offset(dynamicValue(for: 16)).priority(900).constraint
             
-            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
+            make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 0))
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(0)
         }
         clearButton.snp.makeConstraints { make in
@@ -322,7 +325,6 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categories.count
-//        return 10
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cvCell", for: indexPath) as! SearchCollectionViewCell
@@ -332,6 +334,14 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+//        let cell = collectionView.cellForItem(at: indexPath)
+//        cell?.contentView.backgroundColor = UIColor.highlitedSearchCellColorE5E7EB1C2431
+        
+//        if let cell = collectionView.cellForItem(at: indexPath) as? SearchCollectionViewCell {
+//            cell.isSelected = true
+//        }
+        
         let categoryTVC = CategoryTableViewController()
         
         categoryTVC.categoryID = categories[indexPath.row].id
@@ -339,7 +349,20 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         
         navigationController?.pushViewController(categoryTVC, animated: true)
     }
-    
+//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+////        let cell = collectionView.cellForItem(at: indexPath)
+////        cell?.contentView.backgroundColor = UIColor.searchCellColorF3F4F6374151
+//        
+//        if let cell = collectionView.cellForItem(at: indexPath) as? SearchCollectionViewCell {
+//            cell.isSelected = false
+//        }
+//    }
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        
+//       let cell = SearchCollectionViewCell()
+//        cell.isSelected = false
+//                
+//    }
     
 }
 // TVC
@@ -357,7 +380,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 152
+        return dynamicValue(for: 152)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

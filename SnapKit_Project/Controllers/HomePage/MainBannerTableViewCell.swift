@@ -71,21 +71,21 @@ class MainBannerTableViewCell: UITableViewCell {
 
 // MARK: Extension TVCell
 extension MainBannerTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
-
-func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return mainMovie.bannerMovie.count
-}
-func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cvCell", for: indexPath) as! MainBannerCollectionViewCell
     
-    cell.setData(bannerMovie: mainMovie.bannerMovie[indexPath.row])
-    
-    return cell
-}
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return mainMovie.bannerMovie.count
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cvCell", for: indexPath) as! MainBannerCollectionViewCell
+        
+        cell.setData(bannerMovie: mainMovie.bannerMovie[indexPath.row])
+        
+        return cell
+    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.movieDidSelect(movie: mainMovie.bannerMovie[indexPath.item].movie)
     }
-
+    
 }
 
 // MARK: MainBanner CVCell

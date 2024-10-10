@@ -17,16 +17,34 @@ class SignUpViewController: UIViewController, LanguageProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor._1MainColorFFFFFF111827
+        navigationItem.title = nil
         
-        navigationItem.title = "SIGN_UP".localized()
-        
-        hideKeyboardWhenTapedAround()
         constraints()
+        hideKeyboardWhenTapedAround()
+        scrollingAreaWithKeyboard()
     }
     override func viewWillAppear(_ animated: Bool) {
         languageDidChange()
     }
     // MARK: UISettings
+    private let scrollView = {
+        let scroll = UIScrollView()
+        
+//        scroll.backgroundColor = .cyan
+        scroll.showsVerticalScrollIndicator = false
+        if #available(iOS 17.4, *) {
+            scroll.bouncesVertically = false
+        }
+        
+        return scroll
+    }()
+    private let customContentView = {
+        let view = UIView()
+        
+//        view.backgroundColor = .lightGray
+        
+        return view
+    }()
     let titleLabel = {
         let label = UILabel()
        
@@ -251,33 +269,46 @@ class SignUpViewController: UIViewController, LanguageProtocol {
     var validEmailActiveConstraint: Constraint!
     var validPasswordInactiveConstraint: Constraint!
     var validPasswordActiveConstraint: Constraint!
-    var validConfirmPasswordInactiveConstraint: Constraint!
-    var validConfirmPasswordActiveConstraint: Constraint!
+//    var validConfirmPasswordInactiveConstraint: Constraint!
+//    var validConfirmPasswordActiveConstraint: Constraint!
     
     // MARK: Constraints
     func constraints() {
-        view.addSubview(titleLabel)
-        view.addSubview(subTitleLabel)
-        view.addSubview(emailLabel)
-        view.addSubview(emailTextField)
-        view.addSubview(passwordLabel)
-        view.addSubview(passwordTextField)
-        view.addSubview(passwordConfirmLabel)
-        view.addSubview(passwordConfirmTextField)
-        view.addSubview(emailImage)
-        view.addSubview(passwordImage)
-        view.addSubview(showPasswordButton)
-        view.addSubview(passwordImage2)
-        view.addSubview(showPasswordButton2)
-        view.addSubview(signUpButton)
-        view.addSubview(signInButtonView)
-        view.addSubview(validationPassword1)
-        view.addSubview(validationPassword2)
-        view.addSubview(validationEmailLabel)
+        view.addSubview(scrollView)
+        scrollView.addSubview(customContentView)
+        customContentView.addSubview(titleLabel)
+        customContentView.addSubview(subTitleLabel)
+        customContentView.addSubview(emailLabel)
+        customContentView.addSubview(emailTextField)
+        customContentView.addSubview(passwordLabel)
+        customContentView.addSubview(passwordTextField)
+        customContentView.addSubview(passwordConfirmLabel)
+        customContentView.addSubview(passwordConfirmTextField)
+        customContentView.addSubview(emailImage)
+        customContentView.addSubview(passwordImage)
+        customContentView.addSubview(showPasswordButton)
+        customContentView.addSubview(passwordImage2)
+        customContentView.addSubview(showPasswordButton2)
+        customContentView.addSubview(signUpButton)
+        customContentView.addSubview(signInButtonView)
+        customContentView.addSubview(validationPassword1)
+        customContentView.addSubview(validationPassword2)
+        customContentView.addSubview(validationEmailLabel)
         
+        scrollView.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview()
+        }
+        customContentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView)
+            make.width.equalTo(scrollView) // ширина должна быть зафиксирована
+            make.bottom.equalToSuperview() // чтобы контент не пропадал и расширялся дальше
+            // Ограничение по минимальной высоте, чтобы scrollView не схлопывался
+            make.height.greaterThanOrEqualTo(view.safeAreaLayoutGuide.snp.height).priority(.low)
+        }
         titleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(dynamicValue(for: 24))
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(dynamicValue(for: 16))
+            make.top.equalToSuperview().inset(dynamicValue(for: 16))
         }
         subTitleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(dynamicValue(for: 24))
@@ -323,7 +354,7 @@ class SignUpViewController: UIViewController, LanguageProtocol {
             make.size.equalTo(20)
         }
         showPasswordButton.snp.makeConstraints { make in
-            make.right.equalTo(passwordTextField.snp.right).inset(dynamicValue(for: 16))
+            make.right.equalTo(passwordTextField.snp.right).inset(dynamicValue(for: 0))
             make.centerY.equalTo(passwordTextField)
             make.size.equalTo(56)
         }
@@ -333,21 +364,23 @@ class SignUpViewController: UIViewController, LanguageProtocol {
             make.size.equalTo(20)
         }
         showPasswordButton2.snp.makeConstraints { make in
-            make.right.equalTo(passwordConfirmTextField.snp.right).inset(dynamicValue(for: 16))
+            make.right.equalTo(passwordConfirmTextField.snp.right).inset(dynamicValue(for: 0))
             make.centerY.equalTo(passwordConfirmTextField)
             make.size.equalTo(56)
         }
         signUpButton.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(dynamicValue(for: 24))
-            validConfirmPasswordInactiveConstraint = make.top.equalTo(passwordConfirmTextField.snp.bottom).offset(dynamicValue(for: 40)).priority(1000).constraint
-            validConfirmPasswordActiveConstraint = make.top.equalTo(validationPassword2.snp.bottom).offset(dynamicValue(for: 40)).priority(500).constraint
+//            validConfirmPasswordInactiveConstraint = make.top.equalTo(passwordConfirmTextField.snp.bottom).offset(dynamicValue(for: 40)).priority(1000).constraint
+//            validConfirmPasswordActiveConstraint = make.top.equalTo(validationPassword2.snp.bottom).offset(dynamicValue(for: 40)).priority(500).constraint
             //            make.top.equalTo(passwordConfirmTextField.snp.bottom).offset(40)
+            make.bottom.equalTo(signInButtonView.snp.top).offset(dynamicValue(for: -24))
             make.height.equalTo(56)
         }
         signInButtonView.snp.makeConstraints { make in
-            make.top.equalTo(signUpButton.snp.bottom).offset(dynamicValue(for: 24))
+//            make.top.equalTo(signUpButton.snp.bottom).offset(dynamicValue(for: 24))
+            make.bottom.equalToSuperview().offset(dynamicValue(for: -12))
             make.height.equalTo(22)
-            make.centerX.equalTo(view)
+            make.centerX.equalTo(customContentView)
         }
         validationEmailLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(dynamicValue(for: 24))
@@ -412,22 +445,53 @@ class SignUpViewController: UIViewController, LanguageProtocol {
         validationPassword2.isHidden = true
         validationEmailLabel.isHidden = true
         validPasswordInactiveConstraint.activate()
-        validConfirmPasswordInactiveConstraint.activate()
+//        validConfirmPasswordInactiveConstraint.activate()
         validEmailInactiveConstraint.activate()
         view.layoutIfNeeded()
-        
     }
     @objc func editingDidEndTextField(_ sender: TextFieldWithPadding) {
         sender.layer.borderColor = UIColor.E_5_EBF_0_374151.cgColor
     }
     @objc func signInButtonTapped() {
-//        let vc = SignInViewController()
         navigationController?.popViewController(animated: true)
     }
     @objc func signUpButtonTapped() {
         if validaitonAllTextFields() {
             signUpRequest()
         }
+    }
+    // MARK: Scroll Screen for visibility keyboard
+    func scrollingAreaWithKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    @objc func keyboardWillShow(_ notification: Notification) {
+        
+        guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        
+        let keyboardFrameInView = view.convert(keyboardFrame, from: nil)
+        
+        // Получаем фреймы кнопки signInButton и вью registrationButtonView относительно superview
+        let signUpButtonFrame = signUpButton.superview?.convert(signUpButton.frame, to: view)
+        let signInButtonViewFrame = signInButtonView.superview?.convert(signInButtonView.frame, to: view)
+        
+        // Находим максимальную Y-координату между двумя элементами
+        if let signUpButtonFrame = signUpButtonFrame, let signInButtonViewFrame = signInButtonViewFrame {
+            let maxY = max(signUpButtonFrame.maxY, signInButtonViewFrame.maxY)
+            
+            // Если максимальная Y-координата выше клавиатуры, добавляем отступ
+            if maxY > keyboardFrameInView.origin.y {
+                let scrollOffset = maxY - keyboardFrameInView.origin.y + 20 // Учитываем дополнительный отступ
+                
+                scrollView.contentInset.bottom = scrollOffset
+                scrollView.verticalScrollIndicatorInsets.bottom = scrollOffset
+            }
+        }
+    }
+    @objc func keyboardWillHide(_ notification: Notification) {
+        // Сбрасываем contentInset, когда клавиатура скрывается
+        scrollView.contentInset.bottom = 0
+        scrollView.verticalScrollIndicatorInsets.bottom = 0
     }
     // MARK: Validation
         func validaitonAllTextFields() -> Bool {
@@ -456,7 +520,7 @@ class SignUpViewController: UIViewController, LanguageProtocol {
             validationPassword1.isHidden = false
             validationPassword2.isHidden = false
             validPasswordInactiveConstraint.deactivate()
-            validConfirmPasswordInactiveConstraint.deactivate()
+//            validConfirmPasswordInactiveConstraint.deactivate()
             view.layoutIfNeeded()
             passwordTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
             passwordConfirmTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
@@ -485,7 +549,7 @@ class SignUpViewController: UIViewController, LanguageProtocol {
             validationPassword1.isHidden = false
             validationPassword2.isHidden = false
             validPasswordInactiveConstraint.deactivate()
-            validConfirmPasswordInactiveConstraint.deactivate()
+//            validConfirmPasswordInactiveConstraint.deactivate()
             view.layoutIfNeeded()
             
             passwordTextField.layer.borderColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1).cgColor
@@ -554,7 +618,6 @@ class SignUpViewController: UIViewController, LanguageProtocol {
     }
     //MARK: Localization
     func languageDidChange() {
-        navigationItem.title = "SIGN_UP".localized()
         titleLabel.text = "SIGN_UP".localized()
         subTitleLabel.text = "FILL_IN_DATA".localized()
         emailTextField.placeholder = "YOUR_EMAIL".localized()
